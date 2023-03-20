@@ -16,3 +16,4 @@ rootProject.name = "CinemaProject"
 include ':app'
 include ':component:design'
 include ':features'
+include ':navigation'

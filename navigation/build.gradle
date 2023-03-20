@@ -1,4 +1,4 @@
-apply plugin: Plugins.ANDROID_APPLICATION
+apply plugin: Plugins.ANDROID_LIBRARY
 apply plugin: Plugins.KOTLIN_ANDROID
 
 apply from: "$rootDir/build-system/module-types/android-app.gradle"
@@ -17,6 +17,4 @@ dependencies {
     implementation Dependencies.NAVIGATION_UI
     implementation Dependencies.NAVIGATION_FEATURE
 
-    implementation project(":component:design")
-    implementation project(":navigation")
 }
