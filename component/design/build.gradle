@@ -1,4 +1,4 @@
-apply plugin: Plugins.ANDROID_APPLICATION
+apply plugin: Plugins.ANDROID_LIBRARY
 apply plugin: Plugins.KOTLIN_ANDROID
 
 apply from: "$rootDir/build-system/module-types/android-app.gradle"
@@ -10,9 +10,4 @@ dependencies {
     implementation Dependencies.MATERIAL
     implementation Dependencies.FRAGMENT
     implementation Dependencies.CONSTRAINT_LAYOUT
-    implementation Dependencies.KOIN_CORE
-    implementation Dependencies.KOIN_ANDROID
-    implementation Dependencies.JUNIT
-
-    implementation project(":component:design")
 }
