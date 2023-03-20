@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="red">#EF3A01</color>
+    <color name="white">#FFFFFF</color>
+
+    <color name="background_color">#150D0B</color>
+
+    <color name="status_bar_color">#000000</color>
+
+    <color name="white_text_color">#FFFFFF</color>
+    <color name="red_text_color">#EF3A01</color>
+    <color name="grey_text_color">#AFAFAF</color>
+    <color name="grey_secondary_text_color">#A8A8A8</color>
+
+    <color name="nav_bar_color">#1C1A19</color>
+    <color name="nav_bar_icon_color">#757575</color>
+
+    <color name="others_message_color">#2E2B2A</color>
+    <color name="others_message_name_text_color">#969594</color>
+    <color name="my_message_color">#EF3A01</color>
+    <color name="my_message_name_text_color">#FFBFAB</color>
+
+    <color name="collections_grey">#A8A8A8</color>
+</resources>
