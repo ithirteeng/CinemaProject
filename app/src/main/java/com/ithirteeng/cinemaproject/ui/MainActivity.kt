@@ -1,12 +1,32 @@
 package com.ithirteeng.cinemaproject.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import com.github.terrakok.cicerone.NavigatorHolder
+import com.github.terrakok.cicerone.Router
+import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.ithirteeng.cinemaproject.R
+import org.koin.android.ext.android.inject
 
 class MainActivity : AppCompatActivity() {
+
+    private val router: Router by inject()
+    private val navigationHolder: NavigatorHolder by inject()
+    private val navigator = AppNavigator(this, R.id.container)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+//        router.newRootScreen(getTest1Screen)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        navigationHolder.setNavigator(navigator)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        navigationHolder.removeNavigator()
     }
 }

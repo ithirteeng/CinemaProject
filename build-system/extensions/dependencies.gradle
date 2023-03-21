@@ -30,6 +30,7 @@ ext.Dependencies =
 
                 CORE_TESTING               : "androidx.arch.core:core-testing:${Versions.CORE_TESTING}",
 
+                CICERONE                   : "com.github.terrakok:cicerone:${Versions.CICERONE}",
                 FRAGMENT                   : "androidx.fragment:fragment-ktx:${Versions.FRAGMENT}",
                 GLIDE                      : "com.github.bumptech.glide:glide:${Versions.GLIDE}",
 

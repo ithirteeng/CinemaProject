@@ -16,7 +16,7 @@ dependencies {
     implementation Dependencies.NAVIGATION_FRAGMENT
     implementation Dependencies.NAVIGATION_UI
     implementation Dependencies.NAVIGATION_FEATURE
+    implementation Dependencies.CICERONE
 
     implementation project(":component:design")
-    implementation project(":navigation")
 }
