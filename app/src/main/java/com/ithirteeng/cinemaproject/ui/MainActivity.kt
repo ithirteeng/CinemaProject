@@ -6,6 +6,7 @@ import com.github.terrakok.cicerone.NavigatorHolder
 import com.github.terrakok.cicerone.Router
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.ithirteeng.cinemaproject.R
+import com.ithirteeng.features.splash.ui.SplashFragment
 import org.koin.android.ext.android.inject
 
 class MainActivity : AppCompatActivity() {
@@ -17,7 +18,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-//        router.newRootScreen(getTest1Screen)
+        router.newRootScreen(SplashFragment.provideSplashScreen)
     }
 
     override fun onResume() {
