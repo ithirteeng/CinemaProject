@@ -8,7 +8,7 @@ class RegistrationRouterImpl(
     private val router: Router
 ): RegistrationRouter {
     override fun navigateToLoginScreen() {
-        router.navigateTo(LoginFragment.provideLoginScreen)
+        router.replaceScreen(LoginFragment.provideLoginScreen)
     }
 
     override fun navigateToMainHostScreen() {

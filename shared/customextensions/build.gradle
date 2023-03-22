@@ -1,0 +1,14 @@
+apply plugin: Plugins.ANDROID_LIBRARY
+apply plugin: Plugins.KOTLIN_ANDROID
+
+apply from: "$rootDir/build-system/module-types/android-library.gradle"
+
+dependencies {
+    implementation Dependencies.KOTLIN_STANDARD_LIBRARY
+    implementation Dependencies.CORE
+    implementation Dependencies.APPCOMPAT
+    implementation Dependencies.MATERIAL
+    implementation Dependencies.FRAGMENT
+    implementation Dependencies.CONSTRAINT_LAYOUT
+    implementation Dependencies.JUNIT
+}

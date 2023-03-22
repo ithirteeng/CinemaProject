@@ -2,10 +2,12 @@ package com.ithirteeng.cinemaproject
 
 import android.app.Application
 import com.ithirteeng.cinemaproject.di.appModule
+import com.ithirteeng.cinemaproject.di.networkModule
 import com.ithirteeng.cinemaproject.di.routersModule
 import com.ithirteeng.features.entry.login.di.loginModule
 import com.ithirteeng.features.entry.registration.di.registrationModule
 import com.ithirteeng.features.splash.di.splashModule
+import com.ithirteeng.shared.token.di.tokenModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -21,6 +23,8 @@ class App : Application() {
             modules(
                 appModule,
                 routersModule,
+                networkModule,
+                tokenModule,
                 splashModule,
                 registrationModule,
                 loginModule

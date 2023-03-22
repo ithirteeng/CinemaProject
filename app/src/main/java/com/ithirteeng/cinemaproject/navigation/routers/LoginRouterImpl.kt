@@ -6,7 +6,7 @@ import com.ithirteeng.features.entry.registration.ui.RegistrationFragment
 
 class LoginRouterImpl(private val router: Router) : LoginRouter {
     override fun navigateToRegistrationFragment() {
-        router.navigateTo(RegistrationFragment.provideRegistrationScreen)
+        router.replaceScreen(RegistrationFragment.provideRegistrationScreen)
     }
 
     override fun navigateToMainHostScreen() {
