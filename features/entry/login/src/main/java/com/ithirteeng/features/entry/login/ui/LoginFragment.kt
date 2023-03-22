@@ -47,15 +47,9 @@ class LoginFragment : Fragment() {
                 ),
                 onErrorAppearance = { handleErrors(it) }
             )
-            onGettingTokenEntity()
         }
     }
 
-    private fun onGettingTokenEntity() {
-        viewModel.getTokenLiveData().observe(this.viewLifecycleOwner) {
-            viewModel.saveTokenToLocalStorage(it)
-        }
-    }
 
     private fun onRegistrationButtonCLick() {
         binding.registrationButton.setOnClickListener {
