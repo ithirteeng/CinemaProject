@@ -27,14 +27,25 @@ class RegistrationFragment : Fragment() {
     ): View {
         val layout = inflater.inflate(R.layout.fragment_registration, container, false)
         binding = FragmentRegistrationBinding.bind(layout)
-        onLoginButtonCLick()
+        setupOnClickButtonsFunctions()
 
         return binding.root
+    }
+
+    private fun setupOnClickButtonsFunctions() {
+        onLoginButtonCLick()
+        onRegistrationButtonClick()
     }
 
     private fun onLoginButtonCLick() {
         binding.loginButton.setOnClickListener {
             viewModel.navigateToLoginScreen()
+        }
+    }
+
+    private fun onRegistrationButtonClick() {
+        binding.registrationButton.setOnClickListener {
+//            viewModel.postRegistrationData()
         }
     }
 }
