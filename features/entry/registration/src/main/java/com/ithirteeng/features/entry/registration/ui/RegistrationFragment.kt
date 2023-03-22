@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.github.terrakok.cicerone.androidx.FragmentScreen
+import com.ithirteeng.errorhandler.presentation.ErrorHandler
 import com.ithirteeng.features.entry.registration.R
 import com.ithirteeng.features.entry.registration.databinding.FragmentRegistrationBinding
 import com.ithirteeng.features.entry.registration.presentation.RegistrationFragmentViewModel
@@ -45,7 +46,7 @@ class RegistrationFragment : Fragment() {
 
     private fun onRegistrationButtonClick() {
         binding.registrationButton.setOnClickListener {
-//            viewModel.postRegistrationData()
+            ErrorHandler.showErrorDialog(parentFragmentManager, "404", "poshel nahui")
         }
     }
 }
