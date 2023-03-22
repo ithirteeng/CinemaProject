@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingStart="@dimen/padding_16"
+        android:paddingTop="@dimen/margin_24"
+        android:paddingEnd="@dimen/padding_16"
+        android:paddingBottom="@dimen/margin_24"
+        tools:context=".ui.LoginFragment">
+
+
+        <ImageView
+            android:id="@+id/logoImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/logo_content_description"
+            android:src="@drawable/cinema_logo"
+            app:layout_constraintBottom_toTopOf="@+id/nameEditText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/logoGuideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.32" />
+
+        <EditText
+            android:id="@+id/nameEditText"
+            style="@style/Theme.CinemaProject.EditTextStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_16"
+            android:hint="@string/name"
+            android:inputType="textPersonName"
+            app:layout_constraintBottom_toTopOf="@+id/surnameEditText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/logoGuideline"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:ignore="TouchTargetSizeCheck,VisualLintTextFieldSize"
+            android:importantForAutofill="no" />
+
+        <EditText
+            android:id="@+id/surnameEditText"
+            style="@style/Theme.CinemaProject.EditTextStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_16"
+            android:hint="@string/surname"
+            android:inputType="textPersonName"
+            app:layout_constraintBottom_toTopOf="@+id/emailEditText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/nameEditText"
+            tools:ignore="TouchTargetSizeCheck,VisualLintTextFieldSize"
+            android:importantForAutofill="no" />
+
+        <EditText
+            android:id="@+id/emailEditText"
+            style="@style/Theme.CinemaProject.EditTextStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_16"
+            android:hint="@string/email"
+            android:inputType="textEmailAddress"
+            app:layout_constraintBottom_toTopOf="@+id/passwordEditText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/surnameEditText"
+            tools:ignore="TouchTargetSizeCheck,VisualLintTextFieldSize"
+            android:importantForAutofill="no" />
+
+        <EditText
+            android:id="@+id/passwordEditText"
+            style="@style/Theme.CinemaProject.EditTextStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_16"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            app:layout_constraintBottom_toTopOf="@+id/repeatPasswordEditText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/emailEditText"
+            tools:ignore="TouchTargetSizeCheck,VisualLintTextFieldSize"
+            android:importantForAutofill="no" />
+
+        <EditText
+            android:id="@+id/repeatPasswordEditText"
+            style="@style/Theme.CinemaProject.EditTextStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/repeat_password"
+            android:inputType="textPassword"
+            android:layout_marginBottom="@dimen/margin_24"
+            app:layout_constraintBottom_toTopOf="@+id/editTextGuideline"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/passwordEditText"
+            tools:ignore="TouchTargetSizeCheck,VisualLintTextFieldSize"
+            android:importantForAutofill="no" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/editTextGuideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.8" />
+
+
+        <Button
+            android:id="@+id/registrationButton"
+            style="@style/Theme.CinemaProject.FilledButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_16"
+            android:text="@string/registration_verb"
+            app:layout_constraintBottom_toTopOf="@+id/loginButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:ignore="TextContrastCheck,VisualLintButtonSize" />
+
+        <Button
+            android:id="@+id/loginButton"
+            style="@style/Theme.CinemaProject.EmptyButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/already_have_account"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+
+            tools:ignore="VisualLintButtonSize" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

@@ -4,7 +4,11 @@
 
     <string name="email">E-mail</string>
     <string name="password">Password</string>
-
+    <string name="repeat_password">Repeat password</string>
     <string name="log_in_verb">Log in</string>
     <string name="registration">Registration</string>
+    <string name="registration_verb">Registration</string>
+    <string name="already_have_account">I already have account</string>
+    <string name="name">Name</string>
+    <string name="surname">Surname</string>
 </resources>

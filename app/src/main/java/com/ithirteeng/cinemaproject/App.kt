@@ -4,6 +4,7 @@ import android.app.Application
 import com.ithirteeng.cinemaproject.di.appModule
 import com.ithirteeng.cinemaproject.di.routersModule
 import com.ithirteeng.features.entry.login.di.loginModule
+import com.ithirteeng.features.entry.registration.di.registrationModule
 import com.ithirteeng.features.splash.di.splashModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -21,6 +22,7 @@ class App : Application() {
                 appModule,
                 routersModule,
                 splashModule,
+                registrationModule,
                 loginModule
             )
         }
