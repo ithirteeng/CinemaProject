@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="red">#EF3A01</color>
+
+    <color name="red_tint">#8FE63500</color>
+    <color name="white_tint">#CE636363</color>
+
+    <color name="transparent">#00000000</color>
+
     <color name="white">#FFFFFF</color>
 
     <color name="background_color">#150D0B</color>

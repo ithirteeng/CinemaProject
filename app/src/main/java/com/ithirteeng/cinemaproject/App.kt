@@ -3,6 +3,7 @@ package com.ithirteeng.cinemaproject
 import android.app.Application
 import com.ithirteeng.cinemaproject.di.appModule
 import com.ithirteeng.cinemaproject.di.routersModule
+import com.ithirteeng.features.splash.di.splashModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -17,7 +18,8 @@ class App : Application() {
 
             modules(
                 appModule,
-                routersModule
+                routersModule,
+                splashModule
             )
         }
     }

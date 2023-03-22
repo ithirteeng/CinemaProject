@@ -2,11 +2,11 @@ package com.ithirteeng.features.splash.presentation
 
 interface SplashRouter {
 
-    fun navigateToSignInScreen()
+    fun navigateToLogInScreen()
 
-    fun navigateToSignUpScreen()
+    fun navigateToRegistrationScreen()
 
-    fun navigateToMovieScreen()
+    fun navigateToMainHostScreen()
 
     fun exit()
 }
