@@ -9,6 +9,9 @@
 
     <color name="white">#FFFFFF</color>
 
+    <color name="error_dialog_color">#2E2E2E</color>
+    <color name="error_text_color">#C8C8C8</color>
+
     <color name="background_color">#150D0B</color>
 
     <color name="status_bar_color">#000000</color>

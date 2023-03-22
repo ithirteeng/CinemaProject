@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="logo_content_description">this is a cinema project logo</string>
+    <string name="error_content_description">this is error custom dialog</string>
+
+    <string name="default_error">error</string>
+    <string name="default_error_text">this is example of default error text</string>
 
     <string name="email">E-mail</string>
     <string name="password">Password</string>
