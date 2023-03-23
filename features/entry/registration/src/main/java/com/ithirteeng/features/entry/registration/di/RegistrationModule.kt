@@ -27,7 +27,10 @@ val registrationModule = module {
             application = get(),
             router = get(),
             postRegistrationDataUseCase = get(),
-            saveTokenToLocalStorageUseCase = get()
+            saveTokenToLocalStorageUseCase = get(),
+            validateTextFieldUseCase = get(),
+            validateEmailUseCase = get(),
+            validatePasswordsUseCase = get()
         )
     }
 }

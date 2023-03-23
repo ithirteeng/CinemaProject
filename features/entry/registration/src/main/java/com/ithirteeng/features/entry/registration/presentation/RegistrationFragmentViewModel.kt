@@ -10,6 +10,9 @@ import com.ithirteeng.features.entry.registration.domain.entity.RegistrationEnti
 import com.ithirteeng.features.entry.registration.domain.usecase.PostRegistrationDataUseCase
 import com.ithirteeng.shared.network.common.NoConnectivityException
 import com.ithirteeng.shared.token.domain.usecase.SaveTokenToLocalStorageUseCase
+import com.ithirteeng.shared.validators.domain.usecase.ValidateEmailUseCase
+import com.ithirteeng.shared.validators.domain.usecase.ValidatePasswordsUseCase
+import com.ithirteeng.shared.validators.domain.usecase.ValidateTextFieldUseCase
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
@@ -17,7 +20,10 @@ class RegistrationFragmentViewModel(
     application: Application,
     private val router: RegistrationRouter,
     private val postRegistrationDataUseCase: PostRegistrationDataUseCase,
-    private val saveTokenToLocalStorageUseCase: SaveTokenToLocalStorageUseCase
+    private val saveTokenToLocalStorageUseCase: SaveTokenToLocalStorageUseCase,
+    private val validateEmailUseCase: ValidateEmailUseCase,
+    private val validateTextFieldUseCase: ValidateTextFieldUseCase,
+    private val validatePasswordsUseCase: ValidatePasswordsUseCase
 ) : AndroidViewModel(application) {
 
     fun navigateToLoginScreen() {
