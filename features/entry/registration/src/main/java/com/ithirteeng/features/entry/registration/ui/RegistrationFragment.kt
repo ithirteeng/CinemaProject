@@ -13,6 +13,7 @@ import com.ithirteeng.errorhandler.presentation.ErrorHandler
 import com.ithirteeng.features.entry.registration.R
 import com.ithirteeng.features.entry.registration.databinding.FragmentRegistrationBinding
 import com.ithirteeng.features.entry.registration.presentation.RegistrationFragmentViewModel
+import com.ithirteeng.shared.validators.common.ValidationResult
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class RegistrationFragment : Fragment() {
@@ -49,10 +50,21 @@ class RegistrationFragment : Fragment() {
 
     private fun onRegistrationButtonClick() {
         binding.registrationButton.setOnClickListener {
+            if (validateFields()) {
+//                viewModel.postRegistrationData(
+//                    RegistrationEntity(
+//                        email = binding.emailEditText.text.toString(),
+//                        firstName = binding.nameEditText.text.toString(),
+//                        lastName = binding.surnameEditText.text.toString(),
+//                        password = binding.passwordEditText.text.toString()
+//                    ),
+//                    onErrorAppearance = { handleErrors(it) }
+//                )
 
+                onSuccessfulSendingRequest()
+            }
             // TODO: validate and post data + disable buttons
             hideKeyboard()
-            onSuccessfulSendingRequest()
         }
     }
 
@@ -61,6 +73,31 @@ class RegistrationFragment : Fragment() {
             binding.loginButton.isEnabled = true
             binding.registrationButton.isEnabled = true
         }
+    }
+
+    private fun validateFields(): Boolean {
+        val validationResults = listOf(
+            viewModel.validateEmail(binding.emailEditText.text.toString()),
+            viewModel.validateTextField(binding.nameEditText.text.toString()),
+            viewModel.validateTextField(binding.surnameEditText.text.toString()),
+            viewModel.validatePasswords(
+                binding.passwordEditText.text.toString(),
+                binding.repeatPasswordEditText.text.toString()
+            )
+        )
+        for (validationResult in validationResults) {
+            if (validationResult != ValidationResult.OK) {
+                onErrorValidationResult(validationResult)
+                return false
+            }
+        }
+        return true
+    }
+
+    private fun onErrorValidationResult(validationResult: ValidationResult) {
+        handleErrors(ErrorModel(422, getString(validationResult.errorStringId)))
+        binding.registrationButton.isEnabled = true
+        binding.loginButton.isEnabled = true
     }
 
     private fun handleErrors(errorModel: ErrorModel) {

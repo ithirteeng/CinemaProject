@@ -11,6 +11,7 @@ import com.ithirteeng.features.entry.login.domain.usecase.PostLoginDataUseCase
 import com.ithirteeng.shared.network.common.NoConnectivityException
 import com.ithirteeng.shared.token.domain.entity.TokenEntity
 import com.ithirteeng.shared.token.domain.usecase.SaveTokenToLocalStorageUseCase
+import com.ithirteeng.shared.validators.common.ValidationResult
 import com.ithirteeng.shared.validators.domain.usecase.ValidateEmailUseCase
 import com.ithirteeng.shared.validators.domain.usecase.ValidateTextFieldUseCase
 import kotlinx.coroutines.launch
@@ -53,6 +54,12 @@ class LoginFragmentViewModel(
                 }
         }
     }
+
+    fun validateEmail(email: String): ValidationResult =
+        validateEmailUseCase(email)
+
+    fun validateTextField(textField: String): ValidationResult =
+        validateTextFieldUseCase(textField)
 
     private fun setupErrorCode(e: Throwable): ErrorModel {
         return when (e) {

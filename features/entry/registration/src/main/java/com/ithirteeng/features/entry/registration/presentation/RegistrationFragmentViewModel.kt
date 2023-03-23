@@ -10,6 +10,7 @@ import com.ithirteeng.features.entry.registration.domain.entity.RegistrationEnti
 import com.ithirteeng.features.entry.registration.domain.usecase.PostRegistrationDataUseCase
 import com.ithirteeng.shared.network.common.NoConnectivityException
 import com.ithirteeng.shared.token.domain.usecase.SaveTokenToLocalStorageUseCase
+import com.ithirteeng.shared.validators.common.ValidationResult
 import com.ithirteeng.shared.validators.domain.usecase.ValidateEmailUseCase
 import com.ithirteeng.shared.validators.domain.usecase.ValidatePasswordsUseCase
 import com.ithirteeng.shared.validators.domain.usecase.ValidateTextFieldUseCase
@@ -57,6 +58,17 @@ class RegistrationFragmentViewModel(
     }
 
     fun getRequestLiveData(): LiveData<Boolean> = requestLiveData
+
+    fun validateEmail(email: String): ValidationResult =
+        validateEmailUseCase(email)
+
+    fun validateTextField(textField: String): ValidationResult =
+        validateTextFieldUseCase(textField)
+
+    fun validatePasswords(password: String, repeatedPassword: String): ValidationResult {
+        val resultPassword = "$password\n/$repeatedPassword"
+        return validatePasswordsUseCase(resultPassword)
+    }
 
     private fun setupErrorCode(e: Throwable): ErrorModel {
         return when (e) {

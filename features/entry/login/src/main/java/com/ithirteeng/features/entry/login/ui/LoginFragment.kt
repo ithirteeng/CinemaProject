@@ -14,6 +14,7 @@ import com.ithirteeng.features.entry.login.R
 import com.ithirteeng.features.entry.login.databinding.FragmentLoginBinding
 import com.ithirteeng.features.entry.login.domain.entity.LoginEntity
 import com.ithirteeng.features.entry.login.presentation.LoginFragmentViewModel
+import com.ithirteeng.shared.validators.common.ValidationResult
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LoginFragment : Fragment() {
@@ -47,15 +48,16 @@ class LoginFragment : Fragment() {
 
             binding.registrationButton.isEnabled = false
             binding.loginButton.isEnabled = false
-
-            viewModel.postLoginData(
-                LoginEntity(
-                    binding.emailEditText.text.toString(),
-                    binding.passwordEditText.text.toString()
-                ),
-                onErrorAppearance = { handleErrors(it) }
-            )
-            onGettingTokenEntity()
+            if (validateFields()) {
+                viewModel.postLoginData(
+                    LoginEntity(
+                        binding.emailEditText.text.toString(),
+                        binding.passwordEditText.text.toString()
+                    ),
+                    onErrorAppearance = { handleErrors(it) }
+                )
+                onGettingTokenEntity()
+            }
         }
     }
 
@@ -70,6 +72,27 @@ class LoginFragment : Fragment() {
         binding.registrationButton.setOnClickListener {
             viewModel.navigateToRegistrationScreen()
         }
+    }
+
+    private fun validateFields(): Boolean {
+        val validationResults = listOf(
+            viewModel.validateEmail(binding.emailEditText.text.toString()),
+            viewModel.validateTextField(binding.passwordEditText.text.toString())
+        )
+        for (validationResult in validationResults) {
+            if (validationResult != ValidationResult.OK) {
+                onErrorValidationResult(validationResult)
+                return false
+            }
+        }
+        return true
+    }
+
+    private fun onErrorValidationResult(validationResult: ValidationResult) {
+        handleErrors(ErrorModel(422, getString(validationResult.errorStringId)))
+        binding.registrationButton.isEnabled = true
+        binding.loginButton.isEnabled = true
+
     }
 
     private fun handleErrors(errorModel: ErrorModel) {

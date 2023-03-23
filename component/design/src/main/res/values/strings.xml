@@ -15,9 +15,10 @@
     <string name="developer_goofy">Developer Is Goofy</string>
     <string name="connection_error">Internet Connection Error</string>
 
-    <string name="empty_error">Field mustn\'t be empty!</string>
+    <string name="empty_error">Fields mustn\'t be empty!</string>
     <string name="email_error">Email must be in format \"example@domain.com\"</string>
     <string name="two_passwords_error">Passwords must be equal</string>
+    <string name="ok">OK</string>
 
     <string name="email">E-mail</string>
     <string name="password">Password</string>
