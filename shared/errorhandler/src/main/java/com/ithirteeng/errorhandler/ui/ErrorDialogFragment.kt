@@ -5,6 +5,7 @@ import android.app.Dialog
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment
 import com.ithirteeng.component.design.R.style
+import com.ithirteeng.errorhandler.domain.ErrorModel
 import com.ithirteeng.shared.errorhandler.R
 import com.ithirteeng.shared.errorhandler.databinding.ErrorDialogLayoutBinding
 
@@ -38,8 +39,9 @@ class ErrorDialogFragment : DialogFragment() {
         }
     }
 
-    fun setupDialogTextViews(error: String, description: String) {
-        errorCode = error
-        errorDescription = description
+    fun setupDialogTextViews(errorModel: ErrorModel) {
+        errorCode = errorModel.errorCode.toString()
+        errorDescription =
+            errorModel.errorDescription ?: errorModel.errorDescriptionId?.let { getString(it) }
     }
 }

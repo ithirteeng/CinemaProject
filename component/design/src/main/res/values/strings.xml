@@ -7,6 +7,15 @@
     <string name="default_error">error</string>
     <string name="default_error_text">this is example of default error text</string>
 
+    <string name="internal_server_error">Internal Server Error</string>
+    <string name="unauthorized_error">Unauthorized</string>
+    <string name="bad_request">Bad Request</string>
+    <string name="forbidden">Forbidden</string>
+    <string name="not_found">Not Found</string>
+    <string name="email_error">Incorrect Email</string>
+    <string name="developer_goofy">Developer Is Goofy</string>
+    <string name="connection_error">Internet Connection Error</string>
+
     <string name="email">E-mail</string>
     <string name="password">Password</string>
     <string name="repeat_password">Repeat password</string>
@@ -16,4 +25,6 @@
     <string name="already_have_account">I already have account</string>
     <string name="name">Name</string>
     <string name="surname">Surname</string>
+
+
 </resources>
