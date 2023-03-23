@@ -1,8 +1,11 @@
 package com.ithirteeng.errorhandler.ui
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.DialogFragment
 import com.ithirteeng.component.design.R.style
 import com.ithirteeng.errorhandler.domain.ErrorModel
@@ -20,6 +23,8 @@ class ErrorDialogFragment : DialogFragment() {
         val view = requireActivity().layoutInflater.inflate(R.layout.error_dialog_layout, null)
         binding = ErrorDialogLayoutBinding.bind(view)
         onCloseButtonCLick()
+
+        hideKeyboard()
 
         binding.errorTextView.text = errorCode
         binding.errorDescriptionTextView.text = errorDescription
@@ -42,5 +47,15 @@ class ErrorDialogFragment : DialogFragment() {
     fun setupDialogTextViews(errorModel: ErrorModel) {
         errorCode = errorModel.errorCode.toString()
         errorDescription = errorModel.errorDescription ?: ""
+    }
+
+    private fun hideKeyboard() {
+        val imm: InputMethodManager =
+            activity?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        var view: View? = activity?.currentFocus
+        if (view == null) {
+            view = View(activity)
+        }
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 }

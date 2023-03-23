@@ -1,9 +1,11 @@
 package com.ithirteeng.features.entry.login.ui
 
+import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import com.github.terrakok.cicerone.androidx.FragmentScreen
 import com.ithirteeng.errorhandler.domain.ErrorModel
@@ -41,8 +43,11 @@ class LoginFragment : Fragment() {
 
     private fun onLoginButtonClick() {
         binding.loginButton.setOnClickListener {
+            hideKeyboard()
+
             binding.registrationButton.isEnabled = false
             binding.loginButton.isEnabled = false
+
             viewModel.postLoginData(
                 LoginEntity(
                     binding.emailEditText.text.toString(),
@@ -72,6 +77,16 @@ class LoginFragment : Fragment() {
 
         binding.registrationButton.isEnabled = true
         binding.loginButton.isEnabled = true
+    }
+
+    private fun hideKeyboard() {
+        val imm: InputMethodManager =
+            activity?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        var view: View? = activity?.currentFocus
+        if (view == null) {
+            view = View(activity)
+        }
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
 }
