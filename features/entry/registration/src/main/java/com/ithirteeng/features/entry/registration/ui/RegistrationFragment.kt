@@ -46,7 +46,7 @@ class RegistrationFragment : Fragment() {
 
     private fun onRegistrationButtonClick() {
         binding.registrationButton.setOnClickListener {
-            ErrorHandler.showErrorDialog(parentFragmentManager, "404", "poshel nahui")
+            ErrorHandler.showErrorDialog(parentFragmentManager, "404", "test error")
         }
     }
 }

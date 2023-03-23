@@ -80,8 +80,11 @@
         <item name="android:textSize">@dimen/text_size_12</item>
     </style>
 
-    <style name="ErrorDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+    <style name="ErrorDialogTheme" parent="Theme.AppCompat.Light.Dialog">
         <item name="android:windowBackground">@color/transparent</item>
+        <item name="android:cacheColorHint">@color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+
     </style>
 
 </resources>

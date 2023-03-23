@@ -6,13 +6,13 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:background="@drawable/error_dialog_background"
-    android:paddingStart="@dimen/padding_16"
-    android:paddingTop="@dimen/padding_24"
-    android:paddingEnd="@dimen/padding_16"
-    android:paddingBottom="@dimen/padding_16">
+    >
 
     <ImageView
         android:id="@+id/backgroundImageView"
+        android:layout_marginEnd="@dimen/margin_24"
+        android:layout_marginStart="@dimen/margin_24"
+        android:layout_marginTop="@dimen/margin_24"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:contentDescription="@string/error_content_description"
@@ -31,7 +31,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/roboto_bold"
         android:text="@string/default_error"
-        android:textColor="@color/red_tint"
+        android:textColor="@color/error_circle_color"
         android:textSize="@dimen/text_size_34"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/backgroundImageView"
@@ -42,16 +42,36 @@
 
     <TextView
         android:id="@+id/errorDescriptionTextView"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_13"
+        android:layout_marginBottom="@dimen/margin_16"
         android:fontFamily="@font/roboto_medium"
+        android:gravity="center"
         android:text="@string/default_error_text"
         android:textColor="@color/error_text_color"
         android:textSize="@dimen/text_size_14"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/backgroundImageView"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/backgroundImageView" />
+        app:layout_constraintStart_toStartOf="@+id/backgroundImageView"
+        app:layout_constraintTop_toBottomOf="@+id/backgroundImageView"
+        tools:ignore="TextContrastCheck" />
+
+    <ImageButton
+        android:id="@+id/exitButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_13"
+        android:layout_marginEnd="@dimen/margin_13"
+        android:background="@color/transparent"
+        android:contentDescription="@string/exit_button_content_description"
+        android:scaleType="centerInside"
+        android:scaleX="1.5"
+        android:scaleY="1.5"
+        android:tint="@color/error_circle_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/baseline_close_24"
+        tools:ignore="ImageContrastCheck,TouchTargetSizeCheck" />
 </androidx.constraintlayout.widget.ConstraintLayout>
