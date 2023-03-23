@@ -9,20 +9,9 @@ dependencies {
     implementation Dependencies.APPCOMPAT
     implementation Dependencies.MATERIAL
     implementation Dependencies.FRAGMENT
-    implementation Dependencies.CONSTRAINT_LAYOUT
     implementation Dependencies.KOIN_CORE
     implementation Dependencies.KOIN_ANDROID
     implementation Dependencies.JUNIT
-    implementation Dependencies.RETROFIT
-    implementation Dependencies.OKHTTP_INTERCEPTOR
-    implementation Dependencies.GSON
-    implementation Dependencies.GSON_CONVERTER
-    implementation Dependencies.CICERONE
 
     implementation project(":component:design")
-    implementation project(":shared:network")
-    implementation project(":shared:token")
-    implementation project(":shared:errorhandler")
-    implementation project(":shared:customextensions")
-    implementation project(":shared:validators")
 }
