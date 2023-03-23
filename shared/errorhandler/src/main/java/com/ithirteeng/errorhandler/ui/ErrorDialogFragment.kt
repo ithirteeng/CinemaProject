@@ -41,7 +41,6 @@ class ErrorDialogFragment : DialogFragment() {
 
     fun setupDialogTextViews(errorModel: ErrorModel) {
         errorCode = errorModel.errorCode.toString()
-        errorDescription =
-            errorModel.errorDescription ?: errorModel.errorDescriptionId?.let { getString(it) }
+        errorDescription = errorModel.errorDescription ?: ""
     }
 }

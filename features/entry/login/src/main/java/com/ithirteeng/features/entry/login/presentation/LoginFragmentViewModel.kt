@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import com.ithirteeng.customextensions.presentation.SingleEventLiveData
+import com.ithirteeng.errorhandler.domain.ErrorModel
 import com.ithirteeng.features.entry.login.domain.entity.LoginEntity
 import com.ithirteeng.features.entry.login.domain.usecase.PostLoginDataUseCase
 import com.ithirteeng.shared.network.common.NoConnectivityException
@@ -31,19 +32,17 @@ class LoginFragmentViewModel(
         router.exit()
     }
 
-    fun saveTokenToLocalStorage(tokenEntity: TokenEntity) =
-        saveTokenToLocalStorageUseCase(tokenEntity)
-
 
     private val tokenLiveData = SingleEventLiveData<TokenEntity>()
     fun postLoginData(
         loginEntity: LoginEntity,
-        onErrorAppearance: (errorCode: Int) -> Unit
+        onErrorAppearance: (errorModel: ErrorModel) -> Unit
     ) {
         viewModelScope.launch {
             postLoginDataUseCase(loginEntity)
                 .onSuccess {
                     tokenLiveData.value = it
+                    saveTokenToLocalStorageUseCase(it)
                 }
                 .onFailure {
                     onErrorAppearance(setupErrorCode(it))
@@ -51,17 +50,11 @@ class LoginFragmentViewModel(
         }
     }
 
-    private fun setupErrorCode(e: Throwable): Int {
+    private fun setupErrorCode(e: Throwable): ErrorModel {
         return when (e) {
-            is HttpException -> {
-                e.code()
-            }
-            is NoConnectivityException -> {
-                e.code()
-            }
-            else -> {
-                0
-            }
+            is HttpException -> ErrorModel(e.code(), e.message())
+            is NoConnectivityException -> ErrorModel(e.code())
+            else -> ErrorModel(0, e.message)
         }
     }
 

@@ -24,4 +24,6 @@ dependencies {
     implementation project(":shared:network")
     implementation project(":shared:token")
     implementation project(":shared:errorhandler")
+    implementation project(":shared:customextensions")
+
 }

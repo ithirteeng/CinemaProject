@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.github.terrakok.cicerone.androidx.FragmentScreen
+import com.ithirteeng.errorhandler.domain.ErrorModel
 import com.ithirteeng.errorhandler.presentation.ErrorHandler
 import com.ithirteeng.features.entry.registration.R
 import com.ithirteeng.features.entry.registration.databinding.FragmentRegistrationBinding
@@ -46,7 +47,22 @@ class RegistrationFragment : Fragment() {
 
     private fun onRegistrationButtonClick() {
         binding.registrationButton.setOnClickListener {
-            ErrorHandler.showErrorDialog(parentFragmentManager, "404", "test error")
+
+            // TODO: validate and post data + disable buttons
+            onSuccessfulSendingRequest()
         }
+    }
+
+    private fun onSuccessfulSendingRequest() {
+        viewModel.getRequestLiveData().observe(this.viewLifecycleOwner) {
+            binding.loginButton.isEnabled = true
+            binding.registrationButton.isEnabled = true
+        }
+    }
+
+    private fun handleErrors(errorModel: ErrorModel) {
+        ErrorHandler.showErrorDialog(requireContext(), parentFragmentManager, errorModel)
+        binding.registrationButton.isEnabled = true
+        binding.loginButton.isEnabled = true
     }
 }

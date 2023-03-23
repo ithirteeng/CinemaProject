@@ -1,11 +1,12 @@
 package com.ithirteeng.errorhandler.presentation
 
+import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.Window
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
-import com.ithirteeng.component.design.R.string
+import com.ithirteeng.component.design.R
 import com.ithirteeng.errorhandler.domain.ErrorModel
 import com.ithirteeng.errorhandler.ui.ErrorDialogFragment
 
@@ -14,11 +15,11 @@ object ErrorHandler {
     private val dialogFragment = ErrorDialogFragment()
 
     fun showErrorDialog(
+        context: Context,
         fragmentManager: FragmentManager,
-        error: Int,
-        description: String?
+        errorModel: ErrorModel
     ) {
-        dialogFragment.setupDialogTextViews(setupError(error, description))
+        dialogFragment.setupDialogTextViews(setupError(context, errorModel))
         setupDialogFragment()
         dialogFragment.show(fragmentManager, "review_dialog")
     }
@@ -29,15 +30,15 @@ object ErrorHandler {
         dialogFragment.setStyle(DialogFragment.STYLE_NO_FRAME, android.R.style.Theme)
     }
 
-    private fun setupError(errorCode: Int, errorDescription: String?): ErrorModel {
-        return when (errorCode) {
-            500 -> ErrorModel(errorCode, null, string.internal_server_error)
-            401 -> ErrorModel(errorCode, null, string.unauthorized_error)
-            403 -> ErrorModel(errorCode, null, string.forbidden)
-            404 -> ErrorModel(errorCode, null, string.not_found)
-            422 -> ErrorModel(errorCode, errorDescription, null)
-            0 -> ErrorModel(errorCode, null, string.developer_goofy)
-            else -> ErrorModel(errorCode, null, string.connection_error)
+    private fun setupError(context: Context, errorModel: ErrorModel): ErrorModel {
+        return when (val errorCode = errorModel.errorCode) {
+            500 -> ErrorModel(errorCode, context.getString(R.string.internal_server_error))
+            401 -> ErrorModel(errorCode, context.getString(R.string.unauthorized_error))
+            403 -> ErrorModel(errorCode, context.getString(R.string.forbidden))
+            404 -> ErrorModel(errorCode, context.getString(R.string.not_found))
+            422 -> ErrorModel(errorCode, errorModel.errorDescription)
+            0 -> ErrorModel(errorCode, context.getString(R.string.developer_goofy))
+            else -> ErrorModel(errorCode, context.getString(R.string.connection_error))
         }
     }
 }
