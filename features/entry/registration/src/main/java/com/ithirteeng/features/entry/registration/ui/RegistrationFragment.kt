@@ -1,11 +1,15 @@
 package com.ithirteeng.features.entry.registration.ui
 
+import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import com.github.terrakok.cicerone.androidx.FragmentScreen
+import com.ithirteeng.errorhandler.domain.ErrorModel
+import com.ithirteeng.errorhandler.presentation.ErrorHandler
 import com.ithirteeng.features.entry.registration.R
 import com.ithirteeng.features.entry.registration.databinding.FragmentRegistrationBinding
 import com.ithirteeng.features.entry.registration.presentation.RegistrationFragmentViewModel
@@ -45,7 +49,33 @@ class RegistrationFragment : Fragment() {
 
     private fun onRegistrationButtonClick() {
         binding.registrationButton.setOnClickListener {
-//            viewModel.postRegistrationData()
+
+            // TODO: validate and post data + disable buttons
+            hideKeyboard()
+            onSuccessfulSendingRequest()
         }
+    }
+
+    private fun onSuccessfulSendingRequest() {
+        viewModel.getRequestLiveData().observe(this.viewLifecycleOwner) {
+            binding.loginButton.isEnabled = true
+            binding.registrationButton.isEnabled = true
+        }
+    }
+
+    private fun handleErrors(errorModel: ErrorModel) {
+        ErrorHandler.showErrorDialog(requireContext(), parentFragmentManager, errorModel)
+        binding.registrationButton.isEnabled = true
+        binding.loginButton.isEnabled = true
+    }
+
+    private fun hideKeyboard() {
+        val imm: InputMethodManager =
+            activity?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        var view: View? = activity?.currentFocus
+        if (view == null) {
+            view = View(activity)
+        }
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 }
