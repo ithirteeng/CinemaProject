@@ -16,4 +16,6 @@ dependencies {
     implementation Dependencies.CICERONE
 
     implementation project(":component:design")
+    implementation project(":shared:userstorage")
+    implementation project(":shared:token")
 }

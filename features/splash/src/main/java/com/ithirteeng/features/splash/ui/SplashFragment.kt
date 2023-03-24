@@ -33,10 +33,23 @@ class SplashFragment : Fragment() {
 
         lifecycleScope.launch {
             delay(500)
-            viewModel.navigateToLoginScreen()
+            navigateToCorrectScreen()
         }
 
         return binding.root
+    }
+
+    private fun navigateToCorrectScreen() {
+        if (viewModel.checkIfUserEnteredTheApp()) {
+            if (viewModel.checkTokenExistence()) {
+                viewModel.navigateToMainHostScreen()
+            } else {
+                viewModel.navigateToLoginScreen()
+            }
+        } else {
+            viewModel.setUserEntryFlag(true)
+            viewModel.navigateToRegistrationScreen()
+        }
     }
 
 }

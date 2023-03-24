@@ -8,7 +8,10 @@ val splashModule = module {
     viewModel {
         SplashFragmentViewModel(
             application = get(),
-            router = get()
+            router = get(),
+            checkIfUserEnteredAppUseCase = get(),
+            setUserEntryFlagUseCase = get(),
+            checkTokenExistenceUseCase = get()
         )
     }
 }
