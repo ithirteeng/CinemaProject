@@ -41,6 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin_16"
             android:hint="@string/name"
+            android:importantForAutofill="no"
             android:inputType="textPersonName"
             app:layout_constraintBottom_toTopOf="@+id/surnameEditText"
             app:layout_constraintEnd_toEndOf="parent"
@@ -48,8 +49,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/logoGuideline"
             app:layout_constraintVertical_chainStyle="packed"
-            tools:ignore="TouchTargetSizeCheck,VisualLintTextFieldSize"
-            android:importantForAutofill="no" />
+            tools:ignore="TouchTargetSizeCheck,VisualLintTextFieldSize" />
 
         <EditText
             android:id="@+id/surnameEditText"
@@ -58,14 +58,14 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin_16"
             android:hint="@string/surname"
+            android:importantForAutofill="no"
             android:inputType="textPersonName"
             app:layout_constraintBottom_toTopOf="@+id/emailEditText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/nameEditText"
-            tools:ignore="TouchTargetSizeCheck,VisualLintTextFieldSize"
-            android:importantForAutofill="no" />
+            tools:ignore="TouchTargetSizeCheck,VisualLintTextFieldSize" />
 
         <EditText
             android:id="@+id/emailEditText"
@@ -74,14 +74,14 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin_16"
             android:hint="@string/email"
+            android:importantForAutofill="no"
             android:inputType="textEmailAddress"
             app:layout_constraintBottom_toTopOf="@+id/passwordEditText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/surnameEditText"
-            tools:ignore="TouchTargetSizeCheck,VisualLintTextFieldSize"
-            android:importantForAutofill="no" />
+            tools:ignore="TouchTargetSizeCheck,VisualLintTextFieldSize" />
 
         <EditText
             android:id="@+id/passwordEditText"
@@ -90,30 +90,30 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin_16"
             android:hint="@string/password"
+            android:importantForAutofill="no"
             android:inputType="textPassword"
             app:layout_constraintBottom_toTopOf="@+id/repeatPasswordEditText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/emailEditText"
-            tools:ignore="TouchTargetSizeCheck,VisualLintTextFieldSize"
-            android:importantForAutofill="no" />
+            tools:ignore="TouchTargetSizeCheck,VisualLintTextFieldSize" />
 
         <EditText
             android:id="@+id/repeatPasswordEditText"
             style="@style/Theme.CinemaProject.EditTextStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="@string/repeat_password"
-            android:inputType="textPassword"
             android:layout_marginBottom="@dimen/margin_24"
+            android:hint="@string/repeat_password"
+            android:importantForAutofill="no"
+            android:inputType="textPassword"
             app:layout_constraintBottom_toTopOf="@+id/editTextGuideline"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/passwordEditText"
-            tools:ignore="TouchTargetSizeCheck,VisualLintTextFieldSize"
-            android:importantForAutofill="no" />
+            tools:ignore="TouchTargetSizeCheck,VisualLintTextFieldSize" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/editTextGuideline"
@@ -148,6 +148,16 @@
             app:layout_constraintStart_toStartOf="parent"
 
             tools:ignore="VisualLintButtonSize" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="@style/Theme.CinemaProject.ProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

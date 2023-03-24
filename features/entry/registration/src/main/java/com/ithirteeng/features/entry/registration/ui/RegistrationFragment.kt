@@ -12,6 +12,7 @@ import com.ithirteeng.errorhandler.domain.ErrorModel
 import com.ithirteeng.errorhandler.presentation.ErrorHandler
 import com.ithirteeng.features.entry.registration.R
 import com.ithirteeng.features.entry.registration.databinding.FragmentRegistrationBinding
+import com.ithirteeng.features.entry.registration.domain.entity.RegistrationEntity
 import com.ithirteeng.features.entry.registration.presentation.RegistrationFragmentViewModel
 import com.ithirteeng.shared.validators.common.ValidationResult
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -50,20 +51,22 @@ class RegistrationFragment : Fragment() {
 
     private fun onRegistrationButtonClick() {
         binding.registrationButton.setOnClickListener {
+            binding.registrationButton.isEnabled = false
+            binding.loginButton.isEnabled = false
             if (validateFields()) {
-//                viewModel.postRegistrationData(
-//                    RegistrationEntity(
-//                        email = binding.emailEditText.text.toString(),
-//                        firstName = binding.nameEditText.text.toString(),
-//                        lastName = binding.surnameEditText.text.toString(),
-//                        password = binding.passwordEditText.text.toString()
-//                    ),
-//                    onErrorAppearance = { handleErrors(it) }
-//                )
+                binding.progressBar.visibility = View.VISIBLE
+                viewModel.postRegistrationData(
+                    RegistrationEntity(
+                        email = binding.emailEditText.text.toString(),
+                        firstName = binding.nameEditText.text.toString(),
+                        lastName = binding.surnameEditText.text.toString(),
+                        password = binding.passwordEditText.text.toString()
+                    ),
+                    onErrorAppearance = { handleErrors(it) }
+                )
 
                 onSuccessfulSendingRequest()
             }
-            // TODO: validate and post data + disable buttons
             hideKeyboard()
         }
     }
@@ -72,6 +75,7 @@ class RegistrationFragment : Fragment() {
         viewModel.getRequestLiveData().observe(this.viewLifecycleOwner) {
             binding.loginButton.isEnabled = true
             binding.registrationButton.isEnabled = true
+            binding.progressBar.visibility = View.GONE
         }
     }
 
@@ -98,12 +102,14 @@ class RegistrationFragment : Fragment() {
         handleErrors(ErrorModel(422, getString(validationResult.errorStringId)))
         binding.registrationButton.isEnabled = true
         binding.loginButton.isEnabled = true
+        binding.progressBar.visibility = View.GONE
     }
 
     private fun handleErrors(errorModel: ErrorModel) {
         ErrorHandler.showErrorDialog(requireContext(), parentFragmentManager, errorModel)
         binding.registrationButton.isEnabled = true
         binding.loginButton.isEnabled = true
+        binding.progressBar.visibility = View.GONE
     }
 
     private fun hideKeyboard() {

@@ -45,10 +45,10 @@ class LoginFragment : Fragment() {
     private fun onLoginButtonClick() {
         binding.loginButton.setOnClickListener {
             hideKeyboard()
-
             binding.registrationButton.isEnabled = false
             binding.loginButton.isEnabled = false
             if (validateFields()) {
+                binding.progressBar.visibility = View.VISIBLE
                 viewModel.postLoginData(
                     LoginEntity(
                         binding.emailEditText.text.toString(),
@@ -64,7 +64,9 @@ class LoginFragment : Fragment() {
     private fun onGettingTokenEntity() {
         viewModel.getTokenLiveData().observe(this.viewLifecycleOwner) {
             // TODO: transition to the main host
+            binding.loginButton.isEnabled = true
             binding.registrationButton.isEnabled = true
+            binding.progressBar.visibility = View.GONE
         }
     }
 
@@ -92,12 +94,12 @@ class LoginFragment : Fragment() {
         handleErrors(ErrorModel(422, getString(validationResult.errorStringId)))
         binding.registrationButton.isEnabled = true
         binding.loginButton.isEnabled = true
-
+        binding.progressBar.visibility = View.GONE
     }
 
     private fun handleErrors(errorModel: ErrorModel) {
         ErrorHandler.showErrorDialog(requireContext(), parentFragmentManager, errorModel)
-
+        binding.progressBar.visibility = View.GONE
         binding.registrationButton.isEnabled = true
         binding.loginButton.isEnabled = true
     }
