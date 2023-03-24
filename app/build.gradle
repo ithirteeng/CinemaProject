@@ -27,4 +27,5 @@ dependencies {
     implementation project(":shared:token")
     implementation project(":shared:customextensions")
     implementation project(":shared:validators")
+    implementation project(":shared:userstorage")
 }
