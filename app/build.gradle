@@ -23,6 +23,7 @@ dependencies {
     implementation project(":features:splash")
     implementation project(":features:entry:login")
     implementation project(":features:entry:registration")
+    implementation project(":features:mainhost")
     implementation project(":shared:network")
     implementation project(":shared:token")
     implementation project(":shared:customextensions")
