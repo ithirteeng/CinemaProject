@@ -69,8 +69,9 @@ class MainHostFragment : Fragment(), BottomNavigationView.OnNavigationItemSelect
                 viewModel.navigateToCompilationScreen()
                 true
             }
-            R.id.profile_section -> {
-                false
+            R.id.collections_section -> {
+                viewModel.navigateToCollectionsScreen()
+                true
             }
             else -> {
                 false
