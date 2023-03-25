@@ -12,8 +12,7 @@ import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.github.terrakok.cicerone.androidx.FragmentScreen
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.ithirteeng.design.LOCAL_ROUTER
-import com.ithirteeng.features.compilation.CompilationFragment
-import com.ithirteeng.features.main.MainFragment
+import com.ithirteeng.features.main.ui.MainFragment
 import com.ithirteeng.features.mainhost.R
 import com.ithirteeng.features.mainhost.databinding.FragmentMainHostBinding
 import com.ithirteeng.features.mainhost.presentation.MainHostFragmentViewModel

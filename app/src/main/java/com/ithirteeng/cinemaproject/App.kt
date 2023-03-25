@@ -1,11 +1,12 @@
 package com.ithirteeng.cinemaproject
 
 import android.app.Application
-import com.ithirteeng.cinemaproject.di.appModule
+import com.ithirteeng.cinemaproject.di.ciceroneModule
 import com.ithirteeng.cinemaproject.di.networkModule
 import com.ithirteeng.cinemaproject.di.routersModule
 import com.ithirteeng.features.entry.login.di.loginModule
 import com.ithirteeng.features.entry.registration.di.registrationModule
+import com.ithirteeng.features.main.di.mainModule
 import com.ithirteeng.features.mainhost.di.mainHostModule
 import com.ithirteeng.features.splash.di.splashModule
 import com.ithirteeng.shared.token.di.tokenModule
@@ -24,7 +25,7 @@ class App : Application() {
             androidContext(this@App)
 
             modules(
-                appModule,
+                ciceroneModule,
                 routersModule,
                 networkModule,
                 validatorsModule,
@@ -33,7 +34,8 @@ class App : Application() {
                 splashModule,
                 registrationModule,
                 loginModule,
-                mainHostModule
+                mainHostModule,
+                mainModule
             )
         }
     }
