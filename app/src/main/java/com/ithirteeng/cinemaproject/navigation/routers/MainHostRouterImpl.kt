@@ -1,6 +1,7 @@
 package com.ithirteeng.cinemaproject.navigation.routers
 
 import com.github.terrakok.cicerone.Router
+import com.ithirteeng.features.collections.CollectionsFragment
 import com.ithirteeng.features.compilation.CompilationFragment
 import com.ithirteeng.features.main.ui.MainFragment
 import com.ithirteeng.features.mainhost.presentation.MainHostRouter
@@ -21,6 +22,6 @@ class MainHostRouterImpl(
     }
 
     override fun navigateToCollectionsScreen() {
-        TODO("Not yet implemented")
+        router.newRootScreen(CollectionsFragment.provideCollectionsScreen)
     }
 }
