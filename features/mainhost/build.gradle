@@ -15,9 +15,6 @@ dependencies {
     implementation Dependencies.JUNIT
     implementation Dependencies.CICERONE
 
-    implementation project(":features:main")
-    implementation project(":features:compilation")
-
     implementation project(":component:design")
     implementation project(":shared:customextensions")
 }

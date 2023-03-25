@@ -5,6 +5,7 @@ import com.ithirteeng.features.collections.CollectionsFragment
 import com.ithirteeng.features.compilation.CompilationFragment
 import com.ithirteeng.features.main.ui.MainFragment
 import com.ithirteeng.features.mainhost.presentation.MainHostRouter
+import com.ithirteeng.features.profile.ProfileFragment
 
 class MainHostRouterImpl(
     private val router: Router
@@ -18,7 +19,7 @@ class MainHostRouterImpl(
     }
 
     override fun navigateToProfileScreen() {
-        TODO("Not yet implemented")
+        router.newRootScreen(ProfileFragment.provideProfileScreen)
     }
 
     override fun navigateToCollectionsScreen() {

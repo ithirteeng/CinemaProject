@@ -7,12 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.github.terrakok.cicerone.NavigatorHolder
-import com.github.terrakok.cicerone.Router
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.github.terrakok.cicerone.androidx.FragmentScreen
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.ithirteeng.design.LOCAL_ROUTER
-import com.ithirteeng.features.main.ui.MainFragment
 import com.ithirteeng.features.mainhost.R
 import com.ithirteeng.features.mainhost.databinding.FragmentMainHostBinding
 import com.ithirteeng.features.mainhost.presentation.MainHostFragmentViewModel
@@ -30,7 +28,6 @@ class MainHostFragment : Fragment(), BottomNavigationView.OnNavigationItemSelect
         val providerMainHostScreen = FragmentScreen { MainHostFragment() }
     }
 
-    private val router: Router by inject(named(LOCAL_ROUTER))
     private val navigationHolder: NavigatorHolder by inject(named(LOCAL_ROUTER))
     private val navigator by lazy {
         AppNavigator(requireActivity(), R.id.mainHostContainer)
@@ -45,7 +42,7 @@ class MainHostFragment : Fragment(), BottomNavigationView.OnNavigationItemSelect
 
         binding.bottomNavBar.setOnNavigationItemSelectedListener(this)
 
-        router.newRootScreen(MainFragment.provideMainScreen)
+        viewModel.navigateToMainScreen()
         return binding.root
     }
 
@@ -74,7 +71,8 @@ class MainHostFragment : Fragment(), BottomNavigationView.OnNavigationItemSelect
                 true
             }
             else -> {
-                false
+                viewModel.navigateToProfileScreen()
+                true
             }
         }
     }
