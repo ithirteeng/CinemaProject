@@ -73,6 +73,7 @@ class RegistrationFragment : Fragment() {
 
     private fun onSuccessfulSendingRequest() {
         viewModel.getRequestLiveData().observe(this.viewLifecycleOwner) {
+            viewModel.navigateToMainHostScreen()
             binding.loginButton.isEnabled = true
             binding.registrationButton.isEnabled = true
             binding.progressBar.visibility = View.GONE

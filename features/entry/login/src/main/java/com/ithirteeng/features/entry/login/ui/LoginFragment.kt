@@ -63,7 +63,7 @@ class LoginFragment : Fragment() {
 
     private fun onGettingTokenEntity() {
         viewModel.getTokenLiveData().observe(this.viewLifecycleOwner) {
-            // TODO: transition to the main host
+            viewModel.navigateToMainHostScreen()
             binding.loginButton.isEnabled = true
             binding.registrationButton.isEnabled = true
             binding.progressBar.visibility = View.GONE
