@@ -1,7 +1,8 @@
-package com.ithirteeng.features.mainhost
+package com.ithirteeng.features.mainhost.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
@@ -9,15 +10,22 @@ import com.github.terrakok.cicerone.NavigatorHolder
 import com.github.terrakok.cicerone.Router
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.github.terrakok.cicerone.androidx.FragmentScreen
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.ithirteeng.design.LOCAL_ROUTER
+import com.ithirteeng.features.compilation.CompilationFragment
 import com.ithirteeng.features.main.MainFragment
+import com.ithirteeng.features.mainhost.R
 import com.ithirteeng.features.mainhost.databinding.FragmentMainHostBinding
+import com.ithirteeng.features.mainhost.presentation.MainHostFragmentViewModel
 import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.qualifier.named
 
-class MainHostFragment : Fragment() {
+class MainHostFragment : Fragment(), BottomNavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var binding: FragmentMainHostBinding
+
+    private val viewModel: MainHostFragmentViewModel by viewModel()
 
     companion object {
         val providerMainHostScreen = FragmentScreen { MainHostFragment() }
@@ -36,6 +44,8 @@ class MainHostFragment : Fragment() {
         val layout = inflater.inflate(R.layout.fragment_main_host, container, false)
         binding = FragmentMainHostBinding.bind(layout)
 
+        binding.bottomNavBar.setOnNavigationItemSelectedListener(this)
+
         router.newRootScreen(MainFragment.provideMainScreen)
         return binding.root
     }
@@ -48,5 +58,24 @@ class MainHostFragment : Fragment() {
     override fun onPause() {
         super.onPause()
         navigationHolder.removeNavigator()
+    }
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.main_section -> {
+                viewModel.navigateToMainScreen()
+                true
+            }
+            R.id.compilation_section -> {
+                viewModel.navigateToCompilationScreen()
+                true
+            }
+            R.id.profile_section -> {
+                false
+            }
+            else -> {
+                false
+            }
+        }
     }
 }
