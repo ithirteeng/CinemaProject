@@ -29,6 +29,10 @@
     <string name="already_have_account">I already have account</string>
     <string name="name">Name</string>
     <string name="surname">Surname</string>
-
+    
+    <string name="main">Main</string>
+    <string name="compilation">Compilation</string>
+    <string name="collections">Collections</string>
+    <string name="profile">Profile</string>
 
 </resources>

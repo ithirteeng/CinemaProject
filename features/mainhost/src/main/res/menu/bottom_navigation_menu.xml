@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/main_section"
+        android:icon="@drawable/main_icon"
+        android:title="@string/main" />
+    <item
+        android:id="@+id/compilation_section"
+        android:icon="@drawable/compilation_icon"
+        android:title="@string/compilation" />
+    <item
+        android:id="@+id/collections_section"
+        android:icon="@drawable/star_icon"
+        android:title="@string/collections" />
+    <item
+        android:id="@+id/profile_section"
+        android:icon="@drawable/profile_icon"
+        android:title="@string/profile" />
+</menu>
