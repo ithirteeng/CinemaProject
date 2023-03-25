@@ -29,14 +29,10 @@ class LoginFragmentViewModel(
         router.navigateToRegistrationFragment()
     }
 
+
     fun navigateToMainHostScreen() {
         router.navigateToMainHostScreen()
     }
-
-    fun exit() {
-        router.exit()
-    }
-
 
     private val tokenLiveData = SingleEventLiveData<TokenEntity>()
     fun postLoginData(

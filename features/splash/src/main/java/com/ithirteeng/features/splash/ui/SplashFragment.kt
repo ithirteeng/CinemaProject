@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import com.github.terrakok.cicerone.androidx.FragmentScreen
+import androidx.navigation.fragment.findNavController
 import com.ithirteeng.features.splash.R
 import com.ithirteeng.features.splash.databinding.FragmentSplashBinding
 import com.ithirteeng.features.splash.presentation.SplashFragmentViewModel
@@ -18,11 +18,11 @@ class SplashFragment : Fragment() {
 
     private lateinit var binding: FragmentSplashBinding
 
-    companion object {
-        val provideSplashScreen = FragmentScreen { SplashFragment() }
-    }
-
     private val viewModel: SplashFragmentViewModel by viewModel()
+
+    companion object {
+        val provideNavController = SplashFragment().findNavController()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -1,25 +1,20 @@
 package com.ithirteeng.cinemaproject.navigation.routers
 
-import com.github.terrakok.cicerone.Router
-import com.ithirteeng.features.entry.login.ui.LoginFragment
-import com.ithirteeng.features.mainhost.MainHostFragment
-import com.ithirteeng.features.entry.registration.ui.RegistrationFragment
+import androidx.navigation.NavController
+import com.ithirteeng.cinemaproject.R
 import com.ithirteeng.features.splash.presentation.SplashRouter
 
-class SplashRouterImpl(private val router: Router) : SplashRouter {
+class SplashRouterImpl(private val navController: NavController?) : SplashRouter {
+
     override fun navigateToLogInScreen() {
-        router.newRootScreen(LoginFragment.provideLoginScreen)
+        navController?.navigate(R.id.action_splashFragment_to_loginFragment)
     }
 
     override fun navigateToRegistrationScreen() {
-        router.newRootScreen(RegistrationFragment.provideRegistrationScreen)
+        navController?.navigate(R.id.action_splashFragment_to_registrationFragment)
     }
 
     override fun navigateToMainHostScreen() {
-        router.newRootScreen(MainHostFragment.providerMainHostScreen)
-    }
-
-    override fun exit() {
-        router.exit()
+        navController?.navigate(R.id.action_splashFragment_to_mainHostFragment)
     }
 }

@@ -18,6 +18,7 @@ class SplashFragmentViewModel(
         router.navigateToLogInScreen()
     }
 
+
     fun navigateToRegistrationScreen() {
         router.navigateToRegistrationScreen()
     }

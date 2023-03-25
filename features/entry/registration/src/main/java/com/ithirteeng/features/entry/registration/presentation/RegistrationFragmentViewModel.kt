@@ -35,10 +35,6 @@ class RegistrationFragmentViewModel(
         router.navigateToMainHostScreen()
     }
 
-    fun exit() {
-        router.exit()
-    }
-
     private val requestLiveData = SingleEventLiveData<Boolean>()
 
     fun postRegistrationData(

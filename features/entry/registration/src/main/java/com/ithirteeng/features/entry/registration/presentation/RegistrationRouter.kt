@@ -5,6 +5,4 @@ interface RegistrationRouter {
     fun navigateToLoginScreen()
 
     fun navigateToMainHostScreen()
-
-    fun exit()
 }

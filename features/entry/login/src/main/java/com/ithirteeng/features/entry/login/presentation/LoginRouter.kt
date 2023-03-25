@@ -5,6 +5,4 @@ interface LoginRouter {
     fun navigateToRegistrationFragment()
 
     fun navigateToMainHostScreen()
-
-    fun exit()
 }

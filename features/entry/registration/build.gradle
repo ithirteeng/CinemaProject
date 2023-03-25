@@ -17,7 +17,6 @@ dependencies {
     implementation Dependencies.GSON
     implementation Dependencies.GSON_CONVERTER
     implementation Dependencies.JUNIT
-    implementation Dependencies.CICERONE
 
     implementation project(":component:design")
     implementation project(":shared:network")

@@ -13,7 +13,6 @@ dependencies {
     implementation Dependencies.KOIN_CORE
     implementation Dependencies.KOIN_ANDROID
     implementation Dependencies.JUNIT
-    implementation Dependencies.CICERONE
 
     implementation project(":component:design")
     implementation project(":shared:customextensions")

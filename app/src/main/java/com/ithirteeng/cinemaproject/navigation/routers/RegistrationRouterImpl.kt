@@ -1,21 +1,16 @@
 package com.ithirteeng.cinemaproject.navigation.routers
 
-import com.github.terrakok.cicerone.Router
-import com.ithirteeng.features.entry.login.ui.LoginFragment
+import androidx.navigation.NavController
+import com.ithirteeng.cinemaproject.R
 import com.ithirteeng.features.entry.registration.presentation.RegistrationRouter
 
-class RegistrationRouterImpl(
-    private val router: Router
-): RegistrationRouter {
+class RegistrationRouterImpl(private val navController: NavController) : RegistrationRouter {
     override fun navigateToLoginScreen() {
-        router.replaceScreen(LoginFragment.provideLoginScreen)
+        navController.navigate(R.id.action_registrationFragment_to_loginFragment)
     }
 
     override fun navigateToMainHostScreen() {
-        TODO("Not yet implemented")
+        navController.navigate(R.id.action_registrationFragment_to_mainHostFragment)
     }
 
-    override fun exit() {
-        router.exit()
-    }
 }

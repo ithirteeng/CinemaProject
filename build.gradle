@@ -7,7 +7,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath Dependencies.GRADLE
+        classpath "com.android.tools.build:gradle:$Versions.GRADLE"
         classpath Dependencies.KOTLIN
     }
 }

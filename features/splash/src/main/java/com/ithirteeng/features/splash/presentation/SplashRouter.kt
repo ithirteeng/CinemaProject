@@ -7,6 +7,4 @@ interface SplashRouter {
     fun navigateToRegistrationScreen()
 
     fun navigateToMainHostScreen()
-
-    fun exit()
 }

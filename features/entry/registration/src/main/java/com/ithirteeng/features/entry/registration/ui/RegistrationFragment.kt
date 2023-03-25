@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
-import com.github.terrakok.cicerone.androidx.FragmentScreen
 import com.ithirteeng.errorhandler.domain.ErrorModel
 import com.ithirteeng.errorhandler.presentation.ErrorHandler
 import com.ithirteeng.features.entry.registration.R
@@ -20,10 +19,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class RegistrationFragment : Fragment() {
 
     private lateinit var binding: FragmentRegistrationBinding
-
-    companion object {
-        val provideRegistrationScreen = FragmentScreen { RegistrationFragment() }
-    }
 
     private val viewModel: RegistrationFragmentViewModel by viewModel()
 
@@ -73,6 +68,7 @@ class RegistrationFragment : Fragment() {
 
     private fun onSuccessfulSendingRequest() {
         viewModel.getRequestLiveData().observe(this.viewLifecycleOwner) {
+            viewModel.navigateToMainHostScreen()
             binding.loginButton.isEnabled = true
             binding.registrationButton.isEnabled = true
             binding.progressBar.visibility = View.GONE

@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
-import com.github.terrakok.cicerone.androidx.FragmentScreen
 import com.ithirteeng.errorhandler.domain.ErrorModel
 import com.ithirteeng.errorhandler.presentation.ErrorHandler
 import com.ithirteeng.features.entry.login.R
@@ -20,10 +19,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class LoginFragment : Fragment() {
 
     private lateinit var binding: FragmentLoginBinding
-
-    companion object {
-        val provideLoginScreen = FragmentScreen { LoginFragment() }
-    }
 
     private val viewModel: LoginFragmentViewModel by viewModel()
     override fun onCreateView(
@@ -63,7 +58,7 @@ class LoginFragment : Fragment() {
 
     private fun onGettingTokenEntity() {
         viewModel.getTokenLiveData().observe(this.viewLifecycleOwner) {
-            // TODO: transition to the main host
+            viewModel.navigateToMainHostScreen()
             binding.loginButton.isEnabled = true
             binding.registrationButton.isEnabled = true
             binding.progressBar.visibility = View.GONE

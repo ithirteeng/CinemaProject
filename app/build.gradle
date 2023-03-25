@@ -13,11 +13,13 @@ dependencies {
     implementation Dependencies.KOIN_CORE
     implementation Dependencies.KOIN_ANDROID
     implementation Dependencies.JUNIT
-    implementation Dependencies.CICERONE
     implementation Dependencies.RETROFIT
     implementation Dependencies.OKHTTP_INTERCEPTOR
     implementation Dependencies.GSON
     implementation Dependencies.GSON_CONVERTER
+    implementation Dependencies.NAVIGATION_FRAGMENT
+    implementation Dependencies.NAVIGATION_UI
+    implementation Dependencies.NAVIGATION_FEATURE
 
     implementation project(":component:design")
     implementation project(":features:splash")
