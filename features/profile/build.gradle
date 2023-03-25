@@ -1,7 +1,8 @@
-apply plugin: Plugins.ANDROID_APPLICATION
+apply plugin: Plugins.ANDROID_LIBRARY
 apply plugin: Plugins.KOTLIN_ANDROID
 
-apply from: "$rootDir/build-system/module-types/android-app.gradle"
+apply from: "$rootDir/build-system/module-types/android-library.gradle"
+apply plugin: 'org.jetbrains.kotlin.android'
 
 dependencies {
     implementation Dependencies.KOTLIN_STANDARD_LIBRARY
@@ -12,27 +13,16 @@ dependencies {
     implementation Dependencies.CONSTRAINT_LAYOUT
     implementation Dependencies.KOIN_CORE
     implementation Dependencies.KOIN_ANDROID
-    implementation Dependencies.JUNIT
-    implementation Dependencies.CICERONE
     implementation Dependencies.RETROFIT
     implementation Dependencies.OKHTTP_INTERCEPTOR
     implementation Dependencies.GSON
     implementation Dependencies.GSON_CONVERTER
+    implementation Dependencies.JUNIT
+    implementation Dependencies.CICERONE
 
     implementation project(":component:design")
-
-    implementation project(":features:splash")
-    implementation project(":features:entry:login")
-    implementation project(":features:entry:registration")
-    implementation project(":features:mainhost")
-    implementation project(":features:main")
-    implementation project(":features:compilation")
-    implementation project(":features:collections")
-    implementation project(":features:profile")
-
     implementation project(":shared:network")
     implementation project(":shared:token")
+    implementation project(":shared:errorhandler")
     implementation project(":shared:customextensions")
-    implementation project(":shared:validators")
-    implementation project(":shared:userstorage")
 }

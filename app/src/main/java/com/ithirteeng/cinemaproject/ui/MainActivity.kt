@@ -7,13 +7,15 @@ import com.github.terrakok.cicerone.NavigatorHolder
 import com.github.terrakok.cicerone.Router
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.ithirteeng.cinemaproject.R
+import com.ithirteeng.design.GLOBAL_ROUTER
 import com.ithirteeng.features.splash.ui.SplashFragment
 import org.koin.android.ext.android.inject
+import org.koin.core.qualifier.named
 
 class MainActivity : AppCompatActivity() {
 
-    private val router: Router by inject()
-    private val navigationHolder: NavigatorHolder by inject()
+    private val router: Router by inject(named(GLOBAL_ROUTER))
+    private val navigationHolder: NavigatorHolder by inject(named(GLOBAL_ROUTER))
     private val navigator = AppNavigator(this, R.id.container)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
