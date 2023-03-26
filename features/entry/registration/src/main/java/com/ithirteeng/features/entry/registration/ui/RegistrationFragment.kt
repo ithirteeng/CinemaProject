@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import com.github.terrakok.cicerone.androidx.FragmentScreen
+import com.ithirteeng.customextensions.presentation.setEditTextInputSpaceFilter
 import com.ithirteeng.errorhandler.domain.ErrorModel
 import com.ithirteeng.errorhandler.presentation.ErrorHandler
 import com.ithirteeng.features.entry.registration.R
@@ -34,6 +35,7 @@ class RegistrationFragment : Fragment() {
         val layout = inflater.inflate(R.layout.fragment_registration, container, false)
         binding = FragmentRegistrationBinding.bind(layout)
         setupOnClickButtonsFunctions()
+        setEditTextsInputTextFilter()
 
         return binding.root
     }
@@ -121,5 +123,13 @@ class RegistrationFragment : Fragment() {
             view = View(activity)
         }
         imm.hideSoftInputFromWindow(view.windowToken, 0)
+    }
+
+    private fun setEditTextsInputTextFilter() {
+        binding.emailEditText.setEditTextInputSpaceFilter()
+        binding.nameEditText.setEditTextInputSpaceFilter()
+        binding.surnameEditText.setEditTextInputSpaceFilter()
+        binding.repeatPasswordEditText.setEditTextInputSpaceFilter()
+        binding.passwordEditText.setEditTextInputSpaceFilter()
     }
 }

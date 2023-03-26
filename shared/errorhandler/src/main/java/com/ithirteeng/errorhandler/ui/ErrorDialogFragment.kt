@@ -29,7 +29,8 @@ class ErrorDialogFragment : DialogFragment() {
         binding.errorTextView.text = errorCode
         binding.errorDescriptionTextView.text = errorDescription
 
-        val builder = AlertDialog.Builder(requireActivity(), style.Theme_CinemaProject_ErrorDialogTheme)
+        val builder =
+            AlertDialog.Builder(requireActivity(), style.Theme_CinemaProject_ErrorDialogTheme)
         return builder.setView(view).create()
     }
 
