@@ -1,4 +1,4 @@
-package com.ithirteeng.features.main.domain.utils
+package com.ithirteeng.shared.movies.utils
 
 enum class MoviesListType(val type: String) {
     NEW("new"),

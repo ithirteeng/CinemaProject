@@ -9,10 +9,10 @@ import com.ithirteeng.errorhandler.domain.ErrorModel
 import com.ithirteeng.features.main.domain.usecase.GetHistoryUseCase
 import com.ithirteeng.features.main.domain.usecase.GetMovieEpisodesListUseCase
 import com.ithirteeng.features.main.domain.usecase.GetMoviesListUseCase
-import com.ithirteeng.features.main.domain.utils.MoviesListType
 import com.ithirteeng.shared.movies.entity.EpisodeEntity
 import com.ithirteeng.shared.movies.entity.EpisodeViewEntity
 import com.ithirteeng.shared.movies.entity.MovieEntity
+import com.ithirteeng.shared.movies.utils.MoviesListType
 import com.ithirteeng.shared.network.common.NoConnectivityException
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
@@ -27,26 +27,6 @@ class MainFragmentViewModel(
 
     fun navigateToMovieScreen() =
         router.navigateToMovieScreen()
-
-
-    private val moviesLiveData = MutableLiveData<List<MovieEntity>>()
-
-    fun getMoviesLiveData(): LiveData<List<MovieEntity>> = moviesLiveData
-
-    fun makeGetMoviesListRequest(
-        movieListType: MoviesListType,
-        onErrorAppearance: (errorModel: ErrorModel) -> Unit,
-    ) {
-        viewModelScope.launch {
-            getMoviesListUseCase(movieListType)
-                .onSuccess {
-                    moviesLiveData.value = it
-                }
-                .onFailure {
-                    onErrorAppearance(setupErrorCode(it))
-                }
-        }
-    }
 
 
     private val movieEpisodesLiveData = MutableLiveData<List<EpisodeEntity>>()
@@ -78,6 +58,63 @@ class MainFragmentViewModel(
             getHistoryUseCase()
                 .onSuccess {
                     historyLiveData.value = it
+                }
+                .onFailure {
+                    onErrorAppearance(setupErrorCode(it))
+                }
+        }
+    }
+
+    private val recentMoviesLiveData = MutableLiveData<List<MovieEntity>>()
+
+    fun getRecentMoviesLiveData(): LiveData<List<MovieEntity>> = recentMoviesLiveData
+
+    fun makeGetRecentMoviesListRequest(onErrorAppearance: (errorModel: ErrorModel) -> Unit) {
+        makeGetMoviesListRequest(MoviesListType.LAST_VIEW, onErrorAppearance) {
+            recentMoviesLiveData.value = it
+        }
+    }
+
+    private val inTrendMoviesLiveData = MutableLiveData<List<MovieEntity>>()
+
+    fun getInTrendMoviesLiveData(): LiveData<List<MovieEntity>> = inTrendMoviesLiveData
+
+    fun makeGetInTrendMoviesListRequest(onErrorAppearance: (errorModel: ErrorModel) -> Unit) {
+        makeGetMoviesListRequest(MoviesListType.IN_TREND, onErrorAppearance) {
+            inTrendMoviesLiveData.value = it
+        }
+    }
+
+    private val newMoviesLiveData = MutableLiveData<List<MovieEntity>>()
+
+    fun getNewMoviesLiveData(): LiveData<List<MovieEntity>> = newMoviesLiveData
+
+    fun makeGetNewMoviesListRequest(onErrorAppearance: (errorModel: ErrorModel) -> Unit) {
+        makeGetMoviesListRequest(MoviesListType.LAST_VIEW, onErrorAppearance) {
+            newMoviesLiveData.value = it
+        }
+    }
+
+    private val forYouMoviesLiveData = MutableLiveData<List<MovieEntity>>()
+
+    fun getForYouMoviesLiveData(): LiveData<List<MovieEntity>> = forYouMoviesLiveData
+
+    fun makeGetForYouMoviesListRequest(onErrorAppearance: (errorModel: ErrorModel) -> Unit) {
+        makeGetMoviesListRequest(MoviesListType.LAST_VIEW, onErrorAppearance) {
+            forYouMoviesLiveData.value = it
+        }
+    }
+
+
+    private fun makeGetMoviesListRequest(
+        movieListType: MoviesListType,
+        onErrorAppearance: (errorModel: ErrorModel) -> Unit,
+        doOnSuccess: (List<MovieEntity>) -> Unit,
+    ) {
+        viewModelScope.launch {
+            getMoviesListUseCase(movieListType)
+                .onSuccess {
+                    doOnSuccess(it)
                 }
                 .onFailure {
                     onErrorAppearance(setupErrorCode(it))

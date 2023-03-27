@@ -11,11 +11,9 @@ import com.ithirteeng.errorhandler.domain.ErrorModel
 import com.ithirteeng.errorhandler.presentation.ErrorHandler
 import com.ithirteeng.features.main.R
 import com.ithirteeng.features.main.databinding.FragmentMainBinding
-import com.ithirteeng.features.main.domain.utils.MoviesListType
 import com.ithirteeng.features.main.presentation.MainFragmentViewModel
 import com.ithirteeng.features.main.ui.adapter.InTrendMoviesAdapter
 import com.ithirteeng.features.main.ui.adapter.RecentViewedMoviesAdapter
-import com.ithirteeng.shared.movies.entity.MovieEntity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainFragment : Fragment() {
@@ -27,6 +25,8 @@ class MainFragment : Fragment() {
     private lateinit var binding: FragmentMainBinding
 
     private val viewModel: MainFragmentViewModel by viewModel()
+
+    private var finishedRequests = 0
 
     private val inTrendAdapter by lazy {
         InTrendMoviesAdapter {
@@ -47,6 +47,7 @@ class MainFragment : Fragment() {
     ): View {
         val layout = inflater.inflate(R.layout.fragment_main, container, false)
         binding = FragmentMainBinding.bind(layout)
+        finishedRequests = 0
 
         onGettingInTrendMoviesList()
         onGettingRecentViewedMoviesList()
@@ -57,8 +58,14 @@ class MainFragment : Fragment() {
     }
 
     private fun onGettingInTrendMoviesList() {
-        onGettingMoviesList(MoviesListType.IN_TREND) {
+        viewModel.makeGetInTrendMoviesListRequest { handleErrors(it) }
+        binding.progressBar.visibility = View.VISIBLE
+        viewModel.getInTrendMoviesLiveData().observe(this.viewLifecycleOwner) {
+
+            finishedRequests++
             inTrendAdapter.submitList(it)
+
+            handleProgressBarVisibility()
             if (it.isNotEmpty()) {
                 binding.inTrendRecyclerView.visibility = View.VISIBLE
                 binding.inTrendTextView.visibility = View.VISIBLE
@@ -67,27 +74,27 @@ class MainFragment : Fragment() {
     }
 
     private fun onGettingRecentViewedMoviesList() {
-        onGettingMoviesList(MoviesListType.LAST_VIEW) {
+        viewModel.makeGetRecentMoviesListRequest { handleErrors(it) }
+        binding.progressBar.visibility = View.VISIBLE
+        viewModel.getRecentMoviesLiveData().observe(this.viewLifecycleOwner) {
+
+            finishedRequests++
             recentViewedAdapter.submitList(it)
+
+            handleProgressBarVisibility()
             if (it.isNotEmpty()) {
                 binding.recentTextView.visibility = View.VISIBLE
                 binding.recentRecyclerView.visibility = View.VISIBLE
             }
         }
-
     }
 
-    private fun onGettingMoviesList(
-        moviesListType: MoviesListType,
-        onGettingData: (moviesList: List<MovieEntity>) -> Unit,
-    ) {
-        viewModel.makeGetMoviesListRequest(moviesListType) { handleErrors(it) }
-        binding.progressBar.visibility = View.VISIBLE
-        viewModel.getMoviesLiveData().observe(this.viewLifecycleOwner) {
+    private fun handleProgressBarVisibility() {
+        if (finishedRequests == 2) {
             binding.progressBar.visibility = View.GONE
-            onGettingData(it)
         }
     }
+
 
     private fun handleErrors(errorModel: ErrorModel) {
         ErrorHandler.showErrorDialog(requireContext(), parentFragmentManager, errorModel)
