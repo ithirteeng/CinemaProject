@@ -15,7 +15,7 @@ import okhttp3.Route
 class TokenAuthenticator(
     private val getTokenFromLocalStorageUseCase: GetTokenFromLocalStorageUseCase,
     private val saveTokenToLocalStorageUseCase: SaveTokenToLocalStorageUseCase,
-    private val refreshTokenUseCase: RefreshTokenUseCase
+    private val refreshTokenUseCase: RefreshTokenUseCase,
 ) : Authenticator {
 
 

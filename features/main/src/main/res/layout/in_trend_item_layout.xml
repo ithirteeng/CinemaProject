@@ -7,8 +7,9 @@
     <ImageView
         android:id="@+id/posterImageView"
         android:layout_width="@dimen/size_100"
-        android:layout_marginEnd="@dimen/margin_16"
         android:layout_height="@dimen/size_144"
+        android:layout_marginEnd="@dimen/margin_16"
+        android:clickable="true"
         android:contentDescription="@string/main_screen_poster_content_description"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

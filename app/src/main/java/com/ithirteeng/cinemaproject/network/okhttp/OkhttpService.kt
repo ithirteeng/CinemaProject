@@ -12,7 +12,7 @@ fun setupTokenOkHttpClient(
     tokenAuthenticator: TokenAuthenticator,
     authInterceptor: AuthInterceptor,
     loggingInterceptor: HttpLoggingInterceptor,
-    networkConnectionInterceptor: NetworkConnectionInterceptor
+    networkConnectionInterceptor: NetworkConnectionInterceptor,
 ): OkHttpClient =
     OkHttpClient.Builder()
         .addInterceptor(networkConnectionInterceptor)
