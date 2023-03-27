@@ -19,6 +19,7 @@ dependencies {
     implementation Dependencies.GSON_CONVERTER
     implementation Dependencies.JUNIT
     implementation Dependencies.CICERONE
+    implementation Dependencies.CARD_STACK
 
     implementation project(":component:design")
     implementation project(":shared:network")

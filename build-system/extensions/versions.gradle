@@ -18,5 +18,6 @@ ext.Versions =
                 GLIDE                       : "4.11.0",
                 COROUTINE                   : "1.6.2",
                 NAVIGATION                  : "2.5.3",
-                ENCRYPTED_SHARED_PREFERENCES: "1.0.0"
+                ENCRYPTED_SHARED_PREFERENCES: "1.0.0",
+                CARD_STACK                  : "2.3.4"
         ]
