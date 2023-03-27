@@ -14,6 +14,8 @@ import com.ithirteeng.features.main.databinding.FragmentMainBinding
 import com.ithirteeng.features.main.domain.utils.MoviesListType
 import com.ithirteeng.features.main.presentation.MainFragmentViewModel
 import com.ithirteeng.features.main.ui.adapter.InTrendMoviesAdapter
+import com.ithirteeng.features.main.ui.adapter.RecentViewedMoviesAdapter
+import com.ithirteeng.shared.movies.entity.MovieEntity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainFragment : Fragment() {
@@ -33,6 +35,12 @@ class MainFragment : Fragment() {
         }
     }
 
+    private val recentViewedAdapter by lazy {
+        RecentViewedMoviesAdapter {
+            Toast.makeText(requireContext(), "play ${it.name}", Toast.LENGTH_SHORT).show()
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -41,6 +49,7 @@ class MainFragment : Fragment() {
         binding = FragmentMainBinding.bind(layout)
 
         onGettingInTrendMoviesList()
+        onGettingRecentViewedMoviesList()
 
         binding.inTrendRecyclerView.adapter = inTrendAdapter
 
@@ -48,13 +57,35 @@ class MainFragment : Fragment() {
     }
 
     private fun onGettingInTrendMoviesList() {
-        viewModel.makeGetMoviesListRequest(MoviesListType.IN_TREND) { handleErrors(it) }
-        viewModel.getMoviesLiveData().observe(this.viewLifecycleOwner) {
+        onGettingMoviesList(MoviesListType.IN_TREND) {
             inTrendAdapter.submitList(it)
             if (it.isNotEmpty()) {
                 binding.inTrendRecyclerView.visibility = View.VISIBLE
                 binding.inTrendTextView.visibility = View.VISIBLE
             }
+        }
+    }
+
+    private fun onGettingRecentViewedMoviesList() {
+        onGettingMoviesList(MoviesListType.LAST_VIEW) {
+            recentViewedAdapter.submitList(it)
+            if (it.isNotEmpty()) {
+                binding.recentTextView.visibility = View.VISIBLE
+                binding.recentRecyclerView.visibility = View.VISIBLE
+            }
+        }
+
+    }
+
+    private fun onGettingMoviesList(
+        moviesListType: MoviesListType,
+        onGettingData: (moviesList: List<MovieEntity>) -> Unit,
+    ) {
+        viewModel.makeGetMoviesListRequest(moviesListType) { handleErrors(it) }
+        binding.progressBar.visibility = View.VISIBLE
+        viewModel.getMoviesLiveData().observe(this.viewLifecycleOwner) {
+            binding.progressBar.visibility = View.GONE
+            onGettingData(it)
         }
     }
 
