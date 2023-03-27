@@ -23,7 +23,10 @@ object ErrorHandler {
         errorModel: ErrorModel,
     ) {
         Log.e("ERROR_TAG", "exception: ", errorModel.error)
-        if (errorModel.error is HttpException || errorModel.error is NoConnectivityException) {
+        if (errorModel.error is HttpException ||
+            errorModel.error is NoConnectivityException ||
+            errorModel.error == null
+        ) {
             dialogFragment.setupDialogTextViews(setupError(context, errorModel))
             setupDialogFragment()
             dialogFragment.show(fragmentManager, "review_dialog")

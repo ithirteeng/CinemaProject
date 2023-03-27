@@ -46,7 +46,7 @@ class RecentViewedMoviesAdapter(private val onPlayButtonClick: (movieEntity: Mov
     ): RecentViewedMoviesViewHolder {
         val view = LayoutInflater
             .from(parent.context)
-            .inflate(R.layout.in_trend_item_layout, parent, false)
+            .inflate(R.layout.recent_item_layout, parent, false)
 
         return RecentViewedMoviesViewHolder(view)
     }

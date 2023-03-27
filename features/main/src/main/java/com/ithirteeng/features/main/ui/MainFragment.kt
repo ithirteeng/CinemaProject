@@ -53,6 +53,7 @@ class MainFragment : Fragment() {
         onGettingRecentViewedMoviesList()
 
         binding.inTrendRecyclerView.adapter = inTrendAdapter
+        binding.recentRecyclerView.adapter = recentViewedAdapter
 
         return binding.root
     }

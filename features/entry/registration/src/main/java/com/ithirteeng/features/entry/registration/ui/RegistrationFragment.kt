@@ -17,7 +17,6 @@ import com.ithirteeng.features.entry.registration.domain.entity.RegistrationEnti
 import com.ithirteeng.features.entry.registration.presentation.RegistrationFragmentViewModel
 import com.ithirteeng.shared.validators.common.ValidationResult
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.lang.Exception
 
 class RegistrationFragment : Fragment() {
 
@@ -31,7 +30,7 @@ class RegistrationFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         val layout = inflater.inflate(R.layout.fragment_registration, container, false)
         binding = FragmentRegistrationBinding.bind(layout)
@@ -103,7 +102,7 @@ class RegistrationFragment : Fragment() {
     }
 
     private fun onErrorValidationResult(validationResult: ValidationResult) {
-        handleErrors(ErrorModel(422, getString(validationResult.errorStringId), Exception()))
+        handleErrors(ErrorModel(422, getString(validationResult.errorStringId)))
         binding.registrationButton.isEnabled = true
         binding.loginButton.isEnabled = true
         binding.progressBar.visibility = View.GONE
