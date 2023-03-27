@@ -13,6 +13,7 @@ import com.ithirteeng.features.main.R
 import com.ithirteeng.features.main.databinding.FragmentMainBinding
 import com.ithirteeng.features.main.presentation.MainFragmentViewModel
 import com.ithirteeng.features.main.ui.adapter.InTrendMoviesAdapter
+import com.ithirteeng.features.main.ui.adapter.NewMoviesAdapter
 import com.ithirteeng.features.main.ui.adapter.RecentViewedMoviesAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -38,6 +39,14 @@ class MainFragment : Fragment() {
     private val recentViewedAdapter by lazy {
         RecentViewedMoviesAdapter {
             Toast.makeText(requireContext(), "play ${it.name}", Toast.LENGTH_SHORT).show()
+            // TODO: navigateToMovieInfo
+        }
+    }
+
+    private val newMoviesAdapter by lazy {
+        NewMoviesAdapter {
+            Toast.makeText(requireContext(), "play ${it.name}", Toast.LENGTH_SHORT).show()
+            // TODO: navigateToMovieInfo
         }
     }
 
@@ -51,9 +60,11 @@ class MainFragment : Fragment() {
 
         onGettingInTrendMoviesList()
         onGettingRecentViewedMoviesList()
+        onGettingNewMoviesList()
 
         binding.inTrendRecyclerView.adapter = inTrendAdapter
         binding.recentRecyclerView.adapter = recentViewedAdapter
+        binding.newRecyclerView.adapter = newMoviesAdapter
 
         return binding.root
     }
@@ -65,8 +76,8 @@ class MainFragment : Fragment() {
 
             finishedRequests++
             inTrendAdapter.submitList(it)
-
             handleProgressBarVisibility()
+
             if (it.isNotEmpty()) {
                 binding.inTrendRecyclerView.visibility = View.VISIBLE
                 binding.inTrendTextView.visibility = View.VISIBLE
@@ -81,8 +92,8 @@ class MainFragment : Fragment() {
 
             finishedRequests++
             recentViewedAdapter.submitList(it)
-
             handleProgressBarVisibility()
+
             if (it.isNotEmpty()) {
                 binding.recentTextView.visibility = View.VISIBLE
                 binding.recentRecyclerView.visibility = View.VISIBLE
@@ -90,8 +101,23 @@ class MainFragment : Fragment() {
         }
     }
 
+    private fun onGettingNewMoviesList() {
+        viewModel.makeGetNewMoviesListRequest { handleErrors(it) }
+        binding.progressBar.visibility = View.VISIBLE
+        viewModel.getNewMoviesLiveData().observe(this.viewLifecycleOwner) {
+            finishedRequests++
+            newMoviesAdapter.submitList(it)
+            handleProgressBarVisibility()
+
+            if (it.isNotEmpty()) {
+                binding.newTextView.visibility = View.VISIBLE
+                binding.newRecyclerView.visibility = View.VISIBLE
+            }
+        }
+    }
+
     private fun handleProgressBarVisibility() {
-        if (finishedRequests == 2) {
+        if (finishedRequests == 3) {
             binding.progressBar.visibility = View.GONE
         }
     }

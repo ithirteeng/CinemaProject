@@ -90,7 +90,7 @@ class MainFragmentViewModel(
     fun getNewMoviesLiveData(): LiveData<List<MovieEntity>> = newMoviesLiveData
 
     fun makeGetNewMoviesListRequest(onErrorAppearance: (errorModel: ErrorModel) -> Unit) {
-        makeGetMoviesListRequest(MoviesListType.LAST_VIEW, onErrorAppearance) {
+        makeGetMoviesListRequest(MoviesListType.NEW, onErrorAppearance) {
             newMoviesLiveData.value = it
         }
     }
