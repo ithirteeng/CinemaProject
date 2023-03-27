@@ -6,6 +6,7 @@ import com.ithirteeng.features.main.data.datasource.MainRemoteDatasourceImpl
 import com.ithirteeng.features.main.data.repository.MainRepositoryImpl
 import com.ithirteeng.features.main.domain.repository.MainRepository
 import com.ithirteeng.features.main.domain.usecase.GetHistoryUseCase
+import com.ithirteeng.features.main.domain.usecase.GetMainPosterUseCase
 import com.ithirteeng.features.main.domain.usecase.GetMovieEpisodesListUseCase
 import com.ithirteeng.features.main.domain.usecase.GetMoviesListUseCase
 import com.ithirteeng.features.main.presentation.MainFragmentViewModel
@@ -24,6 +25,7 @@ val mainModule = module {
     factory { GetMoviesListUseCase(repository = get()) }
     factory { GetMovieEpisodesListUseCase(repository = get()) }
     factory { GetHistoryUseCase(repository = get()) }
+    factory { GetMainPosterUseCase(repository = get()) }
 
     viewModel {
         MainFragmentViewModel(
@@ -31,7 +33,8 @@ val mainModule = module {
             router = get(),
             getHistoryUseCase = get(),
             getMovieEpisodesListUseCase = get(),
-            getMoviesListUseCase = get()
+            getMoviesListUseCase = get(),
+            getMainPosterUseCase = get()
         )
     }
 }

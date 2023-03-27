@@ -1,5 +1,6 @@
 package com.ithirteeng.features.main.data.datasource
 
+import com.ithirteeng.features.main.domain.entity.PosterEntity
 import com.ithirteeng.shared.movies.entity.EpisodeEntity
 import com.ithirteeng.shared.movies.entity.EpisodeViewEntity
 import com.ithirteeng.shared.movies.entity.MovieEntity
@@ -12,5 +13,7 @@ interface MainRemoteDatasource {
     suspend fun getMovieEpisodesList(movieId: String): List<EpisodeEntity>
 
     suspend fun getHistory(): List<EpisodeViewEntity>
+
+    suspend fun getPosterEntity(): PosterEntity
 
 }

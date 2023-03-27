@@ -1,16 +1,19 @@
 package com.ithirteeng.features.main.ui
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import com.github.terrakok.cicerone.androidx.FragmentScreen
 import com.ithirteeng.errorhandler.domain.ErrorModel
 import com.ithirteeng.errorhandler.presentation.ErrorHandler
 import com.ithirteeng.features.main.R
 import com.ithirteeng.features.main.databinding.FragmentMainBinding
+import com.ithirteeng.features.main.domain.entity.PosterEntity
 import com.ithirteeng.features.main.presentation.MainFragmentViewModel
 import com.ithirteeng.features.main.ui.adapter.ForYouMoviesAdapter
 import com.ithirteeng.features.main.ui.adapter.InTrendMoviesAdapter
@@ -22,6 +25,7 @@ class MainFragment : Fragment() {
 
     companion object {
         val provideMainScreen = FragmentScreen { MainFragment() }
+        const val REQUEST_AMOUNT = 5
     }
 
     private lateinit var binding: FragmentMainBinding
@@ -66,6 +70,7 @@ class MainFragment : Fragment() {
         binding = FragmentMainBinding.bind(layout)
         finishedRequests = 0
 
+        onGettingMainPoster()
         onGettingInTrendMoviesList()
         onGettingRecentViewedMoviesList()
         onGettingNewMoviesList()
@@ -77,6 +82,26 @@ class MainFragment : Fragment() {
         binding.forYouRecyclerView.adapter = forYouMoviesAdapter
 
         return binding.root
+    }
+
+    private fun onGettingMainPoster() {
+        viewModel.makeGetPosterRequest { handleErrors(it) }
+        binding.progressBar.visibility = View.VISIBLE
+        viewModel.getPosterLiveData().observe(this.viewLifecycleOwner) {
+            finishedRequests++
+            setupMainPoster(it)
+            handleProgressBarVisibility()
+        }
+    }
+
+    @SuppressLint("UseCompatLoadingForDrawables")
+    private fun setupMainPoster(posterEntity: PosterEntity) {
+        Glide
+            .with(binding.root)
+            .load(posterEntity.backgroundImage)
+            .placeholder(requireContext().getDrawable(com.ithirteeng.component.design.R.drawable.image_placeholder))
+            .error(requireContext().getDrawable(com.ithirteeng.component.design.R.drawable.image_placeholder))
+            .into(binding.mainPosterImageView)
     }
 
     private fun onGettingInTrendMoviesList() {
@@ -143,7 +168,7 @@ class MainFragment : Fragment() {
     }
 
     private fun handleProgressBarVisibility() {
-        if (finishedRequests == 4) {
+        if (finishedRequests == REQUEST_AMOUNT) {
             binding.progressBar.visibility = View.GONE
         }
     }

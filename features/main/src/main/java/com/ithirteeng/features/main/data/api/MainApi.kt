@@ -1,5 +1,6 @@
 package com.ithirteeng.features.main.data.api
 
+import com.ithirteeng.features.main.domain.entity.PosterEntity
 import com.ithirteeng.shared.movies.entity.EpisodeEntity
 import com.ithirteeng.shared.movies.entity.EpisodeViewEntity
 import com.ithirteeng.shared.movies.entity.MovieEntity
@@ -16,4 +17,8 @@ interface MainApi {
 
     @GET("movie/{id}/episodes")
     suspend fun getMovieEpisodes(@Path("id") movieId: String): List<EpisodeEntity>
+
+    @GET("cover")
+    suspend fun getMainPoster(): PosterEntity
+
 }

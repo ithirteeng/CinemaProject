@@ -6,7 +6,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.ithirteeng.errorhandler.domain.ErrorModel
+import com.ithirteeng.features.main.domain.entity.PosterEntity
 import com.ithirteeng.features.main.domain.usecase.GetHistoryUseCase
+import com.ithirteeng.features.main.domain.usecase.GetMainPosterUseCase
 import com.ithirteeng.features.main.domain.usecase.GetMovieEpisodesListUseCase
 import com.ithirteeng.features.main.domain.usecase.GetMoviesListUseCase
 import com.ithirteeng.shared.movies.entity.EpisodeEntity
@@ -23,6 +25,7 @@ class MainFragmentViewModel(
     private val getMovieEpisodesListUseCase: GetMovieEpisodesListUseCase,
     private val getMoviesListUseCase: GetMoviesListUseCase,
     private val getHistoryUseCase: GetHistoryUseCase,
+    private val getMainPosterUseCase: GetMainPosterUseCase,
 ) : AndroidViewModel(application) {
 
     fun navigateToMovieScreen() =
@@ -64,6 +67,23 @@ class MainFragmentViewModel(
                 }
         }
     }
+
+    private val posterLiveData = MutableLiveData<PosterEntity>()
+
+    fun getPosterLiveData(): LiveData<PosterEntity> = posterLiveData
+
+    fun makeGetPosterRequest(onErrorAppearance: (errorModel: ErrorModel) -> Unit) {
+        viewModelScope.launch {
+            getMainPosterUseCase()
+                .onSuccess {
+                    posterLiveData.value = it
+                }
+                .onFailure {
+                    onErrorAppearance(setupErrorCode(it))
+                }
+        }
+    }
+
 
     private val recentMoviesLiveData = MutableLiveData<List<MovieEntity>>()
 
