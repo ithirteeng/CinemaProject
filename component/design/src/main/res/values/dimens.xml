@@ -10,6 +10,7 @@
     <dimen name="padding_13">13dp</dimen>
     <dimen name="padding_16">16dp</dimen>
     <dimen name="padding_24">24dp</dimen>
+    <dimen name="padding_32">32dp</dimen>
 
     <!-- margins -->
     <dimen name="margin_13">13dp</dimen>
@@ -18,6 +19,7 @@
     <dimen name="margin_22">22dp</dimen>
     <dimen name="margin_24">24dp</dimen>
     <dimen name="margin_32">32dp</dimen>
+    <dimen name="margin_64">64dp</dimen>
 
     <!-- const sizes -->
     <dimen name="size_100">100dp</dimen>

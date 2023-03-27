@@ -43,5 +43,6 @@
     <string name="for_you">For you</string>
     <string name="set_interests">Set interests</string>
     <string name="you_watched">Recent watched</string>
+    <string name="watch">Watch</string>
 
 </resources>
