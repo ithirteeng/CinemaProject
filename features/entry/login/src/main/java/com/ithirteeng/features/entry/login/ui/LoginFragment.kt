@@ -29,7 +29,7 @@ class LoginFragment : Fragment() {
     private val viewModel: LoginFragmentViewModel by viewModel()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         val layout = inflater.inflate(R.layout.fragment_login, container, false)
         binding = FragmentLoginBinding.bind(layout)

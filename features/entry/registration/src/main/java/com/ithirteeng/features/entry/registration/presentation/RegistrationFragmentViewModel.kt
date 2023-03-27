@@ -24,7 +24,7 @@ class RegistrationFragmentViewModel(
     private val saveTokenToLocalStorageUseCase: SaveTokenToLocalStorageUseCase,
     private val validateEmailUseCase: ValidateEmailUseCase,
     private val validateTextFieldUseCase: ValidateTextFieldUseCase,
-    private val validatePasswordsUseCase: ValidatePasswordsUseCase
+    private val validatePasswordsUseCase: ValidatePasswordsUseCase,
 ) : AndroidViewModel(application) {
 
     fun navigateToLoginScreen() {
@@ -35,15 +35,11 @@ class RegistrationFragmentViewModel(
         router.navigateToMainHostScreen()
     }
 
-    fun exit() {
-        router.exit()
-    }
-
     private val requestLiveData = SingleEventLiveData<Boolean>()
 
     fun postRegistrationData(
         registrationEntity: RegistrationEntity,
-        onErrorAppearance: (errorModel: ErrorModel) -> Unit
+        onErrorAppearance: (errorModel: ErrorModel) -> Unit,
     ) {
         viewModelScope.launch {
             postRegistrationDataUseCase(registrationEntity)
@@ -72,9 +68,9 @@ class RegistrationFragmentViewModel(
 
     private fun setupErrorCode(e: Throwable): ErrorModel {
         return when (e) {
-            is HttpException -> ErrorModel(e.code(), e.message())
-            is NoConnectivityException -> ErrorModel(e.code())
-            else -> ErrorModel(0, e.message)
+            is HttpException -> ErrorModel(e.code(), e.message(), e)
+            is NoConnectivityException -> ErrorModel(e.code(), null, e)
+            else -> ErrorModel(0, e.message, e)
         }
     }
 

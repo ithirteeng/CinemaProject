@@ -42,7 +42,8 @@ class SplashFragment : Fragment() {
     private fun navigateToCorrectScreen() {
         if (viewModel.checkIfUserEnteredTheApp()) {
             if (viewModel.checkTokenExistence()) {
-                viewModel.navigateToMainHostScreen()
+                //viewModel.navigateToMainHostScreen()
+                viewModel.navigateToLoginScreen()
             } else {
                 viewModel.navigateToLoginScreen()
             }

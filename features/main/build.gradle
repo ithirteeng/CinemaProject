@@ -18,6 +18,7 @@ dependencies {
     implementation Dependencies.GSON
     implementation Dependencies.GSON_CONVERTER
     implementation Dependencies.JUNIT
+    implementation Dependencies.GLIDE
     implementation Dependencies.CICERONE
 
     implementation project(":component:design")
@@ -25,4 +26,5 @@ dependencies {
     implementation project(":shared:token")
     implementation project(":shared:errorhandler")
     implementation project(":shared:customextensions")
+    implementation project(":shared:movies")
 }

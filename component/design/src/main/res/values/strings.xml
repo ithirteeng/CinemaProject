@@ -3,9 +3,12 @@
     <string name="logo_content_description">this is a cinema project logo</string>
     <string name="error_content_description">this is error custom dialog</string>
     <string name="exit_button_content_description">close dialog fragment</string>
+    <string name="main_screen_poster_content_description">main poster</string>
+    <string name="play_button_content_description">watch film</string>
 
     <string name="default_error">error</string>
     <string name="default_error_text">this is example of default error text</string>
+    <string name="undefined">Undefined</string>
 
     <string name="internal_server_error">Internal Server Error</string>
     <string name="unauthorized_error">Unauthorized</string>
@@ -29,10 +32,17 @@
     <string name="already_have_account">I already have account</string>
     <string name="name">Name</string>
     <string name="surname">Surname</string>
-    
+
     <string name="main">Main</string>
     <string name="compilation">Compilation</string>
     <string name="collections">Collections</string>
     <string name="profile">Profile</string>
+
+    <string name="in_trend">In trend</string>
+    <string name="new_text">New</string>
+    <string name="for_you">For you</string>
+    <string name="set_interests">Set interests</string>
+    <string name="you_watched">Recent watched</string>
+    <string name="watch">Watch</string>
 
 </resources>
