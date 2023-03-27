@@ -100,7 +100,8 @@ class LoginFragment : Fragment() {
     }
 
     private fun handleErrors(errorModel: ErrorModel) {
-        ErrorHandler.showErrorDialog(requireContext(), parentFragmentManager, errorModel)
+        childFragmentManager.executePendingTransactions()
+        ErrorHandler.showErrorDialog(requireContext(), childFragmentManager, errorModel)
         binding.progressBar.visibility = View.GONE
         binding.registrationButton.isEnabled = true
         binding.loginButton.isEnabled = true

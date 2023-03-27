@@ -27,9 +27,17 @@ object ErrorHandler {
             errorModel.error is NoConnectivityException ||
             errorModel.error == null
         ) {
-            dialogFragment.setupDialogTextViews(setupError(context, errorModel))
-            setupDialogFragment()
-            dialogFragment.show(fragmentManager, "review_dialog")
+
+            if (dialogFragment.isAdded) {
+                return
+            } else {
+                dialogFragment.setupDialogTextViews(setupError(context, errorModel))
+                setupDialogFragment()
+
+                dialogFragment.show(fragmentManager, "review_dialog")
+            }
+
+
         }
     }
 

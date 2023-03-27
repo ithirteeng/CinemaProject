@@ -70,6 +70,12 @@ class MainFragment : Fragment() {
         binding = FragmentMainBinding.bind(layout)
         finishedRequests = 0
 
+        return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+
         onGettingMainPoster()
         onGettingInTrendMoviesList()
         onGettingRecentViewedMoviesList()
@@ -80,8 +86,6 @@ class MainFragment : Fragment() {
         binding.recentRecyclerView.adapter = recentViewedAdapter
         binding.newRecyclerView.adapter = newMoviesAdapter
         binding.forYouRecyclerView.adapter = forYouMoviesAdapter
-
-        return binding.root
     }
 
     private fun onGettingMainPoster() {
@@ -175,6 +179,7 @@ class MainFragment : Fragment() {
 
 
     private fun handleErrors(errorModel: ErrorModel) {
-        ErrorHandler.showErrorDialog(requireContext(), parentFragmentManager, errorModel)
+        childFragmentManager.executePendingTransactions()
+        ErrorHandler.showErrorDialog(requireContext(), childFragmentManager, errorModel)
     }
 }
