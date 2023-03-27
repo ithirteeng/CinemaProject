@@ -125,9 +125,9 @@ class MainFragmentViewModel(
 
     private fun setupErrorCode(e: Throwable): ErrorModel {
         return when (e) {
-            is HttpException -> ErrorModel(e.code(), e.message())
-            is NoConnectivityException -> ErrorModel(e.code())
-            else -> ErrorModel(0, e.message)
+            is HttpException -> ErrorModel(e.code(), e.message(), e)
+            is NoConnectivityException -> ErrorModel(e.code(), null, e)
+            else -> ErrorModel(0, e.message, e)
         }
     }
 }

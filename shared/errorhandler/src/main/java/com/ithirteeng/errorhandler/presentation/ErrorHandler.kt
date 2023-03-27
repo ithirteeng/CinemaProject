@@ -3,12 +3,15 @@ package com.ithirteeng.errorhandler.presentation
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.util.Log
 import android.view.Window
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import com.ithirteeng.component.design.R
 import com.ithirteeng.errorhandler.domain.ErrorModel
 import com.ithirteeng.errorhandler.ui.ErrorDialogFragment
+import com.ithirteeng.shared.network.common.NoConnectivityException
+import retrofit2.HttpException
 
 object ErrorHandler {
 
@@ -17,11 +20,14 @@ object ErrorHandler {
     fun showErrorDialog(
         context: Context,
         fragmentManager: FragmentManager,
-        errorModel: ErrorModel
+        errorModel: ErrorModel,
     ) {
-        dialogFragment.setupDialogTextViews(setupError(context, errorModel))
-        setupDialogFragment()
-        dialogFragment.show(fragmentManager, "review_dialog")
+        Log.e("ERROR_TAG", "exception: ", errorModel.error)
+        if (errorModel.error is HttpException || errorModel.error is NoConnectivityException) {
+            dialogFragment.setupDialogTextViews(setupError(context, errorModel))
+            setupDialogFragment()
+            dialogFragment.show(fragmentManager, "review_dialog")
+        }
     }
 
     private fun setupDialogFragment() {
@@ -31,14 +37,15 @@ object ErrorHandler {
     }
 
     private fun setupError(context: Context, errorModel: ErrorModel): ErrorModel {
+        val error = errorModel.error
         return when (val errorCode = errorModel.errorCode) {
-            500 -> ErrorModel(errorCode, context.getString(R.string.internal_server_error))
-            401 -> ErrorModel(errorCode, context.getString(R.string.unauthorized_error))
-            403 -> ErrorModel(errorCode, context.getString(R.string.forbidden))
-            404 -> ErrorModel(errorCode, context.getString(R.string.not_found))
-            422 -> ErrorModel(errorCode, errorModel.errorDescription)
-            0 -> ErrorModel(errorCode, context.getString(R.string.developer_goofy))
-            else -> ErrorModel(errorCode, context.getString(R.string.connection_error))
+            500 -> ErrorModel(errorCode, context.getString(R.string.internal_server_error), error)
+            401 -> ErrorModel(errorCode, context.getString(R.string.unauthorized_error), error)
+            403 -> ErrorModel(errorCode, context.getString(R.string.forbidden), error)
+            404 -> ErrorModel(errorCode, context.getString(R.string.not_found), error)
+            422 -> ErrorModel(errorCode, errorModel.errorDescription, error)
+            1309 -> ErrorModel(errorCode, context.getString(R.string.connection_error), error)
+            else -> ErrorModel(errorCode, context.getString(R.string.developer_goofy), error)
         }
     }
 }

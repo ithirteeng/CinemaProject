@@ -23,7 +23,7 @@ class LoginFragmentViewModel(
     private val postLoginDataUseCase: PostLoginDataUseCase,
     private val saveTokenToLocalStorageUseCase: SaveTokenToLocalStorageUseCase,
     private val validateEmailUseCase: ValidateEmailUseCase,
-    private val validateTextFieldUseCase: ValidateTextFieldUseCase
+    private val validateTextFieldUseCase: ValidateTextFieldUseCase,
 ) : AndroidViewModel(application) {
     fun navigateToRegistrationScreen() {
         router.navigateToRegistrationFragment()
@@ -33,15 +33,10 @@ class LoginFragmentViewModel(
         router.navigateToMainHostScreen()
     }
 
-    fun exit() {
-        router.exit()
-    }
-
-
     private val tokenLiveData = SingleEventLiveData<TokenEntity>()
     fun postLoginData(
         loginEntity: LoginEntity,
-        onErrorAppearance: (errorModel: ErrorModel) -> Unit
+        onErrorAppearance: (errorModel: ErrorModel) -> Unit,
     ) {
         viewModelScope.launch {
             postLoginDataUseCase(loginEntity)
@@ -63,9 +58,9 @@ class LoginFragmentViewModel(
 
     private fun setupErrorCode(e: Throwable): ErrorModel {
         return when (e) {
-            is HttpException -> ErrorModel(e.code(), e.message())
-            is NoConnectivityException -> ErrorModel(e.code())
-            else -> ErrorModel(0, e.message)
+            is HttpException -> ErrorModel(e.code(), e.message(), e)
+            is NoConnectivityException -> ErrorModel(e.code(), null, e)
+            else -> ErrorModel(0, e.message, e)
         }
     }
 

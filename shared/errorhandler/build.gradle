@@ -17,4 +17,5 @@ dependencies {
     implementation Dependencies.OKHTTP_INTERCEPTOR
 
     implementation project(":component:design")
+    implementation project(":shared:network")
 }
