@@ -9,7 +9,7 @@ import retrofit2.http.Query
 
 interface MainApi {
     @GET("movies")
-    suspend fun getMoviesList(@Query("filter") movieType: String): List<MovieEntity>
+    suspend fun getMoviesList(@Query("filter") moviesListType: String): List<MovieEntity>
 
     @GET("history")
     suspend fun getHistory(): List<EpisodeViewEntity>
