@@ -41,6 +41,8 @@
     <string name="collections">Collections</string>
     <string name="profile">Profile</string>
 
+    <string name="compilation_ended">Movies compilation is over</string>
+
     <string name="in_trend">In trend</string>
     <string name="new_text">New</string>
     <string name="for_you">For you</string>

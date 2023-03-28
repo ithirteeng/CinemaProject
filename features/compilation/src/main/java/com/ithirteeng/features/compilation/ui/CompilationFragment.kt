@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateInterpolator
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.github.terrakok.cicerone.androidx.FragmentScreen
 import com.ithirteeng.features.compilation.R
@@ -34,7 +33,10 @@ class CompilationFragment : Fragment() {
         "6"
     )
 
+    private lateinit var lastCardDirection: Direction
+
     private val adapter = CardStackAdapter()
+
     private val cardStackLayoutManager by lazy {
         CardStackLayoutManager(
             requireContext(),
@@ -52,26 +54,13 @@ class CompilationFragment : Fragment() {
     ): View {
         val layout = inflater.inflate(R.layout.fragment_compilation, container, false)
         binding = FragmentCompilationBinding.bind(layout)
+
         setupCardStackView()
         onDislikeButtonClick()
         onLikeButtonClick()
 
         adapter.submitList(listStr)
         return binding.root
-    }
-
-    private fun onCardSwiped(direction: Direction?) {
-        if (direction == Direction.Right) {
-            // TODO: send like request
-            Toast.makeText(requireContext(), "like", Toast.LENGTH_SHORT).show()
-        } else if (direction == Direction.Left) {
-            // TODO: send dislike request
-            Toast.makeText(requireContext(), "dislike", Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    private fun onCardAppeared(position: Int) {
-        binding.textView.text = adapter.currentList[position]
     }
 
     private fun setupCardStackView() {
@@ -89,7 +78,6 @@ class CompilationFragment : Fragment() {
                 .build()
             cardStackLayoutManager.setSwipeAnimationSetting(swipeSettings)
             binding.cardStackView.swipe()
-            // TODO: make dislike request
         }
     }
 
@@ -102,7 +90,40 @@ class CompilationFragment : Fragment() {
                 .build()
             cardStackLayoutManager.setSwipeAnimationSetting(swipeSettings)
             binding.cardStackView.swipe()
-            // TODO: make like request
         }
+    }
+
+    private fun onCardSwiped(direction: Direction?) {
+        if (direction == Direction.Right) {
+            lastCardDirection = direction
+        } else if (direction == Direction.Left) {
+            lastCardDirection = direction
+        }
+        onCardDisappeared(cardStackLayoutManager.topPosition)
+    }
+
+    private fun onCardAppeared(position: Int) {
+        binding.movieNameTextView.text = adapter.currentList[position]
+    }
+
+    private fun onCardDisappeared(position: Int) {
+        if (position == listStr.size) {
+            setupViewsVisibilityOnLastCardSwiped()
+        }
+        if (lastCardDirection == Direction.Left) {
+            //TODO: send dislike request
+        } else {
+            //TODO: send like request
+        }
+    }
+
+    private fun setupViewsVisibilityOnLastCardSwiped() {
+        binding.movieNameTextView.visibility = View.GONE
+        binding.cardStackView.visibility = View.GONE
+        binding.likeButton.visibility = View.GONE
+        binding.dislikeButton.visibility = View.GONE
+        binding.playButton.visibility = View.GONE
+        binding.tvImageView.visibility = View.VISIBLE
+        binding.moviesOverTextView.visibility = View.VISIBLE
     }
 }

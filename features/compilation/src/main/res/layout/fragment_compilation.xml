@@ -15,6 +15,7 @@
         android:scaleX="1.1"
         android:scaleY="1.1"
         android:src="@drawable/play_button_icon"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/dislikeButton"
         app:layout_constraintEnd_toStartOf="@+id/likeButton"
         app:layout_constraintStart_toEndOf="@+id/dislikeButton"
@@ -24,24 +25,27 @@
         android:id="@+id/cardStackView"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:clipToPadding="false"
         android:paddingHorizontal="@dimen/margin_24"
         android:paddingTop="@dimen/margin_24"
         android:paddingBottom="@dimen/margin_32"
+        android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/playButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        android:clipToPadding="false"
+        app:layout_constraintTop_toBottomOf="@+id/movieNameTextView"
         tools:ignore="SpeakableTextPresentCheck"
         tools:listitem="@layout/card_item_layout" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/movieNameTextView"
         style="@style/Theme.CinemaProject.Headline4"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_24"
+        android:gravity="center"
         android:text="@string/undefined"
+        android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/cardStackView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -58,6 +62,7 @@
         android:scaleX="1.1"
         android:scaleY="1.1"
         android:src="@drawable/dislide_button_icon"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/playButton"
         app:layout_constraintHorizontal_bias="0.5"
@@ -74,10 +79,35 @@
         android:scaleX="1.1"
         android:scaleY="1.1"
         android:src="@drawable/like_button_icon"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/playButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/playButton"
         app:layout_constraintTop_toTopOf="@+id/playButton" />
+
+    <ImageView
+        android:id="@+id/tvImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/compilation_tv_icon"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/moviesOverTextView"
+        style="@style/Theme.CinemaProject.Text3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_32"
+        android:layout_marginTop="@dimen/margin_32"
+        android:text="@string/compilation_ended"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvImageView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
