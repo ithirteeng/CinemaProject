@@ -33,6 +33,7 @@ dependencies {
     implementation project(":shared:network")
     implementation project(":shared:token")
     implementation project(":shared:customextensions")
+    implementation project(":shared:errorhandler")
     implementation project(":shared:validators")
     implementation project(":shared:userstorage")
     implementation project(":shared:movies")
