@@ -20,6 +20,7 @@ class CompilationRepositoryImpl(
 
     override suspend fun deleteMovieFromCompilation(movieId: String): Result<Unit> {
         return try {
+            remoteDatasource.deleteMovieFromCompilation(movieId)
             Result.success(Unit)
         } catch (e: Exception) {
             Result.failure(e)

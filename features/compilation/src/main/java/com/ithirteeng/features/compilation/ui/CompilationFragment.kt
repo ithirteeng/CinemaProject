@@ -7,14 +7,19 @@ import android.view.ViewGroup
 import android.view.animation.AccelerateInterpolator
 import androidx.fragment.app.Fragment
 import com.github.terrakok.cicerone.androidx.FragmentScreen
+import com.ithirteeng.errorhandler.domain.ErrorModel
+import com.ithirteeng.errorhandler.presentation.ErrorHandler
 import com.ithirteeng.features.compilation.R
 import com.ithirteeng.features.compilation.databinding.FragmentCompilationBinding
+import com.ithirteeng.features.compilation.presentation.CompilationFragmentViewModel
 import com.ithirteeng.features.compilation.ui.adapter.CardStackAdapter
 import com.ithirteeng.features.compilation.ui.utils.CardStackListener
+import com.ithirteeng.shared.movies.entity.MovieEntity
 import com.yuyakaido.android.cardstackview.CardStackLayoutManager
 import com.yuyakaido.android.cardstackview.Direction
 import com.yuyakaido.android.cardstackview.Duration
 import com.yuyakaido.android.cardstackview.SwipeAnimationSetting
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CompilationFragment : Fragment() {
 
@@ -24,18 +29,13 @@ class CompilationFragment : Fragment() {
 
     private lateinit var binding: FragmentCompilationBinding
 
-    private val listStr = listOf(
-        "1",
-        "2",
-        "3",
-        "4",
-        "5",
-        "6"
-    )
+    private val viewModel: CompilationFragmentViewModel by viewModel()
 
     private lateinit var lastCardDirection: Direction
 
-    private val adapter = CardStackAdapter()
+    private val cardStackAdapter = CardStackAdapter()
+
+    private lateinit var moviesList: List<MovieEntity>
 
     private val cardStackLayoutManager by lazy {
         CardStackLayoutManager(
@@ -47,7 +47,6 @@ class CompilationFragment : Fragment() {
         )
     }
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -55,18 +54,33 @@ class CompilationFragment : Fragment() {
         val layout = inflater.inflate(R.layout.fragment_compilation, container, false)
         binding = FragmentCompilationBinding.bind(layout)
 
-        setupCardStackView()
+        onGettingMoviesList()
+
         onDislikeButtonClick()
         onLikeButtonClick()
 
-        adapter.submitList(listStr)
         return binding.root
+    }
+
+    private fun onGettingMoviesList() {
+        viewModel.makeGetMoviesListRequest { handleErrors(it) }
+        binding.progressBar.visibility = View.VISIBLE
+        binding.movieNameTextView.text = ""
+        viewModel.getMoviesListLiveData().observe(this.viewLifecycleOwner) {
+            moviesList = it
+            cardStackAdapter.submitList(it)
+            if (it.isEmpty()) {
+                setupViewsVisibilityOnLastCardSwiped()
+            }
+            setupCardStackView()
+            binding.progressBar.visibility = View.GONE
+        }
     }
 
     private fun setupCardStackView() {
         cardStackLayoutManager.setMaxDegree(-20.0f)
         binding.cardStackView.layoutManager = cardStackLayoutManager
-        binding.cardStackView.adapter = adapter
+        binding.cardStackView.adapter = cardStackAdapter
     }
 
     private fun onDislikeButtonClick() {
@@ -103,18 +117,21 @@ class CompilationFragment : Fragment() {
     }
 
     private fun onCardAppeared(position: Int) {
-        binding.movieNameTextView.text = adapter.currentList[position]
+        binding.movieNameTextView.text = cardStackAdapter.currentList[position].name
     }
 
     private fun onCardDisappeared(position: Int) {
-        if (position == listStr.size) {
+        if (position == moviesList.size) {
             setupViewsVisibilityOnLastCardSwiped()
         }
         if (lastCardDirection == Direction.Left) {
-            //TODO: send dislike request
-        } else {
-            //TODO: send like request
+            viewModel.deleteMovieFromCompilation(moviesList[position - 1].id) { handleErrors(it) }
         }
+    }
+
+    private fun handleErrors(errorModel: ErrorModel) {
+        childFragmentManager.executePendingTransactions()
+        ErrorHandler.showErrorDialog(requireContext(), childFragmentManager, errorModel)
     }
 
     private fun setupViewsVisibilityOnLastCardSwiped() {
