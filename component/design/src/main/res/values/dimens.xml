@@ -19,9 +19,11 @@
     <dimen name="margin_22">22dp</dimen>
     <dimen name="margin_24">24dp</dimen>
     <dimen name="margin_32">32dp</dimen>
+    <dimen name="margin_44">44dp</dimen>
     <dimen name="margin_64">64dp</dimen>
 
     <!-- const sizes -->
+    <dimen name="size_30">30dp</dimen>
     <dimen name="size_100">100dp</dimen>
     <dimen name="size_144">144dp</dimen>
     <dimen name="size_240">240dp</dimen>

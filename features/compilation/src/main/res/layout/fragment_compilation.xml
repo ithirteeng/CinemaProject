@@ -4,18 +4,123 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    tools:context=".CompilationFragment">
+    tools:context=".ui.CompilationFragment">
+
+    <ImageButton
+        android:id="@+id/playButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent"
+        android:contentDescription="@string/play_button_content_description"
+        android:scaleX="1.1"
+        android:scaleY="1.1"
+        android:src="@drawable/play_button_icon"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/dislikeButton"
+        app:layout_constraintEnd_toStartOf="@+id/likeButton"
+        app:layout_constraintStart_toEndOf="@+id/dislikeButton"
+        app:layout_constraintTop_toTopOf="@+id/dislikeButton" />
 
     <com.yuyakaido.android.cardstackview.CardStackView
         android:id="@+id/cardStackView"
-        android:background="@color/red"
-        android:layout_width="400dp"
-        android:layout_height="400dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:paddingHorizontal="@dimen/margin_24"
+        android:paddingTop="@dimen/margin_24"
+        android:paddingBottom="@dimen/margin_32"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/playButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/movieNameTextView"
+        tools:ignore="SpeakableTextPresentCheck"
+        tools:listitem="@layout/card_item_layout" />
+
+    <TextView
+        android:id="@+id/movieNameTextView"
+        style="@style/Theme.CinemaProject.Headline4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_24"
+        android:gravity="center"
+        android:text="@string/undefined"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/cardStackView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="TextContrastCheck" />
+
+    <ImageButton
+        android:id="@+id/dislikeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_44"
+        android:layout_marginBottom="@dimen/margin_32"
+        android:background="@color/transparent"
+        android:contentDescription="@string/dislike_button_content_description"
+        android:scaleX="1.1"
+        android:scaleY="1.1"
+        android:src="@drawable/dislide_button_icon"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/playButton"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageButton
+        android:id="@+id/likeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_44"
+        android:background="@color/transparent"
+        android:contentDescription="@string/like_button_content_description"
+        android:scaleX="1.1"
+        android:scaleY="1.1"
+        android:src="@drawable/like_button_icon"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/playButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/playButton"
+        app:layout_constraintTop_toTopOf="@+id/playButton" />
+
+    <ImageView
+        android:id="@+id/tvImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/compilation_tv_icon"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="SpeakableTextPresentCheck" />
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/moviesOverTextView"
+        style="@style/Theme.CinemaProject.Text3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_32"
+        android:layout_marginTop="@dimen/margin_32"
+        android:text="@string/compilation_ended"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvImageView" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="@style/Theme.CinemaProject.ProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

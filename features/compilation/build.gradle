@@ -20,10 +20,12 @@ dependencies {
     implementation Dependencies.JUNIT
     implementation Dependencies.CICERONE
     implementation Dependencies.CARD_STACK
+    implementation Dependencies.GLIDE
 
     implementation project(":component:design")
     implementation project(":shared:network")
     implementation project(":shared:token")
     implementation project(":shared:errorhandler")
     implementation project(":shared:customextensions")
+    implementation project(":shared:movies")
 }

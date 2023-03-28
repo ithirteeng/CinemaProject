@@ -4,6 +4,8 @@ import android.app.Application
 import com.ithirteeng.cinemaproject.di.ciceroneModule
 import com.ithirteeng.cinemaproject.di.networkModule
 import com.ithirteeng.cinemaproject.di.routersModule
+import com.ithirteeng.errorhandler.di.errorModule
+import com.ithirteeng.features.compilation.di.compilationModule
 import com.ithirteeng.features.entry.login.di.loginModule
 import com.ithirteeng.features.entry.registration.di.registrationModule
 import com.ithirteeng.features.main.di.mainModule
@@ -31,11 +33,13 @@ class App : Application() {
                 validatorsModule,
                 userModule,
                 tokenModule,
+                errorModule,
                 splashModule,
                 registrationModule,
                 loginModule,
                 mainHostModule,
-                mainModule
+                mainModule,
+                compilationModule
             )
         }
     }

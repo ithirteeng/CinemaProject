@@ -5,6 +5,9 @@
     <string name="exit_button_content_description">close dialog fragment</string>
     <string name="main_screen_poster_content_description">main poster</string>
     <string name="play_button_content_description">watch film</string>
+    <string name="like_button_content_description">like film</string>
+    <string name="dislike_button_content_description">dislike film</string>
+
 
     <string name="default_error">error</string>
     <string name="default_error_text">this is example of default error text</string>
@@ -37,6 +40,8 @@
     <string name="compilation">Compilation</string>
     <string name="collections">Collections</string>
     <string name="profile">Profile</string>
+
+    <string name="compilation_ended">Movies compilation is over</string>
 
     <string name="in_trend">In trend</string>
     <string name="new_text">New</string>
