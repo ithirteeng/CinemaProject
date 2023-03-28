@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CompilationFragment">
+    tools:context=".ui.CompilationFragment">
 
     <ImageButton
         android:id="@+id/playButton"
@@ -24,16 +24,16 @@
         android:id="@+id/cardStackView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginHorizontal="@dimen/margin_24"
-        android:layout_marginTop="@dimen/margin_24"
-        android:layout_marginBottom="@dimen/margin_32"
-
-        android:background="@color/red"
+        android:paddingHorizontal="@dimen/margin_24"
+        android:paddingTop="@dimen/margin_24"
+        android:paddingBottom="@dimen/margin_32"
         app:layout_constraintBottom_toTopOf="@+id/playButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
-        tools:ignore="SpeakableTextPresentCheck" />
+        android:clipToPadding="false"
+        tools:ignore="SpeakableTextPresentCheck"
+        tools:listitem="@layout/card_item_layout" />
 
     <TextView
         android:id="@+id/textView"
