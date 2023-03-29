@@ -2,13 +2,16 @@ package com.ithirteeng.features.movieinfo.ui
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.github.terrakok.cicerone.androidx.FragmentScreen
+import com.ithirteeng.component.design.R.*
 import com.ithirteeng.errorhandler.domain.ErrorModel
 import com.ithirteeng.errorhandler.presentation.ErrorHandler
 import com.ithirteeng.features.movieinfo.R
@@ -17,6 +20,7 @@ import com.ithirteeng.features.movieinfo.presentation.MovieFragmentViewModel
 import com.ithirteeng.features.movieinfo.ui.adapter.CadresAdapter
 import com.ithirteeng.features.movieinfo.ui.adapter.EpisodesAdapter
 import com.ithirteeng.shared.movies.entity.MovieEntity
+import com.ithirteeng.shared.movies.entity.TagEntity
 import com.ithirteeng.shared.movies.utils.MoviesListType
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -100,12 +104,35 @@ class MovieFragment : Fragment() {
     private fun setupScreenData(movieEntity: MovieEntity?) {
         binding.descriptionTextView.text = movieEntity?.description
         binding.ageTextView.text = movieEntity?.age
+        movieEntity?.tags?.let { setupGenresFlexbox(it) }
         Glide
             .with(binding.root)
             .load(movieEntity?.poster)
-            .placeholder(binding.root.context.getDrawable(com.ithirteeng.component.design.R.drawable.image_placeholder))
-            .error(binding.root.context.getDrawable(com.ithirteeng.component.design.R.drawable.image_placeholder))
+            .placeholder(binding.root.context.getDrawable(drawable.image_placeholder))
+            .error(binding.root.context.getDrawable(drawable.image_placeholder))
             .into(binding.mainPosterImageView)
+    }
+
+    private fun setupGenresFlexbox(genres: List<TagEntity>) {
+        binding.genresFlexbox.removeAllViews()
+        for (genre in genres) {
+            val textView = TextView(
+                ContextThemeWrapper(
+                    requireActivity(),
+                    style.Theme_CinemaProject_GenreStyle
+                )
+            )
+            textView.text = genre.categoryName
+            binding.genresFlexbox.addView(textView)
+            setTextViewMargin(textView)
+        }
+    }
+
+    private fun setTextViewMargin(textView: TextView) {
+        val params = textView.layoutParams as ViewGroup.MarginLayoutParams
+        params.bottomMargin = 20
+        params.marginEnd = 20
+
     }
 
     private fun handleErrors(errorModel: ErrorModel) {

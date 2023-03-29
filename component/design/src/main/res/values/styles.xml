@@ -113,4 +113,11 @@
         <item name="android:visibility">gone</item>
     </style>
 
+    <style name="Theme.CinemaProject.GenreStyle" parent="Theme.CinemaProject.Text1">
+        <item name="android:background">@drawable/red_button_background</item>
+        <item name="android:paddingHorizontal">@dimen/padding_16</item>
+        <item name="android:paddingVertical">@dimen/padding_1</item>
+        <item name="android:layout_marginHorizontal">@dimen/margin_4</item>
+    </style>
+
 </resources>
