@@ -54,6 +54,7 @@ object ErrorHandler {
             401 -> ErrorModel(errorCode, context.getString(R.string.unauthorized_error), error)
             403 -> ErrorModel(errorCode, context.getString(R.string.forbidden), error)
             404 -> ErrorModel(errorCode, context.getString(R.string.not_found), error)
+            409 -> ErrorModel(errorCode, context.getString(R.string.conflict_error), error)
             422 -> ErrorModel(errorCode, errorModel.errorDescription, error)
             1309 -> ErrorModel(errorCode, context.getString(R.string.connection_error), error)
             else -> ErrorModel(errorCode, context.getString(R.string.developer_goofy), error)

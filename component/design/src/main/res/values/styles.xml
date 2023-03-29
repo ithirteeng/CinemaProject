@@ -3,7 +3,7 @@
 
     <!--  rectangle buttons styles  -->
     <style name="Theme.CinemaProject.ButtonStyle">
-        <item name="android:fontFamily">@font/roboto_regular</item>
+        <item name="android:fontFamily">@font/roboto_medium</item>
         <item name="android:layout_weight">700</item>
         <item name="textAllCaps">false</item>
         <item name="android:layout_gravity">center</item>
@@ -22,7 +22,6 @@
     <style name="Theme.CinemaProject.FilledButtonStyle" parent="Theme.CinemaProject.ButtonStyle">
         <item name="android:textColor">@drawable/filled_button_on_click_selector</item>
         <item name="android:background">@drawable/red_button_background</item>
-        <item name="android:textStyle">bold</item>
     </style>
 
     <!--  edit texts style  -->

@@ -14,6 +14,7 @@
     <string name="undefined">Undefined</string>
 
     <string name="internal_server_error">Internal Server Error</string>
+    <string name="conflict_error">User with this email already exists!</string>
     <string name="unauthorized_error">Unauthorized</string>
     <string name="bad_request">Bad Request</string>
     <string name="forbidden">Forbidden</string>
