@@ -11,10 +11,12 @@ data class MovieEntity(
     val description: String,
     @SerializedName("age")
     val age: String,
+    @SerializedName("chatInfo")
+    val chatInfo: ChatEntity,
     @SerializedName("imageUrls")
     val imageUrls: List<String>,
     @SerializedName("poster")
     val poster: String,
     @SerializedName("tags")
-    val tags: List<TagEntity>
+    val tags: List<TagEntity>,
 )

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/padding_16">
+
+    <View
+        android:id="@+id/clickableView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <ImageView
+        android:id="@+id/posterImageView"
+        android:layout_width="@dimen/size_128"
+        android:layout_height="@dimen/size_72"
+        android:layout_marginStart="@dimen/margin_16"
+        android:contentDescription="@string/main_screen_poster_content_description"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/image_placeholder" />
+
+    <TextView
+        android:id="@+id/episodeNameTextView"
+        style="@style/Theme.CinemaProject.Headline2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_16"
+        android:text="@string/undefined"
+        app:layout_constraintBottom_toTopOf="@+id/episodeDescriptionTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/posterImageView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="spread_inside" />
+
+    <TextView
+        android:id="@+id/episodeDescriptionTextView"
+        style="@style/Theme.CinemaProject.Text2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_16"
+        android:layout_marginTop="@dimen/margin_12"
+        android:layout_marginBottom="@dimen/margin_6"
+        android:maxLines="2"
+        android:text="@string/undefined"
+        app:layout_constraintBottom_toTopOf="@+id/episodeYearTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/posterImageView"
+        app:layout_constraintTop_toBottomOf="@+id/episodeNameTextView" />
+
+    <TextView
+        android:id="@+id/episodeYearTextView"
+        style="@style/Theme.CinemaProject.Text2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_16"
+        android:text="@string/undefined"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/posterImageView"
+        app:layout_constraintTop_toBottomOf="@+id/episodeDescriptionTextView" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -44,6 +44,10 @@
 
     <string name="compilation_ended">Movies compilation is over</string>
 
+    <string name="description">Description</string>
+    <string name="cadres">Cadres</string>
+    <string name="episodes">Episodes</string>
+
     <string name="in_trend">In trend</string>
     <string name="new_text">New</string>
     <string name="for_you">For you</string>

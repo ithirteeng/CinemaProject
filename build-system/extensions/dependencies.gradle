@@ -25,6 +25,7 @@ ext.Dependencies =
                 GSON_CONVERTER              : "com.squareup.retrofit2:converter-gson:${Versions.RETROFIT}",
 
                 CARD_STACK                  : "com.yuyakaido.android:card-stack-view:${Versions.CARD_STACK}",
+                FLEXBOX                     : "com.google.android.flexbox:flexbox:${Versions.FLEXBOX}",
 
                 GRADLE                      : "com.android.tools.build:gradle:${Versions.GRADLE}",
                 CONSTRAINT_LAYOUT           : "androidx.constraintlayout:constraintlayout:${Versions.CONSTRAINT_LAYOUT}",
