@@ -49,6 +49,8 @@ class MovieFragment : Fragment() {
 
     private lateinit var moviesListType: MoviesListType
 
+    private var finishedRequests = 0
+
     private val cadresAdapter by lazy {
         CadresAdapter()
     }
@@ -71,6 +73,7 @@ class MovieFragment : Fragment() {
         moviesListType = arguments?.getSerializable(MOVIE_TYPE) as MoviesListType
 
         onGettingMovie()
+        onGettingEpisodesList()
 
         binding.episodesRecyclerView.adapter = episodesAdapter
         binding.cadresRecyclerView.adapter = cadresAdapter
@@ -82,9 +85,10 @@ class MovieFragment : Fragment() {
         viewModel.makeGetMoviesListRequest(movieId, moviesListType) {
             handleErrors(it)
         }
+        binding.progressBar.visibility = View.VISIBLE
         viewModel.getMovieLiveData().observe(this.viewLifecycleOwner) {
-            onGettingEpisodesList()
-
+            finishedRequests++
+            onFinishedRequests()
             cadresAdapter.submitList(it?.imageUrls)
             setupScreenData(it)
         }
@@ -95,7 +99,10 @@ class MovieFragment : Fragment() {
         viewModel.makeGetMovieEpisodesListRequest(movieId) {
             handleErrors(it)
         }
+        binding.progressBar.visibility = View.VISIBLE
         viewModel.getMovieEpisodesLiveData().observe(this.viewLifecycleOwner) {
+            finishedRequests++
+            onFinishedRequests()
             episodesAdapter.submitList(it)
         }
     }
@@ -122,7 +129,7 @@ class MovieFragment : Fragment() {
                     style.Theme_CinemaProject_GenreStyle
                 )
             )
-            textView.text = genre.categoryName
+            textView.text = genre.tagName
             binding.genresFlexbox.addView(textView)
             setTextViewMargin(textView)
         }
@@ -130,9 +137,16 @@ class MovieFragment : Fragment() {
 
     private fun setTextViewMargin(textView: TextView) {
         val params = textView.layoutParams as ViewGroup.MarginLayoutParams
-        params.bottomMargin = 20
-        params.marginEnd = 20
+        params.bottomMargin = 25
+        params.marginEnd = 25
 
+    }
+
+    private fun onFinishedRequests() {
+        if (finishedRequests == 2) {
+            binding.progressBar.visibility = View.GONE
+            binding.watchButton.visibility = View.VISIBLE
+        }
     }
 
     private fun handleErrors(errorModel: ErrorModel) {
