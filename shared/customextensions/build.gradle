@@ -10,5 +10,4 @@ dependencies {
     implementation Dependencies.MATERIAL
     implementation Dependencies.FRAGMENT
     implementation Dependencies.CONSTRAINT_LAYOUT
-    implementation Dependencies.JUNIT
 }

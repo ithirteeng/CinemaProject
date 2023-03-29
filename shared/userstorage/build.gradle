@@ -10,7 +10,6 @@ dependencies {
     implementation Dependencies.MATERIAL
     implementation Dependencies.KOIN_CORE
     implementation Dependencies.KOIN_ANDROID
-    implementation Dependencies.JUNIT
     implementation Dependencies.GSON
     implementation Dependencies.GSON_CONVERTER
 }
