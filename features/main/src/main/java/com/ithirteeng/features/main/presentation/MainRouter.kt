@@ -1,5 +1,5 @@
 package com.ithirteeng.features.main.presentation
 
 interface MainRouter {
-    fun navigateToMovieScreen()
+    fun navigateToMovieScreen(movieId: String)
 }

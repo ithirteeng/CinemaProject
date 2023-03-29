@@ -5,9 +5,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.github.terrakok.cicerone.androidx.FragmentScreen
 import com.ithirteeng.features.movieinfo.databinding.FragmentMovieBinding
 
+
 class MovieFragment : Fragment() {
+
+    companion object {
+        private const val MOVIE_ID = "MOVIE_ID"
+
+        fun provideMovieScreen(movieId: String) = FragmentScreen {
+            MovieFragment().apply {
+                val bundle = Bundle()
+                bundle.putString(MOVIE_ID, movieId)
+                arguments = bundle
+            }
+        }
+    }
 
     private lateinit var binding: FragmentMovieBinding
 
@@ -17,6 +31,8 @@ class MovieFragment : Fragment() {
     ): View {
         val layout = inflater.inflate(R.layout.fragment_movie, container, false)
         binding = FragmentMovieBinding.bind(layout)
+
+        binding.descriptionTextView.text = arguments?.getString(MOVIE_ID)
 
         return binding.root
     }

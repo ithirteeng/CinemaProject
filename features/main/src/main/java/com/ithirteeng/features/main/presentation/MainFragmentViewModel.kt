@@ -28,8 +28,8 @@ class MainFragmentViewModel(
     private val getMainPosterUseCase: GetMainPosterUseCase,
 ) : AndroidViewModel(application) {
 
-    fun navigateToMovieScreen() =
-        router.navigateToMovieScreen()
+    fun navigateToMovieScreen(movieId: String) =
+        router.navigateToMovieScreen(movieId)
 
 
     private val movieEpisodesLiveData = MutableLiveData<List<EpisodeEntity>>()

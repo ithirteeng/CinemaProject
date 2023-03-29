@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.github.terrakok.cicerone.androidx.FragmentScreen
@@ -36,29 +35,25 @@ class MainFragment : Fragment() {
 
     private val inTrendAdapter by lazy {
         InTrendMoviesAdapter {
-            Toast.makeText(requireContext(), it.name, Toast.LENGTH_SHORT).show()
-            // TODO: navigateToMovieInfo
+            viewModel.navigateToMovieScreen(it.id)
         }
     }
 
     private val recentViewedAdapter by lazy {
         RecentViewedMoviesAdapter {
-            Toast.makeText(requireContext(), "play ${it.name}", Toast.LENGTH_SHORT).show()
-            // TODO: navigateToMovieInfo
+            viewModel.navigateToMovieScreen(it.id)
         }
     }
 
     private val newMoviesAdapter by lazy {
         NewMoviesAdapter {
-            Toast.makeText(requireContext(), it.name, Toast.LENGTH_SHORT).show()
-            // TODO: navigateToMovieInfo
+            viewModel.navigateToMovieScreen(it.id)
         }
     }
 
     private val forYouMoviesAdapter by lazy {
         ForYouMoviesAdapter {
-            Toast.makeText(requireContext(), it.name, Toast.LENGTH_SHORT).show()
-            // TODO: navigateToMovieInfo
+            viewModel.navigateToMovieScreen(it.id)
         }
     }
 
@@ -70,12 +65,6 @@ class MainFragment : Fragment() {
         binding = FragmentMainBinding.bind(layout)
         finishedRequests = 0
 
-        return binding.root
-    }
-
-    override fun onResume() {
-        super.onResume()
-
         onGettingMainPoster()
         onGettingInTrendMoviesList()
         onGettingRecentViewedMoviesList()
@@ -86,6 +75,8 @@ class MainFragment : Fragment() {
         binding.recentRecyclerView.adapter = recentViewedAdapter
         binding.newRecyclerView.adapter = newMoviesAdapter
         binding.forYouRecyclerView.adapter = forYouMoviesAdapter
+
+        return binding.root
     }
 
     private fun onGettingMainPoster() {
