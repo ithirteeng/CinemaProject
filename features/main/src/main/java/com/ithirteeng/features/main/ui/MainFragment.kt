@@ -18,6 +18,7 @@ import com.ithirteeng.features.main.ui.adapter.ForYouMoviesAdapter
 import com.ithirteeng.features.main.ui.adapter.InTrendMoviesAdapter
 import com.ithirteeng.features.main.ui.adapter.NewMoviesAdapter
 import com.ithirteeng.features.main.ui.adapter.RecentViewedMoviesAdapter
+import com.ithirteeng.shared.movies.utils.MoviesListType
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainFragment : Fragment() {
@@ -35,25 +36,25 @@ class MainFragment : Fragment() {
 
     private val inTrendAdapter by lazy {
         InTrendMoviesAdapter {
-            viewModel.navigateToMovieScreen(it.id)
+            viewModel.navigateToMovieScreen(it.id, MoviesListType.IN_TREND)
         }
     }
 
     private val recentViewedAdapter by lazy {
         RecentViewedMoviesAdapter {
-            viewModel.navigateToMovieScreen(it.id)
+            viewModel.navigateToMovieScreen(it.id, MoviesListType.LAST_VIEW)
         }
     }
 
     private val newMoviesAdapter by lazy {
         NewMoviesAdapter {
-            viewModel.navigateToMovieScreen(it.id)
+            viewModel.navigateToMovieScreen(it.id, MoviesListType.NEW)
         }
     }
 
     private val forYouMoviesAdapter by lazy {
         ForYouMoviesAdapter {
-            viewModel.navigateToMovieScreen(it.id)
+            viewModel.navigateToMovieScreen(it.id, MoviesListType.FOR_ME)
         }
     }
 

@@ -12,7 +12,7 @@ import com.ithirteeng.features.movieinfo.R
 import com.ithirteeng.features.movieinfo.databinding.EpisodeItemLayoutBinding
 import com.ithirteeng.shared.movies.entity.EpisodeEntity
 
-class EpisodesAdapter(private val onEpisodeClick: (episodeId: String) -> Unit) :
+class EpisodesAdapter(private val onEpisodeClick: (episodeId: EpisodeEntity) -> Unit) :
     ListAdapter<EpisodeEntity, EpisodesAdapter.EpisodesViewHolder>(EpisodesEntityDiffCallback) {
 
     inner class EpisodesViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -22,7 +22,7 @@ class EpisodesAdapter(private val onEpisodeClick: (episodeId: String) -> Unit) :
 
         init {
             binding.clickableView.setOnClickListener {
-                onEpisodeClick(episodeEntity.episodeId)
+                onEpisodeClick(episodeEntity)
             }
         }
 

@@ -10,22 +10,21 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.ithirteeng.features.movieinfo.R
 import com.ithirteeng.features.movieinfo.databinding.CadreItemLayoutBinding
-import com.ithirteeng.shared.movies.entity.MovieEntity
 
 class CadresAdapter :
-    ListAdapter<MovieEntity, CadresAdapter.CadresViewHolder>(MovieDiffCallBack) {
+    ListAdapter<String, CadresAdapter.CadresViewHolder>(MovieDiffCallBack) {
 
     inner class CadresViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val binding = CadreItemLayoutBinding.bind(view)
 
-        private lateinit var movieEntity: MovieEntity
+        private lateinit var movieImageUrl: String
 
         @SuppressLint("UseCompatLoadingForDrawables")
-        fun bind(movieEntity: MovieEntity) {
-            this.movieEntity = movieEntity
+        fun bind(url: String) {
+            this.movieImageUrl = url
             Glide
                 .with(binding.root)
-                .load(movieEntity.poster)
+                .load(url)
                 .placeholder(binding.root.context.getDrawable(com.ithirteeng.component.design.R.drawable.image_placeholder))
                 .error(binding.root.context.getDrawable(com.ithirteeng.component.design.R.drawable.image_placeholder))
                 .into(binding.posterImageView)
@@ -41,19 +40,19 @@ class CadresAdapter :
     }
 
     override fun onBindViewHolder(holder: CadresViewHolder, position: Int) {
-        val movieEntity = getItem(position)
-        holder.bind(movieEntity)
+        val imageUrl = getItem(position)
+        holder.bind(imageUrl)
     }
 
 
 }
 
-object MovieDiffCallBack : DiffUtil.ItemCallback<MovieEntity>() {
-    override fun areItemsTheSame(oldItem: MovieEntity, newItem: MovieEntity): Boolean =
-        oldItem.id == newItem.id
+object MovieDiffCallBack : DiffUtil.ItemCallback<String>() {
+    override fun areItemsTheSame(oldItem: String, newItem: String): Boolean =
+        oldItem == newItem
 
 
-    override fun areContentsTheSame(oldItem: MovieEntity, newItem: MovieEntity): Boolean =
+    override fun areContentsTheSame(oldItem: String, newItem: String): Boolean =
         oldItem == newItem
 
 }

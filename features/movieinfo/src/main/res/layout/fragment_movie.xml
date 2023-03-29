@@ -48,11 +48,16 @@
             android:id="@+id/ageTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/red"
+            android:textSize="@dimen/text_size_14"
+            android:fontFamily="@font/roboto_medium"
+            android:textFontWeight="700"
             android:layout_marginHorizontal="@dimen/margin_16"
             app:layout_constraintBottom_toBottomOf="@id/chatButton"
             app:layout_constraintEnd_toStartOf="@id/chatButton"
             app:layout_constraintStart_toEndOf="@id/seasonNumberTextView"
-            app:layout_constraintTop_toTopOf="@id/chatButton" />
+            app:layout_constraintTop_toTopOf="@id/chatButton"
+            tools:targetApi="p" />
 
         <ImageButton
             android:id="@+id/chatButton"

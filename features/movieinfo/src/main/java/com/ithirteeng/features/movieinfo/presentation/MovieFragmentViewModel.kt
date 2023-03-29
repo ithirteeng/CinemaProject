@@ -10,6 +10,7 @@ import com.ithirteeng.features.movieinfo.domain.usecase.GetMovieEpisodesListUseC
 import com.ithirteeng.features.movieinfo.domain.usecase.GetMoviesListUseCase
 import com.ithirteeng.shared.movies.entity.EpisodeEntity
 import com.ithirteeng.shared.movies.entity.MovieEntity
+import com.ithirteeng.shared.movies.utils.MoviesListType
 import com.ithirteeng.shared.network.common.NoConnectivityException
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
@@ -47,22 +48,28 @@ class MovieFragmentViewModel(
     }
 
 
-    private val moviesListLiveData = MutableLiveData<List<MovieEntity>>()
+    private val movieLiveData = MutableLiveData<MovieEntity?>()
 
-    fun getMoviesListLiveData(): LiveData<List<MovieEntity>> = moviesListLiveData
+    fun getMovieLiveData(): LiveData<MovieEntity?> = movieLiveData
 
-    private fun makeGetMoviesListRequest(
+    fun makeGetMoviesListRequest(
+        movieId: String,
+        moviesListType: MoviesListType,
         onErrorAppearance: (errorModel: ErrorModel) -> Unit,
     ) {
         viewModelScope.launch {
-            getMoviesListUseCase()
+            getMoviesListUseCase(moviesListType)
                 .onSuccess {
-                    moviesListLiveData.value = it
+                    movieLiveData.value = getMovieById(movieId, it)
                 }
                 .onFailure {
                     onErrorAppearance(setupErrorCode(it))
                 }
         }
+    }
+
+    private fun getMovieById(movieId: String, moviesList: List<MovieEntity>): MovieEntity? {
+        return moviesList.find { it.id == movieId }
     }
 
 

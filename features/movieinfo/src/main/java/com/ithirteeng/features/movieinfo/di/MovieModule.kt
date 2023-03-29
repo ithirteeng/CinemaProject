@@ -27,7 +27,8 @@ val movieModule = module {
         MovieFragmentViewModel(
             application = get(),
             getMoviesListUseCase = get(),
-            getMovieEpisodesListUseCase = get()
+            getMovieEpisodesListUseCase = get(),
+            router = get()
         )
     }
 }

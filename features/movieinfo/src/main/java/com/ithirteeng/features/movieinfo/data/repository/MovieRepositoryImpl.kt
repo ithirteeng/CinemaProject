@@ -4,13 +4,14 @@ import com.ithirteeng.features.movieinfo.data.datasource.MovieRemoteDatasource
 import com.ithirteeng.features.movieinfo.domain.repository.MovieRepository
 import com.ithirteeng.shared.movies.entity.EpisodeEntity
 import com.ithirteeng.shared.movies.entity.MovieEntity
+import com.ithirteeng.shared.movies.utils.MoviesListType
 
 class MovieRepositoryImpl(
     private val remoteDatasource: MovieRemoteDatasource,
 ) : MovieRepository {
-    override suspend fun getMoviesList(): Result<List<MovieEntity>> {
+    override suspend fun getMoviesList(moviesListType: MoviesListType): Result<List<MovieEntity>> {
         return try {
-            Result.success(remoteDatasource.getMoviesList())
+            Result.success(remoteDatasource.getMoviesList(moviesListType))
         } catch (e: Exception) {
             Result.failure(e)
         }
