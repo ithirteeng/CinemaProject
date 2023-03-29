@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment
 import com.github.terrakok.cicerone.androidx.FragmentScreen
 import com.ithirteeng.features.movieinfo.R
 import com.ithirteeng.features.movieinfo.databinding.FragmentMovieBinding
+import com.ithirteeng.features.movieinfo.presentation.MovieFragmentViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class MovieFragment : Fragment() {
@@ -24,6 +26,8 @@ class MovieFragment : Fragment() {
         }
     }
 
+    private val viewModel: MovieFragmentViewModel by viewModel()
+
     private lateinit var binding: FragmentMovieBinding
 
     override fun onCreateView(
@@ -33,8 +37,8 @@ class MovieFragment : Fragment() {
         val layout = inflater.inflate(R.layout.fragment_movie, container, false)
         binding = FragmentMovieBinding.bind(layout)
 
-        binding.descriptionTextView.text = arguments?.getString(MOVIE_ID)
-
         return binding.root
     }
+
+
 }

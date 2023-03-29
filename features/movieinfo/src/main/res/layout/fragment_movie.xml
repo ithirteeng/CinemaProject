@@ -116,7 +116,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/margin_16"
-            android:layout_marginBottom="@dimen/margin_8"
+            android:layout_marginBottom="@dimen/margin_16"
             android:text="@string/cadres"
             app:layout_constraintBottom_toTopOf="@id/cadresRecyclerView"
             app:layout_constraintEnd_toEndOf="parent"
@@ -133,7 +133,9 @@
             app:layout_constraintBottom_toTopOf="@id/episodesTextView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cadresTextView" />
+            app:layout_constraintTop_toBottomOf="@id/cadresTextView"
+            tools:ignore="SpeakableTextPresentCheck"
+            tools:listitem="@layout/cadre_item_layout" />
 
         <TextView
             android:id="@+id/episodesTextView"
@@ -141,7 +143,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/margin_16"
-            android:layout_marginBottom="@dimen/margin_8"
+            android:layout_marginBottom="@dimen/margin_16"
             android:text="@string/episodes"
             app:layout_constraintBottom_toTopOf="@id/episodesRecyclerView"
             app:layout_constraintEnd_toEndOf="parent"
@@ -157,7 +159,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/episodesTextView" />
+            app:layout_constraintTop_toBottomOf="@id/episodesTextView"
+            tools:listitem="@layout/episode_item_layout" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
