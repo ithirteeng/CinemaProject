@@ -19,5 +19,6 @@ ext.Versions =
                 COROUTINE                   : "1.6.2",
                 NAVIGATION                  : "2.5.3",
                 ENCRYPTED_SHARED_PREFERENCES: "1.0.0",
-                CARD_STACK                  : "2.3.4"
+                CARD_STACK                  : "2.3.4",
+                FLEXBOX                     : "3.0.0"
         ]
