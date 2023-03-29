@@ -2,7 +2,7 @@ package com.ithirteeng.cinemaproject.navigation.routers
 
 import com.github.terrakok.cicerone.Router
 import com.ithirteeng.features.main.presentation.MainRouter
-import com.ithirteeng.features.movieinfo.MovieFragment
+import com.ithirteeng.features.movieinfo.ui.MovieFragment
 
 class MainRouterImpl(
     private val router: Router,

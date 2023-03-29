@@ -1,4 +1,4 @@
-package com.ithirteeng.features.movieinfo
+package com.ithirteeng.features.movieinfo.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.github.terrakok.cicerone.androidx.FragmentScreen
+import com.ithirteeng.features.movieinfo.R
 import com.ithirteeng.features.movieinfo.databinding.FragmentMovieBinding
 
 
