@@ -11,18 +11,18 @@ class MainHostRouterImpl(
     private val router: Router
 ) : MainHostRouter {
     override fun navigateToMainScreen() {
-        router.replaceScreen(MainFragment.provideMainScreen)
+        router.newRootScreen(MainFragment.provideMainScreen)
     }
 
     override fun navigateToCompilationScreen() {
-        router.replaceScreen(CompilationFragment.provideCompilationScreen)
+        router.newRootScreen(CompilationFragment.provideCompilationScreen)
     }
 
     override fun navigateToProfileScreen() {
-        router.replaceScreen(ProfileFragment.provideProfileScreen)
+        router.newRootScreen(ProfileFragment.provideProfileScreen)
     }
 
     override fun navigateToCollectionsScreen() {
-        router.replaceScreen(CollectionsFragment.provideCollectionsScreen)
+        router.newRootScreen(CollectionsFragment.provideCollectionsScreen)
     }
 }

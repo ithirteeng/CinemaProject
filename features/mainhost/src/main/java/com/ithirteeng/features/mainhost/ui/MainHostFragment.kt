@@ -1,5 +1,6 @@
 package com.ithirteeng.features.mainhost.ui
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -29,20 +30,26 @@ class MainHostFragment : Fragment(), BottomNavigationView.OnNavigationItemSelect
     }
 
     private val navigationHolder: NavigatorHolder by inject(named(LOCAL_ROUTER))
+
     private val navigator by lazy {
-        AppNavigator(requireActivity(), R.id.mainHostContainer)
+        AppNavigator(requireActivity(), R.id.mainHostContainer, childFragmentManager)
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        viewModel.navigateToMainScreen()
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         val layout = inflater.inflate(R.layout.fragment_main_host, container, false)
         binding = FragmentMainHostBinding.bind(layout)
 
         binding.bottomNavBar.setOnNavigationItemSelectedListener(this)
 
-        viewModel.navigateToMainScreen()
+
         return binding.root
     }
 

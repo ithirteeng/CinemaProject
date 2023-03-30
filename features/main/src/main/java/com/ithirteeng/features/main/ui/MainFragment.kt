@@ -25,7 +25,7 @@ class MainFragment : Fragment() {
 
     companion object {
         val provideMainScreen = FragmentScreen { MainFragment() }
-        const val REQUEST_AMOUNT = 5
+        private const val REQUEST_AMOUNT = 5
     }
 
     private lateinit var binding: FragmentMainBinding

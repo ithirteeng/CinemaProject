@@ -70,58 +70,92 @@ class MainFragmentViewModel(
 
     private val posterLiveData = MutableLiveData<PosterEntity>()
 
+    private var posterCachedData: PosterEntity? = null
+
     fun getPosterLiveData(): LiveData<PosterEntity> = posterLiveData
 
     fun makeGetPosterRequest(onErrorAppearance: (errorModel: ErrorModel) -> Unit) {
-        viewModelScope.launch {
-            getMainPosterUseCase()
-                .onSuccess {
-                    posterLiveData.value = it
-                }
-                .onFailure {
-                    onErrorAppearance(setupErrorCode(it))
-                }
+        if (posterCachedData != null) {
+            posterLiveData.value = posterCachedData!!
+        } else {
+            viewModelScope.launch {
+                getMainPosterUseCase()
+                    .onSuccess {
+                        posterCachedData = it
+                        posterLiveData.value = it
+                    }
+                    .onFailure {
+                        onErrorAppearance(setupErrorCode(it))
+                    }
+            }
         }
     }
 
-
     private val recentMoviesLiveData = MutableLiveData<List<MovieEntity>>()
+
+    private var recentMoviesCachedData: List<MovieEntity>? = null
 
     fun getRecentMoviesLiveData(): LiveData<List<MovieEntity>> = recentMoviesLiveData
 
     fun makeGetRecentMoviesListRequest(onErrorAppearance: (errorModel: ErrorModel) -> Unit) {
-        makeGetMoviesListRequest(MoviesListType.LAST_VIEW, onErrorAppearance) {
-            recentMoviesLiveData.value = it
+        if (recentMoviesCachedData != null) {
+            recentMoviesLiveData.value = recentMoviesCachedData!!
+        } else {
+            makeGetMoviesListRequest(MoviesListType.LAST_VIEW, onErrorAppearance) {
+                recentMoviesCachedData = it
+                recentMoviesLiveData.value = it
+            }
         }
     }
 
     private val inTrendMoviesLiveData = MutableLiveData<List<MovieEntity>>()
 
+    private var inTrendMoviesCachedData: List<MovieEntity>? = null
+
     fun getInTrendMoviesLiveData(): LiveData<List<MovieEntity>> = inTrendMoviesLiveData
 
     fun makeGetInTrendMoviesListRequest(onErrorAppearance: (errorModel: ErrorModel) -> Unit) {
-        makeGetMoviesListRequest(MoviesListType.IN_TREND, onErrorAppearance) {
-            inTrendMoviesLiveData.value = it
+        if (inTrendMoviesCachedData != null) {
+            inTrendMoviesLiveData.value = inTrendMoviesCachedData!!
+        } else {
+            makeGetMoviesListRequest(MoviesListType.IN_TREND, onErrorAppearance) {
+                inTrendMoviesCachedData = it
+                inTrendMoviesLiveData.value = it
+            }
         }
     }
 
     private val newMoviesLiveData = MutableLiveData<List<MovieEntity>>()
 
+    private var newMoviesCachedData: List<MovieEntity>? = null
+
     fun getNewMoviesLiveData(): LiveData<List<MovieEntity>> = newMoviesLiveData
 
     fun makeGetNewMoviesListRequest(onErrorAppearance: (errorModel: ErrorModel) -> Unit) {
-        makeGetMoviesListRequest(MoviesListType.NEW, onErrorAppearance) {
-            newMoviesLiveData.value = it
+        if (newMoviesCachedData != null) {
+            newMoviesLiveData.value = newMoviesCachedData!!
+        } else {
+            makeGetMoviesListRequest(MoviesListType.NEW, onErrorAppearance) {
+                newMoviesCachedData = it
+                newMoviesLiveData.value = it
+            }
         }
     }
 
     private val forYouMoviesLiveData = MutableLiveData<List<MovieEntity>>()
 
+    private var forYouMoviesCachedData: List<MovieEntity>? = null
+
     fun getForYouMoviesLiveData(): LiveData<List<MovieEntity>> = forYouMoviesLiveData
 
     fun makeGetForYouMoviesListRequest(onErrorAppearance: (errorModel: ErrorModel) -> Unit) {
-        makeGetMoviesListRequest(MoviesListType.LAST_VIEW, onErrorAppearance) {
-            forYouMoviesLiveData.value = it
+        if (forYouMoviesCachedData != null) {
+            forYouMoviesLiveData.value = forYouMoviesCachedData!!
+        } else {
+            makeGetMoviesListRequest(MoviesListType.LAST_VIEW, onErrorAppearance) {
+                forYouMoviesCachedData = it
+                forYouMoviesLiveData.value = it
+            }
         }
     }
 
