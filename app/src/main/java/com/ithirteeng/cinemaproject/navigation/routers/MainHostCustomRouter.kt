@@ -18,6 +18,8 @@ class MainHostCustomRouter(
 
     private val currentSection = MutableLiveData<SectionType>()
 
+    fun getCurrentSectionType(): SectionType = sectionsBackstack.last()
+
     private fun newRootScreen(screen: FragmentScreen, sectionType: SectionType) {
         hostRouter.newRootScreen(screen)
         screensBackstack.clear()
@@ -66,7 +68,6 @@ class MainHostCustomRouter(
 
         hostRouter.replaceScreen(screen)
     }
-
 
     private fun onMultipleSectionClick(sectionType: SectionType) {
         when (sectionType) {

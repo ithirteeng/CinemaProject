@@ -1,5 +1,7 @@
 package com.ithirteeng.features.mainhost.presentation
 
+import com.ithirteeng.features.mainhost.utils.SectionType
+
 interface MainHostRouter {
 
     fun navigateToMainScreen()
@@ -11,4 +13,6 @@ interface MainHostRouter {
     fun navigateToCollectionsScreen()
 
     fun exit()
+
+    fun getCurrentSection(): SectionType
 }

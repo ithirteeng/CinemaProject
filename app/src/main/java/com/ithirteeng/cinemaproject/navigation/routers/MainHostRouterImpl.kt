@@ -30,5 +30,9 @@ class MainHostRouterImpl(
         router.exit()
     }
 
+    override fun getCurrentSection(): SectionType {
+        return router.getCurrentSectionType()
+    }
+
 
 }

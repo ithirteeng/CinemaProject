@@ -2,15 +2,13 @@ package com.ithirteeng.features.mainhost.presentation
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.MutableLiveData
-import com.ithirteeng.features.mainhost.utils.SectionType
 
 class MainHostFragmentViewModel(
     application: Application,
-    private val router: MainHostRouter
+    private val router: MainHostRouter,
 ) : AndroidViewModel(application) {
 
-    val sectionLiveData = MutableLiveData<SectionType>()
+    fun getCurrentSectionType() = router.getCurrentSection()
 
     fun navigateToMainScreen() =
         router.navigateToMainScreen()

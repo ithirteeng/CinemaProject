@@ -15,6 +15,7 @@ import com.ithirteeng.design.LOCAL_ROUTER
 import com.ithirteeng.features.mainhost.R
 import com.ithirteeng.features.mainhost.databinding.FragmentMainHostBinding
 import com.ithirteeng.features.mainhost.presentation.MainHostFragmentViewModel
+import com.ithirteeng.features.mainhost.utils.SectionType
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.qualifier.named
@@ -35,6 +36,8 @@ class MainHostFragment : Fragment(), BottomNavigationView.OnNavigationItemSelect
         AppNavigator(requireActivity(), R.id.mainHostContainer, childFragmentManager)
     }
 
+    private var itemSelectedByUser = true
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -46,6 +49,7 @@ class MainHostFragment : Fragment(), BottomNavigationView.OnNavigationItemSelect
 
         addBackPressedListener {
             viewModel.exit()
+            selectItem()
         }
         binding.bottomNavBar.setOnNavigationItemSelectedListener(this)
 
@@ -63,24 +67,33 @@ class MainHostFragment : Fragment(), BottomNavigationView.OnNavigationItemSelect
         navigationHolder.removeNavigator()
     }
 
+
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.main_section -> {
-                viewModel.navigateToMainScreen()
-                true
+        if (itemSelectedByUser) {
+            when (item.itemId) {
+                R.id.main_section ->
+                    viewModel.navigateToMainScreen()
+                R.id.compilation_section -> viewModel.navigateToCompilationScreen()
+
+                R.id.collections_section -> viewModel.navigateToCollectionsScreen()
+
+                else -> viewModel.navigateToProfileScreen()
+
             }
-            R.id.compilation_section -> {
-                viewModel.navigateToCompilationScreen()
-                true
-            }
-            R.id.collections_section -> {
-                viewModel.navigateToCollectionsScreen()
-                true
-            }
-            else -> {
-                viewModel.navigateToProfileScreen()
-                true
-            }
+        }
+        itemSelectedByUser = true
+        return true
+    }
+
+    private fun selectItem() {
+        itemSelectedByUser = false
+        when (viewModel.getCurrentSectionType()) {
+            SectionType.MAIN -> binding.bottomNavBar.selectedItemId = R.id.main_section
+            SectionType.COMPILATION -> binding.bottomNavBar.selectedItemId =
+                R.id.compilation_section
+            SectionType.COLLECTIONS -> binding.bottomNavBar.selectedItemId =
+                R.id.collections_section
+            else -> binding.bottomNavBar.selectedItemId = R.id.profile_section
         }
     }
 
