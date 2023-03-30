@@ -18,7 +18,7 @@ class MainHostCustomRouter(
 
     private val currentSection = MutableLiveData<SectionType>()
 
-    fun getCurrentSectionType(): SectionType = sectionsBackstack.last()
+    fun getCurrentSectionType(): SectionType? = sectionsBackstack.lastOrNull()
 
     private fun newRootScreen(screen: FragmentScreen, sectionType: SectionType) {
         hostRouter.newRootScreen(screen)

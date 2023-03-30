@@ -1,5 +1,6 @@
 package com.ithirteeng.features.mainhost.ui
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -38,14 +39,17 @@ class MainHostFragment : Fragment(), BottomNavigationView.OnNavigationItemSelect
 
     private var itemSelectedByUser = true
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        viewModel.navigateToMainScreen()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
         val layout = inflater.inflate(R.layout.fragment_main_host, container, false)
         binding = FragmentMainHostBinding.bind(layout)
-
-        viewModel.navigateToMainScreen()
 
         addBackPressedListener {
             viewModel.exit()
@@ -93,7 +97,8 @@ class MainHostFragment : Fragment(), BottomNavigationView.OnNavigationItemSelect
                 R.id.compilation_section
             SectionType.COLLECTIONS -> binding.bottomNavBar.selectedItemId =
                 R.id.collections_section
-            else -> binding.bottomNavBar.selectedItemId = R.id.profile_section
+            SectionType.PROFILE -> binding.bottomNavBar.selectedItemId = R.id.profile_section
+            else -> return
         }
     }
 
