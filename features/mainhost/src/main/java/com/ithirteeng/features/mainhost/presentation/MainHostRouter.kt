@@ -10,5 +10,5 @@ interface MainHostRouter {
 
     fun navigateToCollectionsScreen()
 
-    fun newRootScreen()
+    fun exit()
 }

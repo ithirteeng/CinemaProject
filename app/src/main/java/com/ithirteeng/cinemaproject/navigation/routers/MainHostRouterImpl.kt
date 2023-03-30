@@ -1,6 +1,5 @@
 package com.ithirteeng.cinemaproject.navigation.routers
 
-import com.ithirteeng.cinemaproject.navigation.MainHostCustomRouter
 import com.ithirteeng.features.collections.CollectionsFragment
 import com.ithirteeng.features.compilation.ui.CompilationFragment
 import com.ithirteeng.features.main.ui.MainFragment
@@ -27,7 +26,9 @@ class MainHostRouterImpl(
         router.openSection(CollectionsFragment.provideCollectionsScreen, SectionType.COLLECTIONS)
     }
 
-    override fun newRootScreen() {
-        router.newRootScreen(MainFragment.provideMainScreen, SectionType.MAIN)
+    override fun exit() {
+        router.exit()
     }
+
+
 }

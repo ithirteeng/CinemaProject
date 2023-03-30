@@ -1,11 +1,11 @@
 package com.ithirteeng.features.mainhost.ui
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import com.github.terrakok.cicerone.NavigatorHolder
 import com.github.terrakok.cicerone.androidx.AppNavigator
@@ -35,11 +35,6 @@ class MainHostFragment : Fragment(), BottomNavigationView.OnNavigationItemSelect
         AppNavigator(requireActivity(), R.id.mainHostContainer, childFragmentManager)
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        viewModel.navigateToMainScreen()
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -47,6 +42,11 @@ class MainHostFragment : Fragment(), BottomNavigationView.OnNavigationItemSelect
         val layout = inflater.inflate(R.layout.fragment_main_host, container, false)
         binding = FragmentMainHostBinding.bind(layout)
 
+        viewModel.navigateToMainScreen()
+
+        addBackPressedListener {
+            viewModel.exit()
+        }
         binding.bottomNavBar.setOnNavigationItemSelectedListener(this)
 
 
@@ -83,4 +83,18 @@ class MainHostFragment : Fragment(), BottomNavigationView.OnNavigationItemSelect
             }
         }
     }
+
+    private fun Fragment.addBackPressedListener(
+        enabledCallback: Boolean = true,
+        action: OnBackPressedCallback.() -> Unit,
+    ): OnBackPressedCallback {
+        val callback: OnBackPressedCallback = object : OnBackPressedCallback(enabledCallback) {
+            override fun handleOnBackPressed() {
+                action.invoke(this)
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
+        return callback
+    }
 }
+
