@@ -2,6 +2,7 @@ package com.ithirteeng.cinemaproject.di
 
 import com.github.terrakok.cicerone.Cicerone
 import com.github.terrakok.cicerone.Router
+import com.ithirteeng.cinemaproject.navigation.MainHostCustomRouter
 import com.ithirteeng.cinemaproject.navigation.createCicerone
 import com.ithirteeng.design.GLOBAL_ROUTER
 import com.ithirteeng.design.LOCAL_ROUTER
@@ -17,4 +18,6 @@ val ciceroneModule = module {
     single(named(LOCAL_ROUTER)) { createCicerone() }
     single(named(LOCAL_ROUTER)) { get<Cicerone<Router>>(named(LOCAL_ROUTER)).router }
     single(named(LOCAL_ROUTER)) { get<Cicerone<Router>>(named(LOCAL_ROUTER)).getNavigatorHolder() }
+
+    single { MainHostCustomRouter(hostRouter = get(named(LOCAL_ROUTER))) }
 }

@@ -1,28 +1,33 @@
 package com.ithirteeng.cinemaproject.navigation.routers
 
-import com.github.terrakok.cicerone.Router
+import com.ithirteeng.cinemaproject.navigation.MainHostCustomRouter
 import com.ithirteeng.features.collections.CollectionsFragment
 import com.ithirteeng.features.compilation.ui.CompilationFragment
 import com.ithirteeng.features.main.ui.MainFragment
 import com.ithirteeng.features.mainhost.presentation.MainHostRouter
+import com.ithirteeng.features.mainhost.utils.SectionType
 import com.ithirteeng.features.profile.ProfileFragment
 
 class MainHostRouterImpl(
-    private val router: Router
+    private val router: MainHostCustomRouter,
 ) : MainHostRouter {
     override fun navigateToMainScreen() {
-        router.newRootScreen(MainFragment.provideMainScreen)
+        router.openSection(MainFragment.provideMainScreen, SectionType.MAIN)
     }
 
     override fun navigateToCompilationScreen() {
-        router.newRootScreen(CompilationFragment.provideCompilationScreen)
+        router.openSection(CompilationFragment.provideCompilationScreen, SectionType.COMPILATION)
     }
 
     override fun navigateToProfileScreen() {
-        router.newRootScreen(ProfileFragment.provideProfileScreen)
+        router.openSection(ProfileFragment.provideProfileScreen, SectionType.PROFILE)
     }
 
     override fun navigateToCollectionsScreen() {
-        router.newRootScreen(CollectionsFragment.provideCollectionsScreen)
+        router.openSection(CollectionsFragment.provideCollectionsScreen, SectionType.COLLECTIONS)
+    }
+
+    override fun newRootScreen() {
+        router.newRootScreen(MainFragment.provideMainScreen, SectionType.MAIN)
     }
 }

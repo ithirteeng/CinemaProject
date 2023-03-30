@@ -9,4 +9,6 @@ interface MainHostRouter {
     fun navigateToProfileScreen()
 
     fun navigateToCollectionsScreen()
+
+    fun newRootScreen()
 }

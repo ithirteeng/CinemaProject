@@ -2,7 +2,6 @@ package com.ithirteeng.cinemaproject.di
 
 import com.ithirteeng.cinemaproject.navigation.routers.*
 import com.ithirteeng.design.GLOBAL_ROUTER
-import com.ithirteeng.design.LOCAL_ROUTER
 import com.ithirteeng.errorhandler.presentation.ErrorRouter
 import com.ithirteeng.features.compilation.presentation.CompilationRouter
 import com.ithirteeng.features.entry.login.presentation.LoginRouter
@@ -24,5 +23,5 @@ val routersModule = module {
     factory<ErrorRouter> { ErrorRouterImpl(router = get(named(GLOBAL_ROUTER))) }
     factory<MovieRouter> { MovieRouterImpl(router = get(named(GLOBAL_ROUTER))) }
 
-    factory<MainHostRouter> { MainHostRouterImpl(router = get(named(LOCAL_ROUTER))) }
+    factory<MainHostRouter> { MainHostRouterImpl(router = get()) }
 }
