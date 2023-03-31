@@ -30,25 +30,34 @@ class MovieFragmentViewModel(
 
     private val movieEpisodesLiveData = MutableLiveData<List<EpisodeEntity>>()
 
+    private var cachedMovieEpisodesData: List<EpisodeEntity>? = null
+
     fun getMovieEpisodesLiveData(): LiveData<List<EpisodeEntity>> = movieEpisodesLiveData
 
     fun makeGetMovieEpisodesListRequest(
         movieId: String,
         onErrorAppearance: (errorModel: ErrorModel) -> Unit,
     ) {
-        viewModelScope.launch {
-            getMovieEpisodesListUseCase(movieId)
-                .onSuccess {
-                    movieEpisodesLiveData.value = it
-                }
-                .onFailure {
-                    onErrorAppearance(setupErrorCode(it))
-                }
+        if (cachedMovieEpisodesData == null) {
+            viewModelScope.launch {
+                getMovieEpisodesListUseCase(movieId)
+                    .onSuccess {
+                        cachedMovieEpisodesData = it
+                        movieEpisodesLiveData.value = it
+                    }
+                    .onFailure {
+                        onErrorAppearance(setupErrorCode(it))
+                    }
+            }
+        } else {
+            movieEpisodesLiveData.value = cachedMovieEpisodesData!!
         }
     }
 
 
     private val movieLiveData = MutableLiveData<MovieEntity?>()
+
+    private var cachedMovieData: MovieEntity? = null
 
     fun getMovieLiveData(): LiveData<MovieEntity?> = movieLiveData
 
@@ -57,14 +66,19 @@ class MovieFragmentViewModel(
         moviesListType: MoviesListType,
         onErrorAppearance: (errorModel: ErrorModel) -> Unit,
     ) {
-        viewModelScope.launch {
-            getMoviesListUseCase(moviesListType)
-                .onSuccess {
-                    movieLiveData.value = getMovieById(movieId, it)
-                }
-                .onFailure {
-                    onErrorAppearance(setupErrorCode(it))
-                }
+        if (cachedMovieData == null) {
+            viewModelScope.launch {
+                getMoviesListUseCase(moviesListType)
+                    .onSuccess {
+                        cachedMovieData = getMovieById(movieId, it)
+                        movieLiveData.value = getMovieById(movieId, it)
+                    }
+                    .onFailure {
+                        onErrorAppearance(setupErrorCode(it))
+                    }
+            }
+        } else {
+            movieLiveData.value = cachedMovieData
         }
     }
 
