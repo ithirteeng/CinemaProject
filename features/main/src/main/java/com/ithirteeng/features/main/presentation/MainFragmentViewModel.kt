@@ -152,7 +152,7 @@ class MainFragmentViewModel(
         if (forYouMoviesCachedData != null) {
             forYouMoviesLiveData.value = forYouMoviesCachedData!!
         } else {
-            makeGetMoviesListRequest(MoviesListType.LAST_VIEW, onErrorAppearance) {
+            makeGetMoviesListRequest(MoviesListType.FOR_ME, onErrorAppearance) {
                 forYouMoviesCachedData = it
                 forYouMoviesLiveData.value = it
             }

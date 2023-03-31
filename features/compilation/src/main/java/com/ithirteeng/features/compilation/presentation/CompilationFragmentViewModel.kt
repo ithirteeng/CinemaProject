@@ -38,24 +38,17 @@ class CompilationFragmentViewModel(
 
     private val moviesListLiveData = MutableLiveData<List<MovieEntity>>()
 
-    private var cachedMoviesData: List<MovieEntity>? = null
-
     fun getMoviesListLiveData(): MutableLiveData<List<MovieEntity>> = moviesListLiveData
 
     fun makeGetMoviesListRequest(onErrorAppearance: (errorModel: ErrorModel) -> Unit) {
-        if (cachedMoviesData == null) {
-            viewModelScope.launch {
-                getCompilationMoviesListUseCase()
-                    .onSuccess {
-                        cachedMoviesData = it
-                        moviesListLiveData.value = it
-                    }
-                    .onFailure {
-                        onErrorAppearance(setupErrorCode(it))
-                    }
-            }
-        } else {
-            moviesListLiveData.value = cachedMoviesData!!
+        viewModelScope.launch {
+            getCompilationMoviesListUseCase()
+                .onSuccess {
+                    moviesListLiveData.value = it
+                }
+                .onFailure {
+                    onErrorAppearance(setupErrorCode(it))
+                }
         }
     }
 
