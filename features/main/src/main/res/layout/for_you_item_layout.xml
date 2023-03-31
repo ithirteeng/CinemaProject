@@ -8,6 +8,7 @@
         android:id="@+id/posterImageView"
         android:layout_width="@dimen/size_100"
         android:layout_height="@dimen/size_144"
+        android:scaleType="centerCrop"
         android:layout_marginStart="@dimen/margin_16"
         android:contentDescription="@string/main_screen_poster_content_description"
         app:layout_constraintBottom_toBottomOf="parent"

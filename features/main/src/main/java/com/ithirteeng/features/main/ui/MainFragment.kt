@@ -66,18 +66,26 @@ class MainFragment : Fragment() {
         binding = FragmentMainBinding.bind(layout)
         finishedRequests = 0
 
+        setupButtonsVisibility(View.GONE)
+        setupOnGettingDataFunctions()
+        setupRecyclerViewAdapters()
+
+        return binding.root
+    }
+
+    private fun setupRecyclerViewAdapters() {
+        binding.inTrendRecyclerView.adapter = inTrendAdapter
+        binding.recentRecyclerView.adapter = recentViewedAdapter
+        binding.newRecyclerView.adapter = newMoviesAdapter
+        binding.forYouRecyclerView.adapter = forYouMoviesAdapter
+    }
+
+    private fun setupOnGettingDataFunctions() {
         onGettingMainPoster()
         onGettingInTrendMoviesList()
         onGettingRecentViewedMoviesList()
         onGettingNewMoviesList()
         onGettingForYouMoviesList()
-
-        binding.inTrendRecyclerView.adapter = inTrendAdapter
-        binding.recentRecyclerView.adapter = recentViewedAdapter
-        binding.newRecyclerView.adapter = newMoviesAdapter
-        binding.forYouRecyclerView.adapter = forYouMoviesAdapter
-
-        return binding.root
     }
 
     private fun onGettingMainPoster() {
@@ -166,9 +174,15 @@ class MainFragment : Fragment() {
     private fun handleProgressBarVisibility() {
         if (finishedRequests == REQUEST_AMOUNT) {
             binding.progressBar.visibility = View.GONE
+            setupButtonsVisibility(View.VISIBLE)
         }
     }
 
+    private fun setupButtonsVisibility(visibility: Int) {
+        binding.watchButton.visibility = visibility
+        binding.setInterestsButton.visibility = visibility
+        binding.mainPosterImageView.visibility = visibility
+    }
 
     private fun handleErrors(errorModel: ErrorModel) {
         childFragmentManager.executePendingTransactions()

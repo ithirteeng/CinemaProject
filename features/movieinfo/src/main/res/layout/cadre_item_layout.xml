@@ -7,9 +7,10 @@
     <ImageView
         android:id="@+id/posterImageView"
         android:layout_width="@dimen/size_128"
-        android:contentDescription="@string/main_screen_poster_content_description"
         android:layout_height="@dimen/size_72"
         android:layout_marginStart="@dimen/margin_16"
+        android:contentDescription="@string/main_screen_poster_content_description"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

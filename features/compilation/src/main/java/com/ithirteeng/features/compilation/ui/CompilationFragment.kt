@@ -59,36 +59,32 @@ class CompilationFragment : Fragment() {
         viewModel.makeGetMoviesListRequest { handleErrors(it) }
 
         binding.progressBar.visibility = View.VISIBLE
-        makeViewsInvisible()
+        binding.movieNameTextView.text = ""
+        setViewsVisibility(View.GONE)
 
         viewModel.getMoviesListLiveData().observe(this.viewLifecycleOwner) {
             moviesList = it
-
             cardStackAdapter.submitList(it)
-
             setupCardStackView()
+
+            binding.progressBar.visibility = View.GONE
+            setViewsVisibility(View.VISIBLE)
 
             if (it.isEmpty()) {
                 setupViewsVisibilityOnLastCardSwiped()
             }
-
-            binding.progressBar.visibility = View.GONE
-            binding.playButton.visibility = View.VISIBLE
-            binding.likeButton.visibility = View.VISIBLE
-            binding.dislikeButton.visibility = View.VISIBLE
         }
     }
 
     override fun onStop() {
         super.onStop()
-        makeViewsInvisible()
+        setViewsVisibility(View.GONE)
     }
 
-    private fun makeViewsInvisible() {
-        binding.movieNameTextView.text = ""
-        binding.playButton.visibility = View.GONE
-        binding.likeButton.visibility = View.GONE
-        binding.dislikeButton.visibility = View.GONE
+    private fun setViewsVisibility(visibility: Int) {
+        binding.playButton.visibility = visibility
+        binding.likeButton.visibility = visibility
+        binding.dislikeButton.visibility = visibility
     }
 
     private fun setupCardStackLayoutManager() {
