@@ -69,6 +69,8 @@ class MovieFragment : Fragment() {
         val layout = inflater.inflate(R.layout.fragment_movie, container, false)
         binding = FragmentMovieBinding.bind(layout)
 
+        finishedRequests = 0
+
         movieId = arguments?.getString(MOVIE_ID, "").toString()
         moviesListType = arguments?.getSerializable(MOVIE_TYPE) as MoviesListType
 

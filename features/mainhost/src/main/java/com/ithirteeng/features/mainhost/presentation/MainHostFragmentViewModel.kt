@@ -5,8 +5,10 @@ import androidx.lifecycle.AndroidViewModel
 
 class MainHostFragmentViewModel(
     application: Application,
-    private val router: MainHostRouter
+    private val router: MainHostRouter,
 ) : AndroidViewModel(application) {
+
+    fun getCurrentSectionType() = router.getCurrentSection()
 
     fun navigateToMainScreen() =
         router.navigateToMainScreen()
@@ -19,5 +21,8 @@ class MainHostFragmentViewModel(
 
     fun navigateToCollectionsScreen() =
         router.navigateToCollectionsScreen()
+
+    fun exit() =
+        router.exit()
 
 }

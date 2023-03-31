@@ -37,15 +37,7 @@ class CompilationFragment : Fragment() {
 
     private lateinit var moviesList: List<MovieEntity>
 
-    private val cardStackLayoutManager by lazy {
-        CardStackLayoutManager(
-            requireContext(),
-            CardStackListener(
-                onMovieCardAppeared = { onCardAppeared(it) },
-                onMovieCardSwiped = { onCardSwiped(it) }
-            )
-        )
-    }
+    private lateinit var cardStackLayoutManager: CardStackLayoutManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,8 +46,16 @@ class CompilationFragment : Fragment() {
         val layout = inflater.inflate(R.layout.fragment_compilation, container, false)
         binding = FragmentCompilationBinding.bind(layout)
 
-        onGettingMoviesList()
+        cardStackLayoutManager = CardStackLayoutManager(
+            requireContext(),
+            CardStackListener(
+                onMovieCardAppeared = { onCardAppeared(it) },
+                onMovieCardSwiped = { onCardSwiped(it) }
+            )
+        )
 
+        onGettingMoviesList()
+        setupCardStackView()
         onDislikeButtonClick()
         onLikeButtonClick()
 
@@ -72,7 +72,6 @@ class CompilationFragment : Fragment() {
             if (it.isEmpty()) {
                 setupViewsVisibilityOnLastCardSwiped()
             }
-            setupCardStackView()
             binding.progressBar.visibility = View.GONE
         }
     }
