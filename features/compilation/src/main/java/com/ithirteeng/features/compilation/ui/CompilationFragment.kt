@@ -46,16 +46,9 @@ class CompilationFragment : Fragment() {
         val layout = inflater.inflate(R.layout.fragment_compilation, container, false)
         binding = FragmentCompilationBinding.bind(layout)
 
-        cardStackLayoutManager = CardStackLayoutManager(
-            requireContext(),
-            CardStackListener(
-                onMovieCardAppeared = { onCardAppeared(it) },
-                onMovieCardSwiped = { onCardSwiped(it) }
-            )
-        )
+        setupCardStackLayoutManager()
 
         onGettingMoviesList()
-        setupCardStackView()
         onDislikeButtonClick()
         onLikeButtonClick()
 
@@ -64,16 +57,48 @@ class CompilationFragment : Fragment() {
 
     private fun onGettingMoviesList() {
         viewModel.makeGetMoviesListRequest { handleErrors(it) }
+
         binding.progressBar.visibility = View.VISIBLE
-        binding.movieNameTextView.text = ""
+        makeViewsInvisible()
+
         viewModel.getMoviesListLiveData().observe(this.viewLifecycleOwner) {
             moviesList = it
+
             cardStackAdapter.submitList(it)
+
+            setupCardStackView()
+
             if (it.isEmpty()) {
                 setupViewsVisibilityOnLastCardSwiped()
             }
+
             binding.progressBar.visibility = View.GONE
+            binding.playButton.visibility = View.VISIBLE
+            binding.likeButton.visibility = View.VISIBLE
+            binding.dislikeButton.visibility = View.VISIBLE
         }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        makeViewsInvisible()
+    }
+
+    private fun makeViewsInvisible() {
+        binding.movieNameTextView.text = ""
+        binding.playButton.visibility = View.GONE
+        binding.likeButton.visibility = View.GONE
+        binding.dislikeButton.visibility = View.GONE
+    }
+
+    private fun setupCardStackLayoutManager() {
+        cardStackLayoutManager = CardStackLayoutManager(
+            requireContext(),
+            CardStackListener(
+                onMovieCardAppeared = { onCardAppeared(it) },
+                onMovieCardSwiped = { onCardSwiped(it) }
+            )
+        )
     }
 
     private fun setupCardStackView() {

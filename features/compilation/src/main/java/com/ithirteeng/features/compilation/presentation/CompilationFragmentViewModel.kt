@@ -2,8 +2,9 @@ package com.ithirteeng.features.compilation.presentation
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
+import com.ithirteeng.customextensions.presentation.SingleEventLiveData
 import com.ithirteeng.errorhandler.domain.ErrorModel
 import com.ithirteeng.features.compilation.domain.usecase.DeleteMovieFromCompilationUseCase
 import com.ithirteeng.features.compilation.domain.usecase.GetCompilationMoviesListUseCase
@@ -36,9 +37,9 @@ class CompilationFragmentViewModel(
     }
 
 
-    private val moviesListLiveData = MutableLiveData<List<MovieEntity>>()
+    private val moviesListLiveData = SingleEventLiveData<List<MovieEntity>>()
 
-    fun getMoviesListLiveData(): MutableLiveData<List<MovieEntity>> = moviesListLiveData
+    fun getMoviesListLiveData(): LiveData<List<MovieEntity>> = moviesListLiveData
 
     fun makeGetMoviesListRequest(onErrorAppearance: (errorModel: ErrorModel) -> Unit) {
         viewModelScope.launch {
