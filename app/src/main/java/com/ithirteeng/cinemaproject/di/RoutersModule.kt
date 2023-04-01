@@ -9,6 +9,7 @@ import com.ithirteeng.features.entry.registration.presentation.RegistrationRoute
 import com.ithirteeng.features.main.presentation.MainRouter
 import com.ithirteeng.features.mainhost.presentation.MainHostRouter
 import com.ithirteeng.features.movieinfo.presentation.MovieRouter
+import com.ithirteeng.features.profile.presentation.ProfileRouter
 import com.ithirteeng.features.splash.presentation.SplashRouter
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
@@ -22,6 +23,7 @@ val routersModule = module {
     factory<CompilationRouter> { CompilationRouterImpl(router = get(named(GLOBAL_ROUTER))) }
     factory<ErrorRouter> { ErrorRouterImpl(router = get(named(GLOBAL_ROUTER))) }
     factory<MovieRouter> { MovieRouterImpl(router = get(named(GLOBAL_ROUTER))) }
+    factory<ProfileRouter> { ProfileRouterImpl(router = get(named(GLOBAL_ROUTER))) }
 
     factory<MainHostRouter> { MainHostRouterImpl(router = get()) }
 }

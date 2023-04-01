@@ -5,8 +5,7 @@ import com.ithirteeng.shared.userstorage.data.datasource.UserLocalDatasourceImpl
 import com.ithirteeng.shared.userstorage.data.repository.UserRepositoryImpl
 import com.ithirteeng.shared.userstorage.data.storage.UserStorage
 import com.ithirteeng.shared.userstorage.domain.repository.UserRepository
-import com.ithirteeng.shared.userstorage.domain.usecase.CheckIfUserEnteredAppUseCase
-import com.ithirteeng.shared.userstorage.domain.usecase.SetUserEntryFlagUseCase
+import com.ithirteeng.shared.userstorage.domain.usecase.*
 import org.koin.dsl.module
 
 val userModule = module {
@@ -17,4 +16,7 @@ val userModule = module {
 
     factory { CheckIfUserEnteredAppUseCase(repository = get()) }
     factory { SetUserEntryFlagUseCase(repository = get()) }
+    factory { GetLocalUserDataUseCase(repository = get()) }
+    factory { SaveUserDataLocallyUseCase(repository = get()) }
+    factory { ClearUserDataLocallyUseCase(repository = get()) }
 }

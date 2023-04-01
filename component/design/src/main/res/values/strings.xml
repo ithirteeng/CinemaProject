@@ -47,6 +47,15 @@
     <string name="description">Description</string>
     <string name="cadres">Cadres</string>
     <string name="episodes">Episodes</string>
+    
+    <string name="choose_photo_source">Choose photo source</string>
+    <string name="camera">Camera</string>
+    <string name="gallery">Gallery</string>
+    <string name="cancel">Cancel</string>
+    <string name="change">Change</string>
+    <string name="history">History</string>
+    <string name="settings">Settings</string>
+    <string name="discussions">Discussions</string>
 
     <string name="in_trend">In trend</string>
     <string name="new_text">New</string>

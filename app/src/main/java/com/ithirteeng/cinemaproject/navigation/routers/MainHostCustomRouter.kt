@@ -8,7 +8,7 @@ import com.ithirteeng.features.collections.CollectionsFragment
 import com.ithirteeng.features.compilation.ui.CompilationFragment
 import com.ithirteeng.features.main.ui.MainFragment
 import com.ithirteeng.features.mainhost.utils.SectionType
-import com.ithirteeng.features.profile.ProfileFragment
+import com.ithirteeng.features.profile.ui.ProfileFragment
 
 class MainHostCustomRouter(
     private val hostRouter: Router,

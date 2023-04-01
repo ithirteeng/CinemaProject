@@ -35,13 +35,13 @@ class ErrorDialogFragment : DialogFragment() {
         binding.errorDescriptionTextView.text = errorModel.errorDescription.toString()
 
         val builder =
-            AlertDialog.Builder(requireActivity(), style.Theme_CinemaProject_ErrorDialogTheme)
+            AlertDialog.Builder(requireActivity(), style.Theme_CinemaProject_DialogTheme)
         return builder.setView(view).create()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setStyle(STYLE_NO_FRAME, style.Theme_CinemaProject_ErrorDialogTheme)
+        setStyle(STYLE_NO_FRAME, style.Theme_CinemaProject_DialogTheme)
     }
 
     override fun onDismiss(dialog: DialogInterface) {

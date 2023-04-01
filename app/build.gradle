@@ -18,6 +18,7 @@ dependencies {
     implementation Dependencies.GSON
     implementation Dependencies.GSON_CONVERTER
 
+
     implementation project(":component:design")
 
     implementation project(":features:splash")

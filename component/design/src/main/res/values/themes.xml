@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="Theme.CinemaProject" parent="Theme.AppCompat.DayNight.NoActionBar">
 
         <item name="colorPrimary">@color/red</item>
@@ -12,5 +13,7 @@
 
         <item name="android:statusBarColor">@color/status_bar_color</item>
         <item name="android:colorBackground">@color/background_color</item>
+        <item name="android:minHeight">0dp</item>
+        <item name="android:minWidth">0dp</item>
     </style>
 </resources>
