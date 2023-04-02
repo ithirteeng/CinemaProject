@@ -30,6 +30,7 @@ dependencies {
     implementation project(":features:collections")
     implementation project(":features:profile")
     implementation project(":features:movieinfo")
+    implementation project(":features:episode")
 
     implementation project(":shared:network")
     implementation project(":shared:token")
