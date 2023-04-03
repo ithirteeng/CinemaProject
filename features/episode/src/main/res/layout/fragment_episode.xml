@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.EpisodeFragment">
+
+        <ImageButton
+            android:id="@+id/backButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_16"
+            android:layout_marginTop="@dimen/margin_16"
+            android:background="@color/transparent"
+            android:translationZ="5dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/arrow_back_icon"
+            tools:ignore="ContentDescription,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+        <FrameLayout
+            android:id="@+id/frameLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <VideoView
+                android:id="@+id/videoView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/size_210" />
+
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/movieHeaderTextView"
+            style="@style/Theme.CinemaProject.Headline1_White"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_16"
+            android:layout_marginVertical="@dimen/margin_16"
+            android:text="@string/undefined"
+            app:layout_constrainedHeight="true"
+            app:layout_constraintBottom_toTopOf="@+id/episodePosterImageView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/frameLayout"
+            app:layout_constraintVertical_bias="0.0"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <ImageView
+            android:id="@+id/episodePosterImageView"
+            android:layout_width="@dimen/size_44"
+            android:layout_height="@dimen/size_64"
+            android:layout_marginHorizontal="@dimen/margin_16"
+            android:contentDescription="@string/main_screen_poster_content_description"
+            android:scaleType="centerCrop"
+            android:src="@drawable/image_placeholder"
+            app:layout_constraintBottom_toTopOf="@+id/descriptionHeaderTextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/movieHeaderTextView"
+            tools:ignore="ImageContrastCheck" />
+
+        <TextView
+            android:id="@+id/descriptionHeaderTextView"
+            style="@style/Theme.CinemaProject.Headline1_White"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_16"
+            android:layout_marginTop="@dimen/margin_32"
+            android:layout_marginBottom="@dimen/margin_8"
+            android:text="@string/description"
+            app:layout_constraintBottom_toTopOf="@+id/descriptionTextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/episodePosterImageView" />
+
+        <TextView
+            android:id="@+id/descriptionTextView"
+            style="@style/Theme.CinemaProject.Text1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_16"
+            android:layout_marginBottom="@dimen/margin_24"
+            android:text="@string/undefined"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/descriptionHeaderTextView"
+            tools:ignore="TextContrastCheck" />
+
+        <TextView
+            android:id="@+id/movieNameTextView"
+            style="@style/Theme.CinemaProject.Text4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_16"
+            android:layout_marginBottom="@dimen/margin_4"
+            android:text="@string/undefined"
+            app:layout_constraintBottom_toTopOf="@+id/movieYearsTextView"
+            app:layout_constraintStart_toEndOf="@+id/episodePosterImageView"
+            app:layout_constraintTop_toTopOf="@+id/episodePosterImageView"
+            app:layout_constraintVertical_bias="0.0"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:ignore="TextContrastCheck" />
+
+        <TextView
+            android:id="@+id/movieYearsTextView"
+            style="@style/Theme.CinemaProject.Text2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_16"
+            android:text="@string/undefined"
+            app:layout_constraintBottom_toBottomOf="@+id/episodePosterImageView"
+            app:layout_constraintStart_toEndOf="@+id/episodePosterImageView"
+            app:layout_constraintTop_toBottomOf="@+id/movieNameTextView"
+            tools:ignore="TextContrastCheck" />
+
+        <ImageButton
+            android:id="@+id/chatButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_16"
+            android:layout_marginEnd="@dimen/margin_22"
+            android:background="@color/transparent"
+            android:src="@drawable/chat_icon"
+            app:layout_constraintBottom_toBottomOf="@+id/episodePosterImageView"
+            app:layout_constraintEnd_toStartOf="@+id/addButton"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@+id/movieNameTextView"
+            app:layout_constraintTop_toTopOf="@+id/episodePosterImageView"
+            tools:ignore="ContentDescription,SpeakableTextPresentCheck,TouchTargetSizeCheck,ImageContrastCheck" />
+
+        <ImageButton
+            android:id="@+id/addButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_22"
+            android:background="@color/transparent"
+            android:src="@drawable/plus_icon"
+            app:layout_constraintBottom_toBottomOf="@+id/episodePosterImageView"
+            app:layout_constraintEnd_toStartOf="@+id/heartButton"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/chatButton"
+            app:layout_constraintTop_toTopOf="@+id/episodePosterImageView"
+            tools:ignore="ContentDescription,SpeakableTextPresentCheck,TouchTargetSizeCheck,ImageContrastCheck" />
+
+        <ImageButton
+            android:id="@+id/heartButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_16"
+            android:background="@color/transparent"
+            android:src="@drawable/heart_icon"
+            app:layout_constraintBottom_toBottomOf="@+id/episodePosterImageView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/addButton"
+            app:layout_constraintTop_toTopOf="@+id/episodePosterImageView"
+            tools:ignore="ContentDescription,SpeakableTextPresentCheck,TouchTargetSizeCheck,ImageContrastCheck" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/allViewsGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            app:constraint_referenced_ids="backButton,frameLayout,movieHeaderTextView,episodePosterImageView,descriptionHeaderTextView,descriptionTextView,movieNameTextView,movieYearsTextView,chatButton,addButton,heartButton"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="@style/Theme.CinemaProject.ProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/guideline"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="300dp"
+            app:layout_constraintGuide_percent="0.55" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

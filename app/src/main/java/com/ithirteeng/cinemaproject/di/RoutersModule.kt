@@ -6,6 +6,7 @@ import com.ithirteeng.errorhandler.presentation.ErrorRouter
 import com.ithirteeng.features.compilation.presentation.CompilationRouter
 import com.ithirteeng.features.entry.login.presentation.LoginRouter
 import com.ithirteeng.features.entry.registration.presentation.RegistrationRouter
+import com.ithirteeng.features.episode.presentation.EpisodeRouter
 import com.ithirteeng.features.main.presentation.MainRouter
 import com.ithirteeng.features.mainhost.presentation.MainHostRouter
 import com.ithirteeng.features.movieinfo.presentation.MovieRouter
@@ -24,6 +25,7 @@ val routersModule = module {
     factory<ErrorRouter> { ErrorRouterImpl(router = get(named(GLOBAL_ROUTER))) }
     factory<MovieRouter> { MovieRouterImpl(router = get(named(GLOBAL_ROUTER))) }
     factory<ProfileRouter> { ProfileRouterImpl(router = get(named(GLOBAL_ROUTER))) }
+    factory<EpisodeRouter> { EpisodeRouterImpl(router = get(named(GLOBAL_ROUTER))) }
 
     factory<MainHostRouter> { MainHostRouterImpl(router = get()) }
 }

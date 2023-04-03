@@ -25,8 +25,12 @@ class MovieFragmentViewModel(
     fun navigateToChatScreen(chatId: String) =
         router.navigateToChatScreen(chatId)
 
-    fun navigateToEpisodeScreen(episodeId: String) =
-        router.navigateToEpisodeScreen(episodeId)
+    fun navigateToEpisodeScreen(episodeId: String, movieId: String, movieName: String) =
+        router.navigateToEpisodeScreen(episodeId, movieId, movieName)
+
+    fun exit() =
+        router.exit()
+
 
     private val movieEpisodesLiveData = MutableLiveData<List<EpisodeEntity>>()
 
