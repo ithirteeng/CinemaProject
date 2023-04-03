@@ -81,13 +81,18 @@ class EpisodeFragmentViewModel(
         }
     }
 
-    private fun setEpisodeTime(
+    private val successfulRequestLiveData = MutableLiveData<Boolean>()
+
+    fun getSuccessfulRequestLiveData(): LiveData<Boolean> = successfulRequestLiveData
+
+    fun setEpisodeTime(
         episodeId: String,
         timeInSeconds: Int,
         onErrorAppearance: (errorModel: ErrorModel) -> Unit,
     ) {
         viewModelScope.launch {
             setEpisodeTimeUseCase(episodeId, timeInSeconds.toString())
+                .onSuccess { successfulRequestLiveData.value = true }
                 .onFailure { onErrorAppearance(setupErrorCode(it)) }
         }
     }
