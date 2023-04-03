@@ -14,4 +14,8 @@ class MovieRouterImpl(
     override fun navigateToChatScreen(chatId: String) {
         //TODO: navigateToChatScreen
     }
+
+    override fun exit() {
+        router.exit()
+    }
 }

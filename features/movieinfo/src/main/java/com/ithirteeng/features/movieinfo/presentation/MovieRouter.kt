@@ -5,4 +5,6 @@ interface MovieRouter {
     fun navigateToEpisodeScreen(episodeId: String, movieId: String, movieName: String)
 
     fun navigateToChatScreen(chatId: String)
+
+    fun exit()
 }

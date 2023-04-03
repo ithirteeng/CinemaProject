@@ -77,11 +77,18 @@ class MovieFragment : Fragment() {
 
         onGettingMovie()
         onGettingEpisodesList()
+        onBackButtonClick()
 
         binding.episodesRecyclerView.adapter = episodesAdapter
         binding.cadresRecyclerView.adapter = cadresAdapter
 
         return binding.root
+    }
+
+    private fun onBackButtonClick() {
+        binding.backButton.setOnClickListener {
+            viewModel.exit()
+        }
     }
 
     private fun onGettingMovie() {
