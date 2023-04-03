@@ -5,12 +5,11 @@ import com.ithirteeng.features.episode.data.datasource.EpisodeRemoteDatasource
 import com.ithirteeng.features.episode.data.datasource.EpisodeRemoteDatasourceImpl
 import com.ithirteeng.features.episode.data.repository.EpisodeRepositoryImpl
 import com.ithirteeng.features.episode.domain.repository.EpisodeRepository
-import com.ithirteeng.features.episode.domain.usecase.GetEpisodeTimeUseCase
-import com.ithirteeng.features.episode.domain.usecase.GetEpisodeUseCase
-import com.ithirteeng.features.episode.domain.usecase.GetEpisodesListUseCase
-import com.ithirteeng.features.episode.domain.usecase.SetEpisodeTimeUseCase
+import com.ithirteeng.features.episode.domain.usecase.*
+import com.ithirteeng.features.episode.presentation.EpisodeFragmentViewModel
 import com.ithirteeng.shared.network.common.TOKEN_NETWORK_TOOLS
 import com.ithirteeng.shared.network.retrofitservice.createRetrofitService
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
@@ -24,4 +23,16 @@ val episodeModule = module {
     factory { GetEpisodesListUseCase(repository = get()) }
     factory { GetEpisodeTimeUseCase(repository = get()) }
     factory { SetEpisodeTimeUseCase(repository = get()) }
+    factory { GetEpisodesYearsUseCase(repository = get()) }
+
+    viewModel {
+        EpisodeFragmentViewModel(
+            getEpisodesListUseCase = get(),
+            getEpisodeTimeUseCase = get(),
+            getEpisodeUseCase = get(),
+            setEpisodeTimeUseCase = get(),
+            getEpisodesYearsUseCase = get(),
+            router = get()
+        )
+    }
 }

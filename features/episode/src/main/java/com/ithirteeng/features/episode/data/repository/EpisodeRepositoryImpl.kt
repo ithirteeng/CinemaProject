@@ -38,4 +38,15 @@ class EpisodeRepositoryImpl(
     ): EpisodeEntity? {
         return episodesList.find { it.episodeId == episodeId }
     }
+
+    override fun setupEpisodeYears(episodesList: List<EpisodeEntity>): String? {
+        return if (episodesList.isEmpty()) {
+            null
+        } else if (episodesList.size == 1) {
+            "${episodesList.last().year} - ${episodesList.last().year}"
+        } else {
+            val list = episodesList.sortedBy { it.year }
+            "${list.first().year} - ${list.last().year}"
+        }
+    }
 }
