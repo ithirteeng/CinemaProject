@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.github.terrakok.cicerone.androidx.FragmentScreen
@@ -47,6 +46,8 @@ class MovieFragment : Fragment() {
 
     private lateinit var movieId: String
 
+    private lateinit var movieName: String
+
     private lateinit var moviesListType: MoviesListType
 
     private var finishedRequests = 0
@@ -57,7 +58,7 @@ class MovieFragment : Fragment() {
 
     private val episodesAdapter by lazy {
         EpisodesAdapter {
-            Toast.makeText(requireContext(), it.name, Toast.LENGTH_SHORT).show()
+            viewModel.navigateToEpisodeScreen(it.episodeId, movieId, movieName)
         }
     }
 
@@ -89,6 +90,7 @@ class MovieFragment : Fragment() {
         }
         binding.progressBar.visibility = View.VISIBLE
         viewModel.getMovieLiveData().observe(this.viewLifecycleOwner) {
+            movieName = it?.name.toString()
             finishedRequests++
             onFinishedRequests()
             cadresAdapter.submitList(it?.imageUrls)

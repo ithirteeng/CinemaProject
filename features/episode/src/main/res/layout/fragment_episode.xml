@@ -63,6 +63,7 @@
             android:layout_height="@dimen/size_64"
             android:layout_marginHorizontal="@dimen/margin_16"
             android:contentDescription="@string/main_screen_poster_content_description"
+            android:scaleType="centerCrop"
             android:src="@drawable/image_placeholder"
             app:layout_constraintBottom_toTopOf="@+id/descriptionHeaderTextView"
             app:layout_constraintStart_toStartOf="parent"

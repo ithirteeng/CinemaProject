@@ -39,6 +39,8 @@ class CompilationFragment : Fragment() {
 
     private lateinit var cardStackLayoutManager: CardStackLayoutManager
 
+    private lateinit var movieId: String
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -51,6 +53,7 @@ class CompilationFragment : Fragment() {
         onGettingMoviesList()
         onDislikeButtonClick()
         onLikeButtonClick()
+        onPlayButtonClick()
 
         return binding.root
     }
@@ -126,6 +129,11 @@ class CompilationFragment : Fragment() {
             binding.cardStackView.swipe()
         }
     }
+    private fun onPlayButtonClick() {
+        binding.playButton.setOnClickListener {
+            viewModel.navigateToMovieInfoScreen(movieId)
+        }
+    }
 
     private fun onCardSwiped(direction: Direction?) {
         if (direction == Direction.Right) {
@@ -138,6 +146,7 @@ class CompilationFragment : Fragment() {
 
     private fun onCardAppeared(position: Int) {
         binding.movieNameTextView.text = cardStackAdapter.currentList[position].name
+        movieId = cardStackAdapter.currentList[position].id
     }
 
     private fun onCardDisappeared(position: Int) {

@@ -20,8 +20,8 @@ class CompilationFragmentViewModel(
     private val deleteMovieFromCompilationUseCase: DeleteMovieFromCompilationUseCase,
 ) : AndroidViewModel(application) {
 
-    fun navigateToMovieInfoScreen() {
-        router.navigateToMovieInfoScreen()
+    fun navigateToMovieInfoScreen(movieId: String) {
+        router.navigateToMovieInfoScreen(movieId)
     }
 
     fun deleteMovieFromCompilation(

@@ -66,6 +66,8 @@ class EpisodeFragment : Fragment() {
         getBundleValues()
 
         setupOnGettingFunctions()
+
+        onBackButtonClick()
         return binding.root
     }
 
@@ -81,8 +83,14 @@ class EpisodeFragment : Fragment() {
         onGettingEpisodeData()
     }
 
+    private fun onBackButtonClick() {
+        binding.backButton.setOnClickListener {
+            viewModel.exit()
+        }
+    }
+
     private fun onGettingEpisodesList() {
-        viewModel.makeGetEpisodesListUseCase(episodeId) { handleErrors(it) }
+        viewModel.makeGetEpisodesListUseCase(movieId) { handleErrors(it) }
         viewModel.getEpisodesListLiveData().observe(this.viewLifecycleOwner) {
             viewModel.getEpisodeData(episodeId, it)
             viewModel.setupMovieYears(it)
@@ -111,7 +119,6 @@ class EpisodeFragment : Fragment() {
             binding.movieHeaderTextView.text = it?.name
             setupMainPoster(it?.preview)
             binding.descriptionTextView.text = it?.description
-
             episodeEntity = it
 
             onGettingEpisodeTime()
