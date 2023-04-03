@@ -43,14 +43,20 @@ class EpisodeFragmentViewModel(
         }
     }
 
+    private val episodeLiveData = MutableLiveData<EpisodeEntity?>()
 
-    fun getEpisodeData(episodeId: String, episodes: List<EpisodeEntity>): EpisodeEntity? {
-        return getEpisodeUseCase(episodeId, episodes)
+    fun getEpisodeLiveData(): LiveData<EpisodeEntity?> = episodeLiveData
+
+    fun getEpisodeData(episodeId: String, episodes: List<EpisodeEntity>) {
+        episodeLiveData.value = getEpisodeUseCase(episodeId, episodes)
     }
 
+    private val yearsLiveData = MutableLiveData<String?>()
 
-    fun getMovieYears(episodes: List<EpisodeEntity>): String? {
-        return getEpisodesYearsUseCase(episodes)
+    fun getYearsLiveData(): LiveData<String?> = yearsLiveData
+
+    fun setupMovieYears(episodes: List<EpisodeEntity>) {
+        yearsLiveData.value = getEpisodesYearsUseCase(episodes)
     }
 
 
@@ -58,7 +64,7 @@ class EpisodeFragmentViewModel(
 
     fun getEpisodesListLiveData(): LiveData<List<EpisodeEntity>> = episodesListLiveData
 
-    private fun makeGetEpisodesListUseCase(
+    fun makeGetEpisodesListUseCase(
         movieId: String,
         onErrorAppearance: (errorModel: ErrorModel) -> Unit,
     ) {
