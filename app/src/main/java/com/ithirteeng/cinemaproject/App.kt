@@ -8,6 +8,7 @@ import com.ithirteeng.errorhandler.di.errorModule
 import com.ithirteeng.features.compilation.di.compilationModule
 import com.ithirteeng.features.entry.login.di.loginModule
 import com.ithirteeng.features.entry.registration.di.registrationModule
+import com.ithirteeng.features.episode.di.episodeModule
 import com.ithirteeng.features.main.di.mainModule
 import com.ithirteeng.features.mainhost.di.mainHostModule
 import com.ithirteeng.features.movieinfo.di.movieModule
@@ -42,6 +43,7 @@ class App : Application() {
                 mainHostModule,
                 mainModule,
                 movieModule,
+                episodeModule,
                 compilationModule,
                 profileModule
             )
