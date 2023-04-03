@@ -66,7 +66,9 @@ class MainFragment : Fragment() {
         binding = FragmentMainBinding.bind(layout)
         finishedRequests = 0
 
-        setupButtonsVisibility(View.GONE)
+        binding.progressBar.visibility = View.VISIBLE
+        binding.allViewsGroup.visibility = View.GONE
+
         setupOnGettingDataFunctions()
         setupRecyclerViewAdapters()
 
@@ -90,7 +92,6 @@ class MainFragment : Fragment() {
 
     private fun onGettingMainPoster() {
         viewModel.makeGetPosterRequest { handleErrors(it) }
-        binding.progressBar.visibility = View.VISIBLE
         viewModel.getPosterLiveData().observe(this.viewLifecycleOwner) {
             finishedRequests++
             setupMainPoster(it)
@@ -110,7 +111,6 @@ class MainFragment : Fragment() {
 
     private fun onGettingInTrendMoviesList() {
         viewModel.makeGetInTrendMoviesListRequest { handleErrors(it) }
-        binding.progressBar.visibility = View.VISIBLE
         viewModel.getInTrendMoviesLiveData().observe(this.viewLifecycleOwner) {
 
             finishedRequests++
@@ -126,7 +126,6 @@ class MainFragment : Fragment() {
 
     private fun onGettingForYouMoviesList() {
         viewModel.makeGetForYouMoviesListRequest { handleErrors(it) }
-        binding.progressBar.visibility = View.VISIBLE
         viewModel.getForYouMoviesLiveData().observe(this.viewLifecycleOwner) {
 
             finishedRequests++
@@ -142,7 +141,6 @@ class MainFragment : Fragment() {
 
     private fun onGettingRecentViewedMoviesList() {
         viewModel.makeGetRecentMoviesListRequest { handleErrors(it) }
-        binding.progressBar.visibility = View.VISIBLE
         viewModel.getRecentMoviesLiveData().observe(this.viewLifecycleOwner) {
 
             finishedRequests++
@@ -158,7 +156,6 @@ class MainFragment : Fragment() {
 
     private fun onGettingNewMoviesList() {
         viewModel.makeGetNewMoviesListRequest { handleErrors(it) }
-        binding.progressBar.visibility = View.VISIBLE
         viewModel.getNewMoviesLiveData().observe(this.viewLifecycleOwner) {
             finishedRequests++
             newMoviesAdapter.submitList(it)
@@ -174,15 +171,10 @@ class MainFragment : Fragment() {
     private fun handleProgressBarVisibility() {
         if (finishedRequests == REQUEST_AMOUNT) {
             binding.progressBar.visibility = View.GONE
-            setupButtonsVisibility(View.VISIBLE)
+            binding.allViewsGroup.visibility = View.VISIBLE
         }
     }
 
-    private fun setupButtonsVisibility(visibility: Int) {
-        binding.watchButton.visibility = visibility
-        binding.setInterestsButton.visibility = visibility
-        binding.mainPosterImageView.visibility = visibility
-    }
 
     private fun handleErrors(errorModel: ErrorModel) {
         childFragmentManager.executePendingTransactions()

@@ -81,14 +81,19 @@ class MainFragmentViewModel(
             viewModelScope.launch {
                 getMainPosterUseCase()
                     .onSuccess {
-                        posterCachedData = it
-                        posterLiveData.value = it
+                        posterCachedData = transformPosterEntity(it.backgroundImage)
+                        posterLiveData.value = transformPosterEntity(it.backgroundImage)
                     }
                     .onFailure {
                         onErrorAppearance(setupErrorCode(it))
                     }
             }
         }
+    }
+
+    private fun transformPosterEntity(posterUrl: String): PosterEntity {
+        val newUrl = posterUrl.replace("\t", "")
+        return PosterEntity(newUrl, newUrl)
     }
 
     private val recentMoviesLiveData = MutableLiveData<List<MovieEntity>>()

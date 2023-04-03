@@ -18,6 +18,7 @@ import com.ithirteeng.features.movieinfo.databinding.FragmentMovieBinding
 import com.ithirteeng.features.movieinfo.presentation.MovieFragmentViewModel
 import com.ithirteeng.features.movieinfo.ui.adapter.CadresAdapter
 import com.ithirteeng.features.movieinfo.ui.adapter.EpisodesAdapter
+import com.ithirteeng.shared.movies.entity.EpisodeEntity
 import com.ithirteeng.shared.movies.entity.MovieEntity
 import com.ithirteeng.shared.movies.entity.TagEntity
 import com.ithirteeng.shared.movies.utils.MoviesListType
@@ -75,6 +76,9 @@ class MovieFragment : Fragment() {
         movieId = arguments?.getString(MOVIE_ID, "").toString()
         moviesListType = arguments?.getSerializable(MOVIE_TYPE) as MoviesListType
 
+        binding.allViewsGroup.visibility = View.GONE
+        binding.progressBar.visibility = View.VISIBLE
+
         onGettingMovie()
         onGettingEpisodesList()
         onBackButtonClick()
@@ -95,7 +99,6 @@ class MovieFragment : Fragment() {
         viewModel.makeGetMoviesListRequest(movieId, moviesListType) {
             handleErrors(it)
         }
-        binding.progressBar.visibility = View.VISIBLE
         viewModel.getMovieLiveData().observe(this.viewLifecycleOwner) {
             movieName = it?.name.toString()
             finishedRequests++
@@ -110,11 +113,19 @@ class MovieFragment : Fragment() {
         viewModel.makeGetMovieEpisodesListRequest(movieId) {
             handleErrors(it)
         }
-        binding.progressBar.visibility = View.VISIBLE
         viewModel.getMovieEpisodesLiveData().observe(this.viewLifecycleOwner) {
             finishedRequests++
             onFinishedRequests()
-            episodesAdapter.submitList(it)
+            if (it != null) {
+                episodesAdapter.submitList(it)
+                onWatchButtonClick(it.first())
+            }
+        }
+    }
+
+    private fun onWatchButtonClick(episodeEntity: EpisodeEntity) {
+        binding.watchButton.setOnClickListener {
+            viewModel.navigateToEpisodeScreen(episodeEntity.episodeId, movieId, movieName)
         }
     }
 
@@ -156,7 +167,7 @@ class MovieFragment : Fragment() {
     private fun onFinishedRequests() {
         if (finishedRequests == 2) {
             binding.progressBar.visibility = View.GONE
-            binding.watchButton.visibility = View.VISIBLE
+            binding.allViewsGroup.visibility = View.VISIBLE
         }
     }
 

@@ -39,6 +39,7 @@
 
     <TextView
         android:id="@+id/movieNameTextView"
+        android:minLines="2"
         style="@style/Theme.CinemaProject.Headline4"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
