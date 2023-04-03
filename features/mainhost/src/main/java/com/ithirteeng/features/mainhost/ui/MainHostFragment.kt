@@ -6,12 +6,12 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import com.github.terrakok.cicerone.NavigatorHolder
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.github.terrakok.cicerone.androidx.FragmentScreen
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.ithirteeng.customextensions.presentation.addBackPressedListener
 import com.ithirteeng.design.LOCAL_ROUTER
 import com.ithirteeng.features.mainhost.R
 import com.ithirteeng.features.mainhost.databinding.FragmentMainHostBinding
@@ -51,7 +51,7 @@ class MainHostFragment : Fragment(), BottomNavigationView.OnNavigationItemSelect
         val layout = inflater.inflate(R.layout.fragment_main_host, container, false)
         binding = FragmentMainHostBinding.bind(layout)
 
-        addBackPressedListener {
+        this.addBackPressedListener {
             viewModel.exit()
             selectItem()
         }
@@ -100,19 +100,6 @@ class MainHostFragment : Fragment(), BottomNavigationView.OnNavigationItemSelect
             SectionType.PROFILE -> binding.bottomNavBar.selectedItemId = R.id.profile_section
             else -> return
         }
-    }
-
-    private fun Fragment.addBackPressedListener(
-        enabledCallback: Boolean = true,
-        action: OnBackPressedCallback.() -> Unit,
-    ): OnBackPressedCallback {
-        val callback: OnBackPressedCallback = object : OnBackPressedCallback(enabledCallback) {
-            override fun handleOnBackPressed() {
-                action.invoke(this)
-            }
-        }
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
-        return callback
     }
 }
 

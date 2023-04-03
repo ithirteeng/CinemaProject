@@ -37,6 +37,7 @@ ext.Dependencies =
                 GLIDE                       : "com.github.bumptech.glide:glide:${Versions.GLIDE}",
                 EXOPLAYER                   : "androidx.media3:media3-exoplayer:${Versions.EXOPLAYER}",
                 EXOPLAYER_UI                : "androidx.media3:media3-ui:${Versions.EXOPLAYER}",
+                EXOPLAYER_DASH              : "androidx.media3:media3-exoplayer-dash:${Versions.EXOPLAYER}",
 
                 COROUTINE_CORE              : "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.COROUTINE}",
                 COROUTINE_ANDROID           : "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.COROUTINE}",

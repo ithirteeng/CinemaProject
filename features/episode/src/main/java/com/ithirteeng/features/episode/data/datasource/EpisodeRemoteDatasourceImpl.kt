@@ -1,6 +1,7 @@
 package com.ithirteeng.features.episode.data.datasource
 
 import com.ithirteeng.features.episode.data.api.EpisodeApi
+import com.ithirteeng.features.episode.domain.TimeEntity
 import com.ithirteeng.shared.movies.entity.EpisodeEntity
 
 class EpisodeRemoteDatasourceImpl(
@@ -15,5 +16,5 @@ class EpisodeRemoteDatasourceImpl(
 
 
     override suspend fun setEpisodeTime(episodeId: String, time: String) =
-        api.setEpisodeTime(episodeId, time)
+        api.setEpisodeTime(episodeId, TimeEntity(time))
 }

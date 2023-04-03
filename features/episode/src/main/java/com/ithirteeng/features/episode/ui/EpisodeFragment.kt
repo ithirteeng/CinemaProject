@@ -1,15 +1,18 @@
 package com.ithirteeng.features.episode.ui
 
 import android.annotation.SuppressLint
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewGroup.*
-import android.widget.MediaController
 import androidx.fragment.app.Fragment
+import androidx.media3.common.MediaItem
+import androidx.media3.exoplayer.ExoPlayer
 import com.bumptech.glide.Glide
 import com.github.terrakok.cicerone.androidx.FragmentScreen
+import com.ithirteeng.customextensions.presentation.addBackPressedListener
 import com.ithirteeng.errorhandler.domain.ErrorModel
 import com.ithirteeng.errorhandler.presentation.ErrorHandler
 import com.ithirteeng.features.episode.R
@@ -24,6 +27,7 @@ class EpisodeFragment : Fragment() {
         private const val EPISODE_ID = "EPISODE_ID"
         private const val MOVIE_ID = "MOVIE_ID_EPISODE"
         private const val MOVIE_NAME = "MOVIE_NAME"
+        private const val REQUEST_TO_FINISH_LOADING = 4
 
         fun provideEpisodeScreen(episodeId: String, movieId: String, movieName: String) =
             FragmentScreen {
@@ -53,6 +57,8 @@ class EpisodeFragment : Fragment() {
 
     private var finishedRequests = 0
 
+    private val exoPlayer by lazy { ExoPlayer.Builder(requireContext()).build() }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -69,6 +75,8 @@ class EpisodeFragment : Fragment() {
         setupOnGettingFunctions()
 
         onBackButtonClick()
+        onBackArrowClick()
+
         return binding.root
     }
 
@@ -86,6 +94,24 @@ class EpisodeFragment : Fragment() {
 
     private fun onBackButtonClick() {
         binding.backButton.setOnClickListener {
+            onExit()
+        }
+    }
+
+    private fun onBackArrowClick() {
+        this.addBackPressedListener {
+            onExit()
+        }
+    }
+
+    private fun onExit() {
+        exoPlayer.stop()
+        viewModel.setEpisodeTime(episodeId, (exoPlayer.contentPosition / 1000).toInt()) {
+            handleErrors(it)
+        }
+        binding.progressBar.visibility = View.VISIBLE
+        viewModel.getSuccessfulRequestLiveData().observe(this.viewLifecycleOwner) {
+            binding.progressBar.visibility = View.GONE
             viewModel.exit()
         }
     }
@@ -133,16 +159,23 @@ class EpisodeFragment : Fragment() {
         viewModel.makeGetEpisodeTimeRequest(episodeId) { handleErrors(it) }
         viewModel.getEpisodeTimeLiveData().observe(this.viewLifecycleOwner) {
             videoTime = it
-            setupVideoView()
+            setupVideoPlayer(it)
+
+            finishedRequests++
+            handleViewsVisibility()
         }
     }
 
-    private fun setupVideoView() {
-        binding.videoView.setMediaController(MediaController(requireContext()))
-        binding.videoView.setVideoPath(episodeEntity?.filePath)
-        binding.videoView.requestFocus(0)
+    private fun setupVideoPlayer(timeInSeconds: Int) {
+        with(binding) {
+            videoPlayer.player = exoPlayer
+            val mediaItem = MediaItem.fromUri(Uri.parse(episodeEntity?.filePath))
+            exoPlayer.setMediaItem(mediaItem)
+            exoPlayer.prepare()
+            exoPlayer.seekTo((timeInSeconds * 1000).toLong())
+            exoPlayer.play()
 
-        binding.videoView.start()
+        }
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
@@ -157,7 +190,7 @@ class EpisodeFragment : Fragment() {
 
 
     private fun handleViewsVisibility() {
-        if (finishedRequests == 3) {
+        if (finishedRequests == REQUEST_TO_FINISH_LOADING) {
             setAllViewsVisibility(View.VISIBLE)
             binding.progressBar.visibility = View.GONE
         }
