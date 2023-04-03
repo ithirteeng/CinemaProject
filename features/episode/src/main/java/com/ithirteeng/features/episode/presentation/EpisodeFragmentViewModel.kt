@@ -1,5 +1,6 @@
 package com.ithirteeng.features.episode.presentation
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -36,6 +37,7 @@ class EpisodeFragmentViewModel(
         viewModelScope.launch {
             getEpisodeTimeUseCase(episodeId)
                 .onSuccess {
+                    Log.d("TIMES", it.toInt().toString())
                     val time = it.toInt()
                     episodeTimeLiveData.value = time
                 }
