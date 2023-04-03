@@ -18,6 +18,7 @@ import com.ithirteeng.features.movieinfo.databinding.FragmentMovieBinding
 import com.ithirteeng.features.movieinfo.presentation.MovieFragmentViewModel
 import com.ithirteeng.features.movieinfo.ui.adapter.CadresAdapter
 import com.ithirteeng.features.movieinfo.ui.adapter.EpisodesAdapter
+import com.ithirteeng.shared.movies.entity.EpisodeEntity
 import com.ithirteeng.shared.movies.entity.MovieEntity
 import com.ithirteeng.shared.movies.entity.TagEntity
 import com.ithirteeng.shared.movies.utils.MoviesListType
@@ -115,7 +116,16 @@ class MovieFragment : Fragment() {
         viewModel.getMovieEpisodesLiveData().observe(this.viewLifecycleOwner) {
             finishedRequests++
             onFinishedRequests()
-            episodesAdapter.submitList(it)
+            if (it != null) {
+                episodesAdapter.submitList(it)
+                onWatchButtonClick(it.first())
+            }
+        }
+    }
+
+    private fun onWatchButtonClick(episodeEntity: EpisodeEntity) {
+        binding.watchButton.setOnClickListener {
+            viewModel.navigateToEpisodeScreen(episodeEntity.episodeId, movieId, movieName)
         }
     }
 
