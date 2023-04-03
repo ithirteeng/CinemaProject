@@ -17,7 +17,7 @@ import com.ithirteeng.features.main.presentation.MainFragmentViewModel
 import com.ithirteeng.features.main.ui.adapter.ForYouMoviesAdapter
 import com.ithirteeng.features.main.ui.adapter.InTrendMoviesAdapter
 import com.ithirteeng.features.main.ui.adapter.NewMoviesAdapter
-import com.ithirteeng.features.main.ui.adapter.RecentViewedMoviesAdapter
+import com.ithirteeng.shared.movies.entity.MovieEntity
 import com.ithirteeng.shared.movies.utils.MoviesListType
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -37,12 +37,6 @@ class MainFragment : Fragment() {
     private val inTrendAdapter by lazy {
         InTrendMoviesAdapter {
             viewModel.navigateToMovieScreen(it.id, MoviesListType.IN_TREND)
-        }
-    }
-
-    private val recentViewedAdapter by lazy {
-        RecentViewedMoviesAdapter {
-            viewModel.navigateToMovieScreen(it.id, MoviesListType.LAST_VIEW)
         }
     }
 
@@ -77,7 +71,6 @@ class MainFragment : Fragment() {
 
     private fun setupRecyclerViewAdapters() {
         binding.inTrendRecyclerView.adapter = inTrendAdapter
-        binding.recentRecyclerView.adapter = recentViewedAdapter
         binding.newRecyclerView.adapter = newMoviesAdapter
         binding.forYouRecyclerView.adapter = forYouMoviesAdapter
     }
@@ -142,16 +135,36 @@ class MainFragment : Fragment() {
     private fun onGettingRecentViewedMoviesList() {
         viewModel.makeGetRecentMoviesListRequest { handleErrors(it) }
         viewModel.getRecentMoviesLiveData().observe(this.viewLifecycleOwner) {
-
             finishedRequests++
-            recentViewedAdapter.submitList(it)
             handleProgressBarVisibility()
-
+            setupRecentItem(it.first())
             if (it.isNotEmpty()) {
                 binding.recentTextView.visibility = View.VISIBLE
-                binding.recentRecyclerView.visibility = View.VISIBLE
+                binding.recentGroup.visibility = View.VISIBLE
             }
         }
+    }
+
+    private fun setupRecentItem(movieEntity: MovieEntity) {
+        onPlayButtonClick(movieEntity.id)
+        loadRecentImage(movieEntity.poster)
+        binding.recentMovieTextView.text = movieEntity.name
+    }
+
+    private fun onPlayButtonClick(movieId: String) {
+        binding.playButton.setOnClickListener {
+            viewModel.navigateToMovieScreen(movieId, MoviesListType.LAST_VIEW)
+        }
+    }
+
+    @SuppressLint("UseCompatLoadingForDrawables")
+    private fun loadRecentImage(url: String) {
+        Glide
+            .with(binding.root)
+            .load(url)
+            .placeholder(requireContext().getDrawable(com.ithirteeng.component.design.R.drawable.image_placeholder))
+            .error(requireContext().getDrawable(com.ithirteeng.component.design.R.drawable.image_placeholder))
+            .into(binding.recentWatchedImageView)
     }
 
     private fun onGettingNewMoviesList() {
