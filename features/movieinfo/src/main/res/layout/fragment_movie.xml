@@ -37,15 +37,15 @@
         <Button
             android:id="@+id/watchButton"
             style="@style/Theme.CinemaProject.FilledButtonStyle"
-            android:visibility="invisible"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin_32"
             android:text="@string/watch"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="@+id/mainPosterImageView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            tools:ignore="TextContrastCheck" />
+            tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
         <TextView
             android:id="@+id/seasonNumberTextView"
@@ -62,11 +62,11 @@
             android:id="@+id/ageTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/red"
-            android:textSize="@dimen/text_size_14"
-            android:fontFamily="@font/roboto_medium"
-            android:textFontWeight="700"
             android:layout_marginHorizontal="@dimen/margin_16"
+            android:fontFamily="@font/roboto_medium"
+            android:textColor="@color/red"
+            android:textFontWeight="700"
+            android:textSize="@dimen/text_size_14"
             app:layout_constraintBottom_toBottomOf="@id/chatButton"
             app:layout_constraintEnd_toStartOf="@id/chatButton"
             app:layout_constraintStart_toEndOf="@id/seasonNumberTextView"
@@ -186,11 +186,27 @@
             style="@style/Theme.CinemaProject.ProgressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_16"
-            app:layout_constraintBottom_toTopOf="@+id/watchButton"
+            app:layout_constraintBottom_toBottomOf="@+id/guideline"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="300dp"
+            app:layout_constraintGuide_percent="0.55" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/allViewsGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="backButton,mainPosterImageView,watchButton,seasonNumberTextView,ageTextView,chatButton,genresFlexbox,descriptionHeaderTextView,descriptionTextView,cadresTextView,cadresRecyclerView,episodesTextView,episodesRecyclerView"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

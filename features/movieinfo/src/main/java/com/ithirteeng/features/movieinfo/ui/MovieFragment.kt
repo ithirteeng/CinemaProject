@@ -75,6 +75,9 @@ class MovieFragment : Fragment() {
         movieId = arguments?.getString(MOVIE_ID, "").toString()
         moviesListType = arguments?.getSerializable(MOVIE_TYPE) as MoviesListType
 
+        binding.allViewsGroup.visibility = View.GONE
+        binding.progressBar.visibility = View.VISIBLE
+
         onGettingMovie()
         onGettingEpisodesList()
         onBackButtonClick()
@@ -95,7 +98,6 @@ class MovieFragment : Fragment() {
         viewModel.makeGetMoviesListRequest(movieId, moviesListType) {
             handleErrors(it)
         }
-        binding.progressBar.visibility = View.VISIBLE
         viewModel.getMovieLiveData().observe(this.viewLifecycleOwner) {
             movieName = it?.name.toString()
             finishedRequests++
@@ -110,7 +112,6 @@ class MovieFragment : Fragment() {
         viewModel.makeGetMovieEpisodesListRequest(movieId) {
             handleErrors(it)
         }
-        binding.progressBar.visibility = View.VISIBLE
         viewModel.getMovieEpisodesLiveData().observe(this.viewLifecycleOwner) {
             finishedRequests++
             onFinishedRequests()
@@ -156,7 +157,7 @@ class MovieFragment : Fragment() {
     private fun onFinishedRequests() {
         if (finishedRequests == 2) {
             binding.progressBar.visibility = View.GONE
-            binding.watchButton.visibility = View.VISIBLE
+            binding.allViewsGroup.visibility = View.VISIBLE
         }
     }
 
