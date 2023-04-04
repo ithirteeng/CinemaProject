@@ -31,6 +31,13 @@ class MainFragmentViewModel(
     fun navigateToMovieScreen(movieId: String, movieListType: MoviesListType) =
         router.navigateToMovieScreen(movieId, movieListType)
 
+    fun navigateToEpisodeScreen(episodeViewEntity: EpisodeViewEntity) =
+        router.navigate(
+            episodeViewEntity.episodeId,
+            episodeViewEntity.movieId,
+            episodeViewEntity.movieName
+        )
+
 
     private val movieEpisodesLiveData = MutableLiveData<List<EpisodeEntity>>()
 

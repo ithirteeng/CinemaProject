@@ -146,14 +146,14 @@ class MainFragment : Fragment() {
     }
 
     private fun setupRecentItem(episodeViewEntity: EpisodeViewEntity) {
-        onPlayButtonClick(episodeViewEntity.movieId)
+        onPlayButtonClick(episodeViewEntity)
         loadRecentImage(episodeViewEntity.preview)
         binding.recentMovieTextView.text = episodeViewEntity.movieName
     }
 
-    private fun onPlayButtonClick(movieId: String) {
+    private fun onPlayButtonClick(episodeViewEntity: EpisodeViewEntity) {
         binding.playButton.setOnClickListener {
-            viewModel.navigateToMovieScreen(movieId, MoviesListType.LAST_VIEW)
+            viewModel.navigateToEpisodeScreen(episodeViewEntity)
         }
     }
 
