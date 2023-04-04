@@ -37,8 +37,11 @@
 
             <androidx.media3.ui.PlayerView
                 android:id="@+id/videoPlayer"
+                app:animation_enabled="false"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/size_210" />
+                android:layout_height="@dimen/size_210"
+                app:controller_layout_id="@layout/custom_exoplayer_controller"
+                app:show_timeout="2000" />
 
 
         </FrameLayout>
