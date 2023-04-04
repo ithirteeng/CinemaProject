@@ -137,8 +137,8 @@ class MainFragment : Fragment() {
         viewModel.getRecentMoviesLiveData().observe(this.viewLifecycleOwner) {
             finishedRequests++
             handleProgressBarVisibility()
-            setupRecentItem(it.first())
             if (it.isNotEmpty()) {
+                setupRecentItem(it.first())
                 binding.recentTextView.visibility = View.VISIBLE
                 binding.recentGroup.visibility = View.VISIBLE
             }
