@@ -17,7 +17,7 @@ import com.ithirteeng.features.main.presentation.MainFragmentViewModel
 import com.ithirteeng.features.main.ui.adapter.ForYouMoviesAdapter
 import com.ithirteeng.features.main.ui.adapter.InTrendMoviesAdapter
 import com.ithirteeng.features.main.ui.adapter.NewMoviesAdapter
-import com.ithirteeng.shared.movies.entity.MovieEntity
+import com.ithirteeng.shared.movies.entity.EpisodeViewEntity
 import com.ithirteeng.shared.movies.utils.MoviesListType
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -133,22 +133,22 @@ class MainFragment : Fragment() {
     }
 
     private fun onGettingRecentViewedMoviesList() {
-        viewModel.makeGetRecentMoviesListRequest { handleErrors(it) }
-        viewModel.getRecentMoviesLiveData().observe(this.viewLifecycleOwner) {
+        viewModel.makeGetHistoryRequest { handleErrors(it) }
+        viewModel.getHistoryLiveData().observe(this.viewLifecycleOwner) {
             finishedRequests++
             handleProgressBarVisibility()
             if (it.isNotEmpty()) {
-                setupRecentItem(it.first())
+                setupRecentItem(it.last())
                 binding.recentTextView.visibility = View.VISIBLE
                 binding.recentGroup.visibility = View.VISIBLE
             }
         }
     }
 
-    private fun setupRecentItem(movieEntity: MovieEntity) {
-        onPlayButtonClick(movieEntity.id)
-        loadRecentImage(movieEntity.poster)
-        binding.recentMovieTextView.text = movieEntity.name
+    private fun setupRecentItem(episodeViewEntity: EpisodeViewEntity) {
+        onPlayButtonClick(episodeViewEntity.movieId)
+        loadRecentImage(episodeViewEntity.preview)
+        binding.recentMovieTextView.text = episodeViewEntity.movieName
     }
 
     private fun onPlayButtonClick(movieId: String) {
