@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewGroup.*
+import android.widget.ImageButton
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.media3.common.MediaItem
 import androidx.media3.exoplayer.ExoPlayer
@@ -173,6 +175,7 @@ class EpisodeFragment : Fragment() {
             exoPlayer.setMediaItem(mediaItem)
             exoPlayer.prepare()
             exoPlayer.seekTo((timeInSeconds * 1000).toLong())
+            setupPlayerListener()
             exoPlayer.play()
 
         }
@@ -203,6 +206,14 @@ class EpisodeFragment : Fragment() {
     private fun handleErrors(errorModel: ErrorModel) {
         childFragmentManager.executePendingTransactions()
         ErrorHandler.showErrorDialog(requireContext(), childFragmentManager, errorModel)
+    }
+
+    private fun setupPlayerListener() {
+        val volumeButton = binding.videoPlayer.findViewById<ImageButton>(R.id.volumeButton)
+        volumeButton.setOnClickListener {
+            Toast.makeText(requireContext(), " DSFd", Toast.LENGTH_SHORT).show()
+        }
+
     }
 
 }
