@@ -12,8 +12,12 @@ class UserLocalDatasourceImpl(
     override fun checkIfUserEnteredTheApp(): Boolean =
         storage.checkIfUserEnteredTheApp()
 
-    override fun clearUserData() =
+    override fun clearProfileData() =
+        storage.clearUserData()
+
+    override fun clearUserData() {
         storage.clearUserStorage()
+    }
 
     override fun getUserData(): UserEntity? =
         storage.getUserData()

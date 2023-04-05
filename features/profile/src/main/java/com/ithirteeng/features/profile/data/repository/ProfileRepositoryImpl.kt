@@ -1,6 +1,5 @@
 package com.ithirteeng.features.profile.data.repository
 
-import android.net.Uri
 import com.ithirteeng.features.profile.data.datasource.ProfileRemoteDatasource
 import com.ithirteeng.features.profile.domain.entity.ProfileEntity
 import com.ithirteeng.features.profile.domain.repository.ProfileRepository
@@ -16,7 +15,14 @@ class ProfileRepositoryImpl(
         }
     }
 
+    override suspend fun changeUsersAvatar(byteArray: ByteArray): Result<Unit> {
+        return try {
+            remoteDatasource.changeUsersAvatar(byteArray)
+            Result.success(Unit)
+        } catch (e: java.lang.Exception) {
+            Result.failure(e)
+        }
 
-    override suspend fun changeUsersAvatar(uri: Uri) =
-        remoteDatasource.changeUsersAvatar(uri)
+    }
+
 }

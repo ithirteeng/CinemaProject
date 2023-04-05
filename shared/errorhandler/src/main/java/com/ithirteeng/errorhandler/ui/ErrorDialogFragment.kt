@@ -48,7 +48,7 @@ class ErrorDialogFragment : DialogFragment() {
         super.onDismiss(dialog)
         if (errorModel.error is HttpException && errorModel.errorCode == 401) {
             viewModel.navigateToLoginFragment()
-            viewModel.deleteToken()
+            viewModel.removeUserFullData()
         }
     }
 
@@ -57,7 +57,7 @@ class ErrorDialogFragment : DialogFragment() {
             if (errorModel.error is HttpException && errorModel.errorCode == 401) {
                 this.dismiss()
                 viewModel.navigateToLoginFragment()
-                viewModel.deleteToken()
+                viewModel.removeUserFullData()
             } else {
                 this.dismiss()
             }

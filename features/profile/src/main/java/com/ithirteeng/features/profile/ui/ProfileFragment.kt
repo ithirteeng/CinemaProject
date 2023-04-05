@@ -1,24 +1,24 @@
 package com.ithirteeng.features.profile.ui
 
+import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
-import androidx.core.net.toUri
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import com.github.terrakok.cicerone.androidx.FragmentScreen
 import com.ithirteeng.errorhandler.domain.ErrorModel
 import com.ithirteeng.errorhandler.presentation.ErrorHandler
@@ -51,6 +51,7 @@ class ProfileFragment : Fragment() {
         val layout = inflater.inflate(R.layout.fragment_profile, container, false)
         binding = FragmentProfileBinding.bind(layout)
 
+        viewModel.getProfileData { handleErrors(it) }
         onGettingProfileData()
         setupOnButtonClickFunctions()
 
@@ -58,13 +59,22 @@ class ProfileFragment : Fragment() {
     }
 
     private fun onGettingProfileData() {
-        viewModel.getProfileData { handleErrors(it) }
         viewModel.getProfileLiveData().observe(this.viewLifecycleOwner) {
             binding.nameTextView.text = it.fullName
             binding.emailTextView.text = it.email
-            binding.avatarImageView.setImageURI(it.imageUri?.toUri())
-            Log.d("IMAGE_URI", it.imageUri.toString())
+            setAvatarImageByUrl(it.image)
+            viewModel.saveUserdataLocally(UserEntity(it.fullName, it.email, it.image))
         }
+    }
+
+    @SuppressLint("UseCompatLoadingForDrawables")
+    private fun setAvatarImageByUrl(url: String?) {
+        Glide
+            .with(binding.root)
+            .load(url)
+            .placeholder(requireContext().getDrawable(com.ithirteeng.component.design.R.drawable.image_placeholder))
+            .error(requireContext().getDrawable(com.ithirteeng.component.design.R.drawable.image_placeholder))
+            .into(binding.avatarImageView)
     }
 
     private fun setupOnButtonClickFunctions() {
@@ -96,31 +106,20 @@ class ProfileFragment : Fragment() {
         }
     }
 
-    private fun getImageUri(inContext: Context, inImage: Bitmap?): Uri? {
-        val path = MediaStore.Images.Media.insertImage(
-            inContext.contentResolver,
-            inImage,
-            "Title",
-            null
-        )
-        return Uri.parse(path)
-    }
-
+    @Suppress("DEPRECATION")
     private fun doOnActivityResult(result: ActivityResult) {
-        val imageUri = if (result.data?.data !is Uri) {
-            getImageUri(requireContext(), result.data?.extras?.get("data") as Bitmap)
+        val bitmap = if (result.data?.data !is Uri) {
+            result.data?.extras?.get("data") as Bitmap
         } else {
-            result.data?.data
-        }
-        viewModel.saveUserdataLocally(
-            UserEntity(
-                fullName = binding.nameTextView.text.toString(),
-                email = binding.emailTextView.text.toString(),
-                imageUri = imageUri.toString()
+            val uri = result.data?.data
+            BitmapFactory.decodeStream(
+                uri?.let { requireActivity().contentResolver.openInputStream(it) },
+                null,
+                null
             )
-        )
-        binding.avatarImageView.setImageURI(imageUri)
+        }
 
+        bitmap?.let { viewModel.uploadUserAvatar(it) { error -> handleErrors(error) } }
     }
 
     private fun getCameraPicture() {
@@ -133,7 +132,6 @@ class ProfileFragment : Fragment() {
             Intent.ACTION_PICK,
             MediaStore.Images.Media.EXTERNAL_CONTENT_URI
         )
-        pickPhotoIntent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION)
         resultLauncher.launch(pickPhotoIntent)
     }
 

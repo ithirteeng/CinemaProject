@@ -30,7 +30,7 @@ val profileModule = module {
             getLocalUserDataUseCase = get(),
             removeTokenFromLocalStorageUseCase = get(),
             uploadUserAvatarUseCase = get(),
-            clearUserDataLocallyUseCase = get(),
+            clearProfileDataLocallyUseCase = get(),
             saveUserDataLocallyUseCase = get(),
             router = get()
         )

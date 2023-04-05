@@ -13,8 +13,12 @@ class UserRepositoryImpl(
     override fun checkIfUserEnteredTheApp(): Boolean =
         localDatasource.checkIfUserEnteredTheApp()
 
+    override fun clearProfileData() =
+        localDatasource.clearProfileData()
+
     override fun clearUserData() =
         localDatasource.clearUserData()
+
 
     override fun getUserData(): UserEntity? =
         localDatasource.getUserData()
