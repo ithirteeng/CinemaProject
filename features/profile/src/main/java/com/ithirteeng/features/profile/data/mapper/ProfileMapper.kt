@@ -6,6 +6,6 @@ import com.ithirteeng.shared.userstorage.domain.entity.UserEntity
 fun ProfileEntity.toUserEntity(): UserEntity =
     UserEntity(
         fullName = "${this.firstName} ${this.lastName}",
-        imageUri = this.avatar,
-        email = this.email
+        email = this.email,
+        image = this.avatar
     )

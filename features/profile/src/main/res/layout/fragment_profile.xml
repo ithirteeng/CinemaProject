@@ -35,7 +35,8 @@
         android:text="@string/undefined"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/cardView"
-        app:layout_constraintTop_toTopOf="@+id/cardView" />
+        app:layout_constraintTop_toTopOf="@+id/cardView"
+        tools:ignore="TextContrastCheck" />
 
     <TextView
         android:id="@+id/emailTextView"
@@ -47,17 +48,18 @@
         android:textColor="@color/grey_secondary_text_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/cardView"
-        app:layout_constraintTop_toBottomOf="@+id/nameTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/nameTextView"
+        tools:ignore="TextContrastCheck" />
 
     <Button
         android:id="@+id/changeButton"
-        android:textAllCaps="false"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_8"
         android:background="@color/transparent"
-        android:text="@string/change"
         android:minHeight="0dp"
+        android:text="@string/change"
+        android:textAllCaps="false"
         android:textColor="@drawable/empty_button_on_click_selector"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/cardView"
@@ -80,7 +82,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/changeButton"
         app:layout_constraintVertical_chainStyle="packed"
-        tools:ignore="TouchTargetSizeCheck" />
+        tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />
 
     <Button
         android:id="@+id/historyButton"
@@ -97,7 +99,7 @@
         app:layout_constraintBottom_toTopOf="@+id/settingsButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/discussionsButton"
-        tools:ignore="TouchTargetSizeCheck" />
+        tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />
 
     <Button
         android:id="@+id/settingsButton"
@@ -112,7 +114,7 @@
         android:textColor="@drawable/filled_button_on_click_selector"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/historyButton"
-        tools:ignore="TouchTargetSizeCheck" />
+        tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />
 
     <Button
         android:id="@+id/cancelButton"
@@ -129,4 +131,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/settingsButton"
         tools:ignore="PrivateResource,UnusedAttribute,VisualLintButtonSize,TouchTargetSizeCheck" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="@style/Theme.CinemaProject.ProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/allViewsGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="cardView,nameTextView,emailTextView,changeButton,discussionsButton,historyButton,settingsButton,cancelButton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

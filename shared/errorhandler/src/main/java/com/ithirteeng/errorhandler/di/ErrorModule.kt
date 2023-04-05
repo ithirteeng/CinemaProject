@@ -8,7 +8,8 @@ val errorModule = module {
     viewModel {
         ErrorDialogFragmentViewModel(
             router = get(),
-            removeTokenFromLocalStorageUseCase = get()
+            removeTokenFromLocalStorageUseCase = get(),
+            clearProfileDataLocallyUseCase = get()
         )
     }
 }

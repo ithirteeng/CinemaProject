@@ -1,7 +1,7 @@
 package com.ithirteeng.features.profile.presentation
 
 import android.app.Application
-import android.net.Uri
+import android.graphics.Bitmap
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
@@ -13,11 +13,12 @@ import com.ithirteeng.features.profile.domain.usecase.UploadUserAvatarUseCase
 import com.ithirteeng.shared.network.common.NoConnectivityException
 import com.ithirteeng.shared.token.domain.usecase.RemoveTokenFromLocalStorageUseCase
 import com.ithirteeng.shared.userstorage.domain.entity.UserEntity
-import com.ithirteeng.shared.userstorage.domain.usecase.ClearUserDataLocallyUseCase
+import com.ithirteeng.shared.userstorage.domain.usecase.ClearProfileDataLocallyUseCase
 import com.ithirteeng.shared.userstorage.domain.usecase.GetLocalUserDataUseCase
 import com.ithirteeng.shared.userstorage.domain.usecase.SaveUserDataLocallyUseCase
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
+import java.io.ByteArrayOutputStream
 
 class ProfileFragmentViewModel(
     application: Application,
@@ -25,7 +26,7 @@ class ProfileFragmentViewModel(
     private val uploadUserAvatarUseCase: UploadUserAvatarUseCase,
     private val getLocalUserDataUseCase: GetLocalUserDataUseCase,
     private val saveUserDataLocallyUseCase: SaveUserDataLocallyUseCase,
-    private val clearUserDataLocallyUseCase: ClearUserDataLocallyUseCase,
+    private val clearProfileDataLocallyUseCase: ClearProfileDataLocallyUseCase,
     private val removeTokenFromLocalStorageUseCase: RemoveTokenFromLocalStorageUseCase,
     private val router: ProfileRouter,
 ) : AndroidViewModel(application) {
@@ -34,7 +35,7 @@ class ProfileFragmentViewModel(
         router.navigateToLoginScreen()
 
     private fun clearLocalUserData() {
-        clearUserDataLocallyUseCase()
+        clearProfileDataLocallyUseCase()
         removeTokenFromLocalStorageUseCase()
     }
 
@@ -46,9 +47,17 @@ class ProfileFragmentViewModel(
     private fun getLocalUserData(): UserEntity? =
         getLocalUserDataUseCase()
 
-    fun uploadUserAvatar(uri: Uri) {
+    fun uploadUserAvatar(bitmap: Bitmap, onErrorAppearance: (errorModel: ErrorModel) -> Unit) {
         viewModelScope.launch {
-            uploadUserAvatarUseCase(uri)
+            val byteArrayOutputStream = ByteArrayOutputStream()
+            bitmap.compress(Bitmap.CompressFormat.PNG, 0, byteArrayOutputStream)
+
+            uploadUserAvatarUseCase(byteArrayOutputStream.toByteArray())
+                .onSuccess {
+                    clearProfileDataLocallyUseCase()
+                    getProfileData { onErrorAppearance(it) }
+                }
+                .onFailure { onErrorAppearance(setupErrorCode(it)) }
         }
     }
 

@@ -7,6 +7,8 @@ interface UserRepository {
 
     fun checkIfUserEnteredTheApp(): Boolean
 
+    fun clearProfileData()
+
     fun clearUserData()
 
     fun getUserData(): UserEntity?

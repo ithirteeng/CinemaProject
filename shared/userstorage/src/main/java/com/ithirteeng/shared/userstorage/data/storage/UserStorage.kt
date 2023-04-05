@@ -30,7 +30,7 @@ class UserStorage(context: Context) {
         sharedPreferences.edit()
             .putString(USER_NAME_SURNAME_KEY, userEntity.fullName)
             .putString(USER_EMAIL_KEY, userEntity.email)
-            .putString(USER_IMAGE_KEY, userEntity.imageUri)
+            .putString(USER_IMAGE_KEY, userEntity.image)
             .apply()
     }
 
@@ -38,14 +38,22 @@ class UserStorage(context: Context) {
         sharedPreferences.edit().clear().apply()
     }
 
+    fun clearUserData() {
+        sharedPreferences.edit()
+            .remove(USER_IMAGE_KEY)
+            .remove(USER_EMAIL_KEY)
+            .remove(USER_NAME_SURNAME_KEY)
+            .apply()
+    }
+
     fun getUserData(): UserEntity? {
-        return if (sharedPreferences.getString(USER_NAME_SURNAME_KEY, null) == null) {
+        return if (sharedPreferences.getString(USER_IMAGE_KEY, null) == null) {
             null
         } else {
             UserEntity(
                 fullName = sharedPreferences.getString(USER_NAME_SURNAME_KEY, null),
                 email = sharedPreferences.getString(USER_EMAIL_KEY, null),
-                imageUri = sharedPreferences.getString(USER_IMAGE_KEY, null)
+                image = sharedPreferences.getString(USER_IMAGE_KEY, null)
             )
         }
     }
