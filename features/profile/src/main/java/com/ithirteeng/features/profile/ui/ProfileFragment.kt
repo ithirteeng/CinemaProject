@@ -51,6 +51,8 @@ class ProfileFragment : Fragment() {
         val layout = inflater.inflate(R.layout.fragment_profile, container, false)
         binding = FragmentProfileBinding.bind(layout)
 
+        binding.progressBar.visibility = View.VISIBLE
+        binding.allViewsGroup.visibility = View.INVISIBLE
         viewModel.getProfileData { handleErrors(it) }
         onGettingProfileData()
         setupOnButtonClickFunctions()
@@ -64,6 +66,9 @@ class ProfileFragment : Fragment() {
             binding.emailTextView.text = it.email
             setAvatarImageByUrl(it.image)
             viewModel.saveUserdataLocally(UserEntity(it.fullName, it.email, it.image))
+
+            binding.progressBar.visibility = View.GONE
+            binding.allViewsGroup.visibility = View.VISIBLE
         }
     }
 
@@ -96,7 +101,6 @@ class ProfileFragment : Fragment() {
 
     private fun showPickDialogFragment() {
         setupDialogFragment()
-
         pickImageDialogFragment.show(childFragmentManager, "pick image dialog")
     }
 
@@ -118,7 +122,7 @@ class ProfileFragment : Fragment() {
                 null
             )
         }
-
+        binding.progressBar.visibility = View.VISIBLE
         bitmap?.let { viewModel.uploadUserAvatar(it) { error -> handleErrors(error) } }
     }
 
