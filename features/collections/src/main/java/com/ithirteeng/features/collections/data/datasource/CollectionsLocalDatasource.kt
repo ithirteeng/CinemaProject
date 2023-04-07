@@ -1,6 +1,6 @@
-package com.ithirteeng.shared.collections.data.datasource
+package com.ithirteeng.features.collections.data.datasource
 
-interface SharedCollectionLocalDatasource {
+interface CollectionsLocalDatasource {
 
     fun setCreationFavouritesFlag(creationFlag: Boolean)
 

@@ -1,10 +1,10 @@
-package com.ithirteeng.shared.collections.data.datasource
+package com.ithirteeng.features.collections.data.datasource
 
-import com.ithirteeng.shared.collections.data.storage.CollectionSharedPreferences
+import com.ithirteeng.features.collections.data.storage.CollectionSharedPreferences
 
-class SharedCollectionLocalDatasourceImpl(
+class CollectionsLocalDatasourceImpl(
     private val sharedPreferences: CollectionSharedPreferences,
-) : SharedCollectionLocalDatasource {
+) : CollectionsLocalDatasource {
 
     override fun setCreationFavouritesFlag(creationFlag: Boolean) =
         sharedPreferences.setFavouritesCreationFlag(creationFlag)

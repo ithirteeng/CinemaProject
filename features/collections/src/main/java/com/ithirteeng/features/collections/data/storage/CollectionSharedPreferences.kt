@@ -1,4 +1,4 @@
-package com.ithirteeng.shared.collections.data.storage
+package com.ithirteeng.features.collections.data.storage
 
 import android.content.Context
 
