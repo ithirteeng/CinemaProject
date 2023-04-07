@@ -20,4 +20,6 @@ val userModule = module {
     factory { SaveUserDataLocallyUseCase(repository = get()) }
     factory { ClearProfileDataLocallyUseCase(repository = get()) }
     factory { ClearUserDataUseCase(repository = get()) }
+    factory { SetCurrentUserEmailUseCase(repository = get()) }
+    factory { GetCurrentUserEmailUseCase(repository = get()) }
 }

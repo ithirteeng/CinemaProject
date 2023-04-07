@@ -11,6 +11,7 @@ class UserStorage(context: Context) {
         const val USER_NAME_SURNAME_KEY = "USER_NAME_SURNAME_KEY"
         const val USER_EMAIL_KEY = "USER_EMAIL_KEY"
         const val USER_IMAGE_KEY = "USER_IMAGE_KEY"
+        const val CURRENT_USER_KEY = "CURRENT_USER_KEY"
     }
 
     private val sharedPreferences =
@@ -20,6 +21,14 @@ class UserStorage(context: Context) {
         sharedPreferences.edit()
             .putBoolean(USER_ENTRY_FLAG, ifUserPassedRegistration)
             .apply()
+    }
+
+    fun setCurrentUserEmail(email: String) {
+        sharedPreferences.edit().putString(CURRENT_USER_KEY, email).apply()
+    }
+
+    fun getCurrentUserEmail(): String {
+        return sharedPreferences.getString(CURRENT_USER_KEY, null).toString()
     }
 
     fun checkIfUserEnteredTheApp(): Boolean {
