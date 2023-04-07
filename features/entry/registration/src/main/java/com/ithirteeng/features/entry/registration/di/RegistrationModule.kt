@@ -30,7 +30,8 @@ val registrationModule = module {
             saveTokenToLocalStorageUseCase = get(),
             validateTextFieldUseCase = get(),
             validateEmailUseCase = get(),
-            validatePasswordsUseCase = get()
+            validatePasswordsUseCase = get(),
+            setCurrentUserEmailUseCase = get()
         )
     }
 }

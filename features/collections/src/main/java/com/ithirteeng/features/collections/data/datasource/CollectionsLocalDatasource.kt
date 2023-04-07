@@ -2,7 +2,7 @@ package com.ithirteeng.features.collections.data.datasource
 
 interface CollectionsLocalDatasource {
 
-    fun setCreationFavouritesFlag(creationFlag: Boolean)
+    fun setCreationFavouritesFlag(creationFlag: Boolean, userName: String)
 
-    fun getFavouritesCreationFlag(): Boolean
+    fun getFavouritesCreationFlag(userName: String): Boolean
 }

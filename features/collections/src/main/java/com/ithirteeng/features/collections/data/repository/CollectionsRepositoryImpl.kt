@@ -11,11 +11,11 @@ class CollectionsRepositoryImpl(
     private val remoteDatasource: CollectionsRemoteDatasource,
 ) : CollectionsRepository {
 
-    override fun setCreationFavouritesFlag(creationFlag: Boolean) =
-        localDatasource.setCreationFavouritesFlag(creationFlag)
+    override fun setCreationFavouritesFlag(creationFlag: Boolean, userName: String) =
+        localDatasource.setCreationFavouritesFlag(creationFlag, userName)
 
-    override fun getFavouritesCreationFlag(): Boolean =
-        localDatasource.getFavouritesCreationFlag()
+    override fun getFavouritesCreationFlag(userName: String): Boolean =
+        localDatasource.getFavouritesCreationFlag(userName)
 
     override suspend fun createCollection(createCollectionEntity: CreateCollectionEntity): Result<CollectionEntity> {
         return try {

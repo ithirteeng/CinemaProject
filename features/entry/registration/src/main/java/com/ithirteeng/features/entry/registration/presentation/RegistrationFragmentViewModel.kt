@@ -10,6 +10,7 @@ import com.ithirteeng.features.entry.registration.domain.entity.RegistrationEnti
 import com.ithirteeng.features.entry.registration.domain.usecase.PostRegistrationDataUseCase
 import com.ithirteeng.shared.network.common.NoConnectivityException
 import com.ithirteeng.shared.token.domain.usecase.SaveTokenToLocalStorageUseCase
+import com.ithirteeng.shared.userstorage.domain.usecase.SetCurrentUserEmailUseCase
 import com.ithirteeng.shared.validators.common.ValidationResult
 import com.ithirteeng.shared.validators.domain.usecase.ValidateEmailUseCase
 import com.ithirteeng.shared.validators.domain.usecase.ValidatePasswordsUseCase
@@ -25,6 +26,7 @@ class RegistrationFragmentViewModel(
     private val validateEmailUseCase: ValidateEmailUseCase,
     private val validateTextFieldUseCase: ValidateTextFieldUseCase,
     private val validatePasswordsUseCase: ValidatePasswordsUseCase,
+    private val setCurrentUserEmailUseCase: SetCurrentUserEmailUseCase,
 ) : AndroidViewModel(application) {
 
     fun navigateToLoginScreen() {
@@ -45,6 +47,7 @@ class RegistrationFragmentViewModel(
             postRegistrationDataUseCase(registrationEntity)
                 .onSuccess {
                     requestLiveData.value = true
+                    setCurrentUserEmailUseCase(registrationEntity.email)
                     saveTokenToLocalStorageUseCase(it)
                 }
                 .onFailure {

@@ -1,6 +1,6 @@
 package com.ithirteeng.cinemaproject.navigation.routers
 
-import com.ithirteeng.features.collections.CollectionsFragment
+import com.ithirteeng.features.collections.ui.CollectionsFragment
 import com.ithirteeng.features.compilation.ui.CompilationFragment
 import com.ithirteeng.features.main.ui.MainFragment
 import com.ithirteeng.features.mainhost.presentation.MainHostRouter

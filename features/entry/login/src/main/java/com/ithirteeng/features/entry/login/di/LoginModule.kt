@@ -29,7 +29,8 @@ val loginModule = module {
             postLoginDataUseCase = get(),
             saveTokenToLocalStorageUseCase = get(),
             validateEmailUseCase = get(),
-            validateTextFieldUseCase = get()
+            validateTextFieldUseCase = get(),
+            setCurrentUserEmailUseCase = get()
         )
     }
 }

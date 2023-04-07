@@ -11,6 +11,7 @@ import com.ithirteeng.features.entry.login.domain.usecase.PostLoginDataUseCase
 import com.ithirteeng.shared.network.common.NoConnectivityException
 import com.ithirteeng.shared.token.domain.entity.TokenEntity
 import com.ithirteeng.shared.token.domain.usecase.SaveTokenToLocalStorageUseCase
+import com.ithirteeng.shared.userstorage.domain.usecase.SetCurrentUserEmailUseCase
 import com.ithirteeng.shared.validators.common.ValidationResult
 import com.ithirteeng.shared.validators.domain.usecase.ValidateEmailUseCase
 import com.ithirteeng.shared.validators.domain.usecase.ValidateTextFieldUseCase
@@ -24,6 +25,7 @@ class LoginFragmentViewModel(
     private val saveTokenToLocalStorageUseCase: SaveTokenToLocalStorageUseCase,
     private val validateEmailUseCase: ValidateEmailUseCase,
     private val validateTextFieldUseCase: ValidateTextFieldUseCase,
+    private val setCurrentUserEmailUseCase: SetCurrentUserEmailUseCase,
 ) : AndroidViewModel(application) {
     fun navigateToRegistrationScreen() {
         router.navigateToRegistrationFragment()
@@ -42,6 +44,7 @@ class LoginFragmentViewModel(
             postLoginDataUseCase(loginEntity)
                 .onSuccess {
                     tokenLiveData.value = it
+                    setCurrentUserEmailUseCase(loginEntity.email)
                     saveTokenToLocalStorageUseCase(it)
                 }
                 .onFailure {

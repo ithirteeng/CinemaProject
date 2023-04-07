@@ -5,9 +5,9 @@ import com.ithirteeng.features.collections.domain.entity.CreateCollectionEntity
 
 interface CollectionsRepository {
 
-    fun setCreationFavouritesFlag(creationFlag: Boolean)
+    fun setCreationFavouritesFlag(creationFlag: Boolean, userName: String)
 
-    fun getFavouritesCreationFlag(): Boolean
+    fun getFavouritesCreationFlag(userName: String): Boolean
 
     suspend fun createCollection(createCollectionEntity: CreateCollectionEntity): Result<CollectionEntity>
 }

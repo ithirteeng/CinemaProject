@@ -6,9 +6,9 @@ class CollectionsLocalDatasourceImpl(
     private val sharedPreferences: CollectionSharedPreferences,
 ) : CollectionsLocalDatasource {
 
-    override fun setCreationFavouritesFlag(creationFlag: Boolean) =
-        sharedPreferences.setFavouritesCreationFlag(creationFlag)
+    override fun setCreationFavouritesFlag(creationFlag: Boolean, userName: String) =
+        sharedPreferences.setFavouritesCreationFlag(creationFlag, userName)
 
-    override fun getFavouritesCreationFlag(): Boolean =
-        sharedPreferences.getFavouritesCreationFlag()
+    override fun getFavouritesCreationFlag(userName: String): Boolean =
+        sharedPreferences.getFavouritesCreationFlag(userName)
 }

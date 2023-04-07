@@ -5,6 +5,6 @@ import com.ithirteeng.features.collections.domain.repository.CollectionsReposito
 class GetCreationFlagUseCase(
     private val repository: CollectionsRepository,
 ) {
-    operator fun invoke(): Boolean =
-        repository.getFavouritesCreationFlag()
+    operator fun invoke(userName: String): Boolean =
+        repository.getFavouritesCreationFlag(userName)
 }

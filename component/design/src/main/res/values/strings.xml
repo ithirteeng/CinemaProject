@@ -8,6 +8,7 @@
     <string name="like_button_content_description">like film</string>
     <string name="dislike_button_content_description">dislike film</string>
 
+    <string name="favourites_collection">Favourites</string>
 
     <string name="default_error">error</string>
     <string name="default_error_text">this is example of default error text</string>
