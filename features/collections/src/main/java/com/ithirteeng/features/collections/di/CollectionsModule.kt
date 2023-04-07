@@ -40,7 +40,9 @@ val collectionsModule = module {
             setCreationFavouritesFlagUseCase = get(),
             getCreationFlagUseCase = get(),
             createCollectionUseCase = get(),
-            getUserEmailUseCase = get()
+            getUserEmailUseCase = get(),
+            saveCollectionLocallyUseCase = get(),
+            getCollectionImageIdUseCase = get()
         )
     }
 

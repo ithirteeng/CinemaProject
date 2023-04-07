@@ -5,12 +5,16 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ithirteeng.errorhandler.domain.ErrorModel
-import com.ithirteeng.features.collections.domain.entity.CreateCollectionEntity
 import com.ithirteeng.features.collections.domain.usecase.CreateCollectionUseCase
 import com.ithirteeng.features.collections.domain.usecase.GetCreationFlagUseCase
 import com.ithirteeng.features.collections.domain.usecase.SetCreationFavouritesFlagUseCase
+import com.ithirteeng.shared.collections.domain.entity.CreateCollectionEntity
+import com.ithirteeng.shared.collections.domain.entity.LocalCollectionEntity
+import com.ithirteeng.shared.collections.domain.usecase.GetCollectionImageIdUseCase
+import com.ithirteeng.shared.collections.domain.usecase.SaveCollectionLocallyUseCase
 import com.ithirteeng.shared.network.common.NoConnectivityException
 import com.ithirteeng.shared.userstorage.domain.usecase.GetCurrentUserEmailUseCase
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
@@ -19,6 +23,8 @@ class CollectionsFragmentViewModel(
     private val getCreationFlagUseCase: GetCreationFlagUseCase,
     private val setCreationFavouritesFlagUseCase: SetCreationFavouritesFlagUseCase,
     private val getUserEmailUseCase: GetCurrentUserEmailUseCase,
+    private val getCollectionImageIdUseCase: GetCollectionImageIdUseCase,
+    private val saveCollectionLocallyUseCase: SaveCollectionLocallyUseCase,
 ) : ViewModel() {
 
     fun setCreationFavouritesFlag(creationFlag: Boolean) {
@@ -37,7 +43,11 @@ class CollectionsFragmentViewModel(
         onErrorAppearance: (errorModel: ErrorModel) -> Unit,
     ) {
         viewModelScope.launch {
-            createCollectionUseCase(CreateCollectionEntity((collectionName)))
+            createCollectionUseCase(
+                CreateCollectionEntity(
+                    (collectionName)
+                )
+            )
                 .onSuccess {
                     createCollectionResultLiveData.value = true
                 }
