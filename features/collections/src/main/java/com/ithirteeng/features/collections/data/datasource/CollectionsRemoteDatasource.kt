@@ -5,4 +5,6 @@ import com.ithirteeng.shared.collections.domain.entity.CreateCollectionEntity
 
 interface CollectionsRemoteDatasource {
     suspend fun createCollection(createCollectionEntity: CreateCollectionEntity): CollectionEntity
+
+    suspend fun getCollectionsList(): List<CollectionEntity>
 }

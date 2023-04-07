@@ -9,6 +9,7 @@ import com.ithirteeng.features.collections.data.repository.CollectionsRepository
 import com.ithirteeng.features.collections.data.storage.CollectionSharedPreferences
 import com.ithirteeng.features.collections.domain.repository.CollectionsRepository
 import com.ithirteeng.features.collections.domain.usecase.CreateCollectionUseCase
+import com.ithirteeng.features.collections.domain.usecase.GetCollectionsListUseCase
 import com.ithirteeng.features.collections.domain.usecase.GetCreationFlagUseCase
 import com.ithirteeng.features.collections.domain.usecase.SetCreationFavouritesFlagUseCase
 import com.ithirteeng.features.collections.presentation.CollectionsFragmentViewModel
@@ -34,6 +35,7 @@ val collectionsModule = module {
     factory { SetCreationFavouritesFlagUseCase(repository = get()) }
     factory { GetCreationFlagUseCase(repository = get()) }
     factory { CreateCollectionUseCase(repository = get()) }
+    factory { GetCollectionsListUseCase(repository = get()) }
 
     viewModel {
         CollectionsFragmentViewModel(
@@ -42,7 +44,8 @@ val collectionsModule = module {
             createCollectionUseCase = get(),
             getUserEmailUseCase = get(),
             saveCollectionLocallyUseCase = get(),
-            getCollectionImageIdUseCase = get()
+            getCollectionImageIdUseCase = get(),
+            getCollectionsListUseCase = get()
         )
     }
 

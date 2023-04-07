@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ithirteeng.errorhandler.domain.ErrorModel
 import com.ithirteeng.features.collections.domain.usecase.CreateCollectionUseCase
+import com.ithirteeng.features.collections.domain.usecase.GetCollectionsListUseCase
 import com.ithirteeng.features.collections.domain.usecase.GetCreationFlagUseCase
 import com.ithirteeng.features.collections.domain.usecase.SetCreationFavouritesFlagUseCase
 import com.ithirteeng.shared.collections.domain.entity.CollectionEntity
@@ -26,6 +27,7 @@ class CollectionsFragmentViewModel(
     private val getUserEmailUseCase: GetCurrentUserEmailUseCase,
     private val getCollectionImageIdUseCase: GetCollectionImageIdUseCase,
     private val saveCollectionLocallyUseCase: SaveCollectionLocallyUseCase,
+    private val getCollectionsListUseCase: GetCollectionsListUseCase,
 ) : ViewModel() {
 
     fun setCreationFavouritesFlag(creationFlag: Boolean) {

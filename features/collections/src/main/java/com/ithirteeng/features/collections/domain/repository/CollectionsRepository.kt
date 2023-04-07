@@ -10,4 +10,6 @@ interface CollectionsRepository {
     fun getFavouritesCreationFlag(userName: String): Boolean
 
     suspend fun createCollection(createCollectionEntity: CreateCollectionEntity): Result<CollectionEntity>
+
+    suspend fun getCollectionsList(): Result<List<CollectionEntity>>
 }

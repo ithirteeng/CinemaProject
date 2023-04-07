@@ -10,4 +10,7 @@ class CollectionsRemoteDatasourceImpl(
 
     override suspend fun createCollection(createCollectionEntity: CreateCollectionEntity): CollectionEntity =
         api.createCollection(createCollectionEntity)
+
+    override suspend fun getCollectionsList(): List<CollectionEntity> =
+        api.getCollectionsList()
 }
