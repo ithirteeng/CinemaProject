@@ -11,4 +11,7 @@ dependencies {
     implementation Dependencies.KOIN_ANDROID
     implementation Dependencies.GSON
     implementation Dependencies.GSON_CONVERTER
+    implementation Dependencies.RETROFIT
+
+    implementation project(":shared:network")
 }
