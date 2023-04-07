@@ -8,6 +8,7 @@ import com.ithirteeng.errorhandler.domain.ErrorModel
 import com.ithirteeng.features.collections.domain.usecase.CreateCollectionUseCase
 import com.ithirteeng.features.collections.domain.usecase.GetCreationFlagUseCase
 import com.ithirteeng.features.collections.domain.usecase.SetCreationFavouritesFlagUseCase
+import com.ithirteeng.shared.collections.domain.entity.CollectionEntity
 import com.ithirteeng.shared.collections.domain.entity.CreateCollectionEntity
 import com.ithirteeng.shared.collections.domain.entity.LocalCollectionEntity
 import com.ithirteeng.shared.collections.domain.usecase.GetCollectionImageIdUseCase
@@ -31,25 +32,28 @@ class CollectionsFragmentViewModel(
         setCreationFavouritesFlagUseCase(creationFlag, getUserEmailUseCase())
     }
 
+    fun saveCollectionLocally(localCollectionEntity: LocalCollectionEntity) {
+        viewModelScope.launch(Dispatchers.IO) {
+            saveCollectionLocallyUseCase(localCollectionEntity)
+        }
+    }
+
     fun getCreationFavouritesFlag(): Boolean =
         getCreationFlagUseCase(getUserEmailUseCase())
 
-    private val createCollectionResultLiveData = MutableLiveData<Boolean>()
+    private val createCollectionResultLiveData = MutableLiveData<CollectionEntity>()
 
-    fun getCreateCollectionResultLiveData(): LiveData<Boolean> = createCollectionResultLiveData
+    fun getCreateCollectionResultLiveData(): LiveData<CollectionEntity> =
+        createCollectionResultLiveData
 
     fun createCollection(
         collectionName: String,
         onErrorAppearance: (errorModel: ErrorModel) -> Unit,
     ) {
         viewModelScope.launch {
-            createCollectionUseCase(
-                CreateCollectionEntity(
-                    (collectionName)
-                )
-            )
+            createCollectionUseCase(CreateCollectionEntity((collectionName)))
                 .onSuccess {
-                    createCollectionResultLiveData.value = true
+                    createCollectionResultLiveData.value = it
                 }
                 .onFailure {
                     onErrorAppearance(setupErrorCode(it))

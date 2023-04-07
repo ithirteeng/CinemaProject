@@ -12,6 +12,8 @@ import com.ithirteeng.errorhandler.presentation.ErrorHandler
 import com.ithirteeng.features.collections.R
 import com.ithirteeng.features.collections.databinding.FragmentCollectionsBinding
 import com.ithirteeng.features.collections.presentation.CollectionsFragmentViewModel
+import com.ithirteeng.features.collections.presentation.collectionsIconsIds
+import com.ithirteeng.shared.collections.domain.entity.LocalCollectionEntity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CollectionsFragment : Fragment() {
@@ -40,7 +42,12 @@ class CollectionsFragment : Fragment() {
         if (!viewModel.getCreationFavouritesFlag()) {
             viewModel.createCollection(getString(string.favourites_collection)) { handleErrors(it) }
             viewModel.getCreateCollectionResultLiveData().observe(this.viewLifecycleOwner) {
-                //todo: to do something
+                viewModel.saveCollectionLocally(LocalCollectionEntity(
+                    collectionId =  it.id,
+                    collectionName = it.name,
+                    collectionImageId = collectionsIconsIds[0],
+                    isFavourite = true
+                ))
                 viewModel.setCreationFavouritesFlag(true)
             }
         }
