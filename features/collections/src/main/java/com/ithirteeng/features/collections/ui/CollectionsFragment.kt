@@ -41,16 +41,18 @@ class CollectionsFragment : Fragment() {
         binding = FragmentCollectionsBinding.bind(layout)
 
         createFavouritesCollection()
-        onGettingCollectionsList()
         binding.collectionsRecyclerView.adapter = collectionsAdapter
+        onGettingCollectionsList()
 
         return binding.root
     }
 
     private fun onGettingCollectionsList() {
-        viewModel.getCollectionsList { handleErrors(it) }
-        viewModel.getCollectionsListLiveData().observe(this.viewLifecycleOwner) {
-            collectionsAdapter.submitList(it)
+        if (viewModel.getCreationFavouritesFlag()) {
+            viewModel.getCollectionsList { handleErrors(it) }
+            viewModel.getCollectionsListLiveData().observe(this.viewLifecycleOwner) {
+                collectionsAdapter.submitList(it)
+            }
         }
     }
 
@@ -67,6 +69,7 @@ class CollectionsFragment : Fragment() {
                     )
                 )
                 viewModel.setCreationFavouritesFlag(true)
+                onGettingCollectionsList()
             }
         }
     }
