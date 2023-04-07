@@ -38,6 +38,8 @@ class CollectionsFragment : Fragment() {
         return binding.root
     }
 
+
+
     private fun createFavouritesCollection() {
         if (!viewModel.getCreationFavouritesFlag()) {
             viewModel.createCollection(getString(string.favourites_collection)) { handleErrors(it) }
