@@ -43,6 +43,7 @@ class CollectionsFragmentViewModel(
     fun getCreationFavouritesFlag(): Boolean =
         getCreationFlagUseCase(getUserEmailUseCase())
 
+
     private val createCollectionResultLiveData = MutableLiveData<CollectionEntity>()
 
     fun getCreateCollectionResultLiveData(): LiveData<CollectionEntity> =
@@ -62,6 +63,40 @@ class CollectionsFragmentViewModel(
                 }
         }
     }
+
+    private val collectionsListLiveData = MutableLiveData<List<LocalCollectionEntity>>()
+
+    fun getCollectionsListLiveData(): LiveData<List<LocalCollectionEntity>> =
+        collectionsListLiveData
+
+    fun getCollectionsList(onErrorAppearance: (errorModel: ErrorModel) -> Unit) {
+        viewModelScope.launch {
+            getCollectionsListUseCase()
+                .onSuccess {
+                    launch(Dispatchers.IO) {
+                        val list = mutableListOf<LocalCollectionEntity>()
+                        for (entity in it) {
+                            list.add(mapCollectionEntityToLocalCollectionEntity(entity))
+                        }
+                        collectionsListLiveData.postValue(list)
+                    }
+                }
+                .onFailure { onErrorAppearance(setupErrorCode(it)) }
+        }
+    }
+
+    private fun mapCollectionEntityToLocalCollectionEntity(
+        collectionEntity: CollectionEntity,
+    ): LocalCollectionEntity {
+        val imageId = getCollectionImageIdUseCase(collectionId = collectionEntity.id)
+        return LocalCollectionEntity(
+            collectionId = collectionEntity.id,
+            collectionName = collectionEntity.name,
+            collectionImageId = imageId,
+            isFavourite = false
+        )
+    }
+
 
     private fun setupErrorCode(e: Throwable): ErrorModel {
         return when (e) {
