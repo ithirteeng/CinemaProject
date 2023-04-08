@@ -34,5 +34,9 @@ class MainHostRouterImpl(
         return router.getCurrentSectionType()
     }
 
+    override fun clearBackstack() {
+        router.clearBackStack()
+    }
+
 
 }

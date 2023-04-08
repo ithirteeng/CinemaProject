@@ -41,6 +41,7 @@ class MainHostFragment : Fragment(), BottomNavigationView.OnNavigationItemSelect
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
+        viewModel.clearBackstack()
         viewModel.navigateToMainScreen()
     }
 

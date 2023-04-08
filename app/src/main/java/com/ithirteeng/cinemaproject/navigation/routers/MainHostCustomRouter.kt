@@ -84,6 +84,11 @@ class MainHostCustomRouter(
         }
     }
 
+    fun clearBackStack() {
+        sectionsBackstack.clear()
+        screensBackstack.clear()
+    }
+
     fun exit() {
         sectionsBackstack.removeLast()
         screensBackstack.removeLast()
