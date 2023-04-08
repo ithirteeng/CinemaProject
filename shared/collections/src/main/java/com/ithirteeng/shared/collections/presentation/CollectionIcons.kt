@@ -1,6 +1,6 @@
-package com.ithirteeng.features.collections.presentation
+package com.ithirteeng.shared.collections.presentation
 
-import com.ithirteeng.features.collections.R
+import com.ithirteeng.shared.collections.R
 
 val collectionsIconsIds = listOf(
     R.drawable.collection_image_1,

@@ -33,8 +33,8 @@ val registrationModule = module {
             validateTextFieldUseCase = get(),
             validateEmailUseCase = get(),
             validatePasswordsUseCase = get(),
-            setCreationFavouritesFlagUseCase = get(),
-            createCollectionUseCase = get()
+            createCollectionUseCase = get(),
+            saveCollectionLocallyUseCase = get()
         )
     }
 }
