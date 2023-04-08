@@ -6,15 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.github.terrakok.cicerone.androidx.FragmentScreen
-import com.ithirteeng.component.design.R.string
 import com.ithirteeng.errorhandler.domain.ErrorModel
 import com.ithirteeng.errorhandler.presentation.ErrorHandler
 import com.ithirteeng.features.collections.R
 import com.ithirteeng.features.collections.databinding.FragmentCollectionsBinding
 import com.ithirteeng.features.collections.presentation.CollectionsFragmentViewModel
-import com.ithirteeng.features.collections.presentation.collectionsIconsIds
 import com.ithirteeng.features.collections.ui.adapter.CollectionsAdapter
-import com.ithirteeng.shared.collections.domain.entity.LocalCollectionEntity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CollectionsFragment : Fragment() {
@@ -40,7 +37,6 @@ class CollectionsFragment : Fragment() {
         val layout = inflater.inflate(R.layout.fragment_collections, container, false)
         binding = FragmentCollectionsBinding.bind(layout)
 
-        createFavouritesCollection()
         binding.collectionsRecyclerView.adapter = collectionsAdapter
         onGettingCollectionsList()
 
@@ -48,32 +44,12 @@ class CollectionsFragment : Fragment() {
     }
 
     private fun onGettingCollectionsList() {
-        if (viewModel.getCreationFavouritesFlag()) {
-            viewModel.getCollectionsList { handleErrors(it) }
-            viewModel.getCollectionsListLiveData().observe(this.viewLifecycleOwner) {
-                collectionsAdapter.submitList(it)
-            }
+        viewModel.getCollectionsList { handleErrors(it) }
+        viewModel.getCollectionsListLiveData().observe(this.viewLifecycleOwner) {
+            collectionsAdapter.submitList(it)
         }
-    }
 
-    private fun createFavouritesCollection() {
-        if (!viewModel.getCreationFavouritesFlag()) {
-            viewModel.createCollection(getString(string.favourites_collection)) { handleErrors(it) }
-            viewModel.getCreateCollectionResultLiveData().observe(this.viewLifecycleOwner) {
-                viewModel.saveCollectionLocally(
-                    LocalCollectionEntity(
-                        collectionId = it.id,
-                        collectionName = it.name,
-                        collectionImageId = collectionsIconsIds[0],
-                        isFavourite = true
-                    )
-                )
-                viewModel.setCreationFavouritesFlag(true)
-                onGettingCollectionsList()
-            }
-        }
     }
-
 
     private fun handleErrors(errorModel: ErrorModel) {
         childFragmentManager.executePendingTransactions()

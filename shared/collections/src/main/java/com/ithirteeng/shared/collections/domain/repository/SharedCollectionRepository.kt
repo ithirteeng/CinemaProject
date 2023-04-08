@@ -4,6 +4,10 @@ import com.ithirteeng.shared.collections.domain.entity.LocalCollectionEntity
 
 interface SharedCollectionRepository {
 
+    fun setCreationFavouritesFlag(creationFlag: Boolean, userName: String)
+
+    fun getFavouritesCreationFlag(userName: String): Boolean
+
     fun getCollectionImageIdById(id: String): Int
 
     fun saveCollectionLocally(localCollectionEntity: LocalCollectionEntity)
