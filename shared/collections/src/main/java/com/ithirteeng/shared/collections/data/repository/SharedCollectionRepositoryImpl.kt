@@ -22,10 +22,4 @@ class SharedCollectionRepositoryImpl(
 
     override fun deleteCollectionLocally(collectionId: String) =
         localDatasource.deleteCollectionLocally(collectionId)
-
-    override fun setCreationFavouritesFlag(creationFlag: Boolean, userName: String) =
-        localDatasource.setCreationFavouritesFlag(creationFlag, userName)
-
-    override fun getFavouritesCreationFlag(userName: String): Boolean =
-        localDatasource.getFavouritesCreationFlag(userName)
 }

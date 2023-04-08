@@ -13,8 +13,4 @@ interface SharedCollectionsLocalDatasource {
     fun deleteCollectionLocally(localCollectionEntity: LocalCollectionEntity)
 
     fun deleteCollectionLocally(collectionId: String)
-
-    fun setCreationFavouritesFlag(creationFlag: Boolean, userName: String)
-
-    fun getFavouritesCreationFlag(userName: String): Boolean
 }

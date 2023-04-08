@@ -8,8 +8,6 @@ import com.ithirteeng.features.collections.domain.repository.CollectionsReposito
 import com.ithirteeng.features.collections.domain.usecase.CreateCollectionUseCase
 import com.ithirteeng.features.collections.domain.usecase.GetCollectionsListUseCase
 import com.ithirteeng.features.collections.presentation.CollectionsFragmentViewModel
-import com.ithirteeng.shared.collections.domain.usecase.GetCreationFlagUseCase
-import com.ithirteeng.shared.collections.domain.usecase.SetCreationFavouritesFlagUseCase
 import com.ithirteeng.shared.network.common.TOKEN_NETWORK_TOOLS
 import com.ithirteeng.shared.network.retrofitservice.createRetrofitService
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -26,8 +24,6 @@ val collectionsModule = module {
         )
     }
 
-    factory { SetCreationFavouritesFlagUseCase(repository = get()) }
-    factory { GetCreationFlagUseCase(repository = get()) }
     factory { CreateCollectionUseCase(repository = get()) }
     factory { GetCollectionsListUseCase(repository = get()) }
 
