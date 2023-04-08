@@ -25,4 +25,5 @@ dependencies {
     implementation project(":shared:customextensions")
     implementation project(":shared:validators")
     implementation project(":shared:userstorage")
+    implementation project(":shared:collections")
 }

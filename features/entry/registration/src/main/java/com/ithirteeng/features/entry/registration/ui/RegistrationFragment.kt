@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import com.github.terrakok.cicerone.androidx.FragmentScreen
+import com.ithirteeng.component.design.R.string.favourites_collection
 import com.ithirteeng.customextensions.presentation.setEditTextInputSpaceFilter
 import com.ithirteeng.errorhandler.domain.ErrorModel
 import com.ithirteeng.errorhandler.presentation.ErrorHandler
@@ -75,6 +76,13 @@ class RegistrationFragment : Fragment() {
 
     private fun onSuccessfulSendingRequest() {
         viewModel.getRequestLiveData().observe(this.viewLifecycleOwner) {
+            onCreatingFavouritesCollection()
+        }
+    }
+
+    private fun onCreatingFavouritesCollection() {
+        viewModel.createFavouritesCollection(getString(favourites_collection)) { handleErrors(it) }
+        viewModel.getCollectionLiveData().observe(this.viewLifecycleOwner) {
             viewModel.navigateToMainHostScreen()
             binding.loginButton.isEnabled = true
             binding.registrationButton.isEnabled = true

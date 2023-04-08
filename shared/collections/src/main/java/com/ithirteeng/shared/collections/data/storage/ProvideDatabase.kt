@@ -6,6 +6,6 @@ import androidx.room.Room
 fun provideDatabase(application: Application): CollectionsDatabase {
     return Room.databaseBuilder(
         application, CollectionsDatabase::class.java,
-        "populus-database"
+        "collections_database"
     ).build()
 }
