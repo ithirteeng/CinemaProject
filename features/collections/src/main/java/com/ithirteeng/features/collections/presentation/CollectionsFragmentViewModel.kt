@@ -78,10 +78,18 @@ class CollectionsFragmentViewModel(
     private fun mapCollectionEntityToLocalCollectionEntity(
         collectionEntity: CollectionEntity,
     ): LocalCollectionEntity {
-        val collection = getCollectionByIdUseCase(collectionId = collectionEntity.id)
-        var imageId = collection?.collectionImageId ?: collectionsIconsIds[6]
-        if (collectionEntity.name == application.getString(string.favourites_collection)) {
+        val localCollection = getCollectionByIdUseCase(collectionId = collectionEntity.id)
+        var imageId = localCollection?.collectionImageId ?: collectionsIconsIds[6]
+        if (collectionEntity.name == application.getString(string.favourites_collection) && localCollection == null) {
             imageId = collectionsIconsIds[0]
+            saveCollectionLocally(
+                LocalCollectionEntity(
+                    collectionId = collectionEntity.id,
+                    collectionName = collectionEntity.name,
+                    collectionImageId = imageId,
+                    isFavourite = true
+                )
+            )
         }
         return LocalCollectionEntity(
             collectionId = collectionEntity.id,
