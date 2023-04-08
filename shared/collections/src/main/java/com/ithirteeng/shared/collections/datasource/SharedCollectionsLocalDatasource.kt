@@ -4,7 +4,7 @@ import com.ithirteeng.shared.collections.domain.entity.LocalCollectionEntity
 
 interface SharedCollectionsLocalDatasource {
 
-    fun getCollectionImageIdById(id: String): Int
+    fun getCollectionById(id: String): LocalCollectionEntity?
 
     fun saveCollectionLocally(localCollectionEntity: LocalCollectionEntity)
 

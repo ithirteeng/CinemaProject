@@ -1,16 +1,18 @@
 package com.ithirteeng.features.collections.presentation
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.ithirteeng.component.design.R.string
 import com.ithirteeng.errorhandler.domain.ErrorModel
 import com.ithirteeng.features.collections.domain.usecase.CreateCollectionUseCase
 import com.ithirteeng.features.collections.domain.usecase.GetCollectionsListUseCase
 import com.ithirteeng.shared.collections.domain.entity.CollectionEntity
 import com.ithirteeng.shared.collections.domain.entity.CreateCollectionEntity
 import com.ithirteeng.shared.collections.domain.entity.LocalCollectionEntity
-import com.ithirteeng.shared.collections.domain.usecase.GetCollectionImageIdUseCase
+import com.ithirteeng.shared.collections.domain.usecase.GetCollectionByIdUseCase
 import com.ithirteeng.shared.collections.domain.usecase.SaveCollectionLocallyUseCase
 import com.ithirteeng.shared.network.common.NoConnectivityException
 import kotlinx.coroutines.Dispatchers
@@ -18,11 +20,12 @@ import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
 class CollectionsFragmentViewModel(
+    private val application: Application,
     private val createCollectionUseCase: CreateCollectionUseCase,
-    private val getCollectionImageIdUseCase: GetCollectionImageIdUseCase,
+    private val getCollectionByIdUseCase: GetCollectionByIdUseCase,
     private val saveCollectionLocallyUseCase: SaveCollectionLocallyUseCase,
     private val getCollectionsListUseCase: GetCollectionsListUseCase,
-) : ViewModel() {
+) : AndroidViewModel(application) {
 
     fun saveCollectionLocally(localCollectionEntity: LocalCollectionEntity) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -74,7 +77,11 @@ class CollectionsFragmentViewModel(
     private fun mapCollectionEntityToLocalCollectionEntity(
         collectionEntity: CollectionEntity,
     ): LocalCollectionEntity {
-        val imageId = getCollectionImageIdUseCase(collectionId = collectionEntity.id)
+        val collection = getCollectionByIdUseCase(collectionId = collectionEntity.id)
+        var imageId = collection?.collectionImageId ?: collectionsIconsIds[6]
+        if (collectionEntity.name == application.getString(string.favourites_collection)) {
+            imageId = collectionsIconsIds[0]
+        }
         return LocalCollectionEntity(
             collectionId = collectionEntity.id,
             collectionName = collectionEntity.name,

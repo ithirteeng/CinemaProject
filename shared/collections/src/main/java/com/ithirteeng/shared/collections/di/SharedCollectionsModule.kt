@@ -23,7 +23,7 @@ val sharedCollectionsModule = module {
 
     factory { DeleteCollectionLocallyUseCase(repository = get()) }
     factory { UpdateCollectionLocallyUseCase(repository = get()) }
-    factory { GetCollectionImageIdUseCase(repository = get()) }
+    factory { GetCollectionByIdUseCase(repository = get()) }
     factory { SaveCollectionLocallyUseCase(repository = get()) }
     factory { GetCreationFlagUseCase(repository = get()) }
     factory { SetCreationFavouritesFlagUseCase(repository = get()) }

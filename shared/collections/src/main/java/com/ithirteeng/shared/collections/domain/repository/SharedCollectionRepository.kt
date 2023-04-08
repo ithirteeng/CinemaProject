@@ -8,7 +8,7 @@ interface SharedCollectionRepository {
 
     fun getFavouritesCreationFlag(userName: String): Boolean
 
-    fun getCollectionImageIdById(id: String): Int
+    fun getCollectionById(id: String): LocalCollectionEntity?
 
     fun saveCollectionLocally(localCollectionEntity: LocalCollectionEntity)
 

@@ -8,8 +8,8 @@ class SharedCollectionRepositoryImpl(
     private val localDatasource: SharedCollectionsLocalDatasource,
 ) : SharedCollectionRepository {
 
-    override fun getCollectionImageIdById(id: String): Int =
-        localDatasource.getCollectionImageIdById(id)
+    override fun getCollectionById(id: String): LocalCollectionEntity? =
+        localDatasource.getCollectionById(id)
 
     override fun saveCollectionLocally(localCollectionEntity: LocalCollectionEntity) =
         localDatasource.saveCollectionLocally(localCollectionEntity)

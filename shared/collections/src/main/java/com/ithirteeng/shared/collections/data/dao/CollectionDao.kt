@@ -6,8 +6,8 @@ import com.ithirteeng.shared.collections.domain.entity.LocalCollectionEntity
 @Dao
 interface CollectionDao {
 
-    @Query("SELECT collectionImageId FROM collections_table WHERE collectionId = :collectionId")
-    fun getCollectionImageId(collectionId: String): Int
+    @Query("SELECT * FROM collections_table WHERE collectionId = :collectionId")
+    fun getCollectionImageId(collectionId: String): LocalCollectionEntity?
 
     @Insert
     fun saveCollectionData(localCollectionEntity: LocalCollectionEntity)

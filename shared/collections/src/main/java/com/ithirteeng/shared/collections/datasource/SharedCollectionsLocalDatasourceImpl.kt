@@ -9,7 +9,7 @@ class SharedCollectionsLocalDatasourceImpl(
     private val sharedPreferences: CollectionSharedPreferences,
 ) : SharedCollectionsLocalDatasource {
 
-    override fun getCollectionImageIdById(id: String): Int =
+    override fun getCollectionById(id: String): LocalCollectionEntity? =
         database.collectionDao().getCollectionImageId(id)
 
     override fun saveCollectionLocally(localCollectionEntity: LocalCollectionEntity) =
