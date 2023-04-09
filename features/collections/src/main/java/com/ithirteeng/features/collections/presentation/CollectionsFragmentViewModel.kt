@@ -27,8 +27,16 @@ class CollectionsFragmentViewModel(
     private val getCollectionByIdUseCase: GetCollectionByIdUseCase,
     private val saveCollectionLocallyUseCase: SaveCollectionLocallyUseCase,
     private val getCollectionsListUseCase: GetCollectionsListUseCase,
-    private val router: CollectionsRouter
+    private val router: CollectionsRouter,
 ) : AndroidViewModel(application) {
+
+    fun exit() {
+        router.exit()
+    }
+
+    fun navigateToCollectionInfoScreen(collectionId: String, collectionName: String) {
+        router.navigateToCollectionInfoScreen(collectionId, collectionName)
+    }
 
     fun saveCollectionLocally(localCollectionEntity: LocalCollectionEntity) {
         viewModelScope.launch(Dispatchers.IO) {

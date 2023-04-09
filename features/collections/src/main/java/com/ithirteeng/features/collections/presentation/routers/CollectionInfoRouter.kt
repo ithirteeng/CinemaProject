@@ -4,7 +4,7 @@ interface CollectionInfoRouter {
 
     fun exit()
 
-    fun navigateToMovieInfoScreen()
+    fun navigateToMovieInfoScreen(movieId: String)
 
     fun navigateToChangeCollectionScreen()
 }

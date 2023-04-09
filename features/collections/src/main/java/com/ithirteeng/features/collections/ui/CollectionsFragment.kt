@@ -27,7 +27,7 @@ class CollectionsFragment : Fragment() {
 
     private val collectionsAdapter by lazy {
         CollectionsAdapter {
-
+            viewModel.navigateToCollectionInfoScreen(it.collectionId, it.collectionName)
         }
     }
 

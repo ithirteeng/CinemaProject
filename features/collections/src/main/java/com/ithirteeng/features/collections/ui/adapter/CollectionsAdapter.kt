@@ -10,7 +10,7 @@ import com.ithirteeng.features.collections.R
 import com.ithirteeng.features.collections.databinding.CollectionItemLayoutBinding
 import com.ithirteeng.shared.collections.domain.entity.LocalCollectionEntity
 
-class CollectionsAdapter(private val onCollectionClick: (collectionId: String) -> Unit) :
+class CollectionsAdapter(private val onCollectionClick: (collectionEntity: LocalCollectionEntity) -> Unit) :
     ListAdapter<LocalCollectionEntity, CollectionsAdapter.CollectionsViewHolder>(
         CollectionsDiffCallback
     ) {
@@ -23,7 +23,7 @@ class CollectionsAdapter(private val onCollectionClick: (collectionId: String) -
 
         init {
             binding.clickableView.setOnClickListener {
-                onCollectionClick(collectionEntity.collectionId)
+                onCollectionClick(collectionEntity)
             }
         }
 

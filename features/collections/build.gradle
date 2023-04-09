@@ -16,6 +16,7 @@ dependencies {
     implementation Dependencies.RETROFIT
     implementation Dependencies.OKHTTP_INTERCEPTOR
     implementation Dependencies.GSON
+    implementation Dependencies.GLIDE
     implementation Dependencies.GSON_CONVERTER
     implementation Dependencies.CICERONE
 
