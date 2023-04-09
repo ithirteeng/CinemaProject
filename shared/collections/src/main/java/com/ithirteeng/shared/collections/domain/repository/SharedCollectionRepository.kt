@@ -13,4 +13,6 @@ interface SharedCollectionRepository {
     fun deleteCollectionLocally(localCollectionEntity: LocalCollectionEntity)
 
     fun deleteCollectionLocally(collectionId: String)
+
+    fun getFavouritesCollection(): LocalCollectionEntity?
 }

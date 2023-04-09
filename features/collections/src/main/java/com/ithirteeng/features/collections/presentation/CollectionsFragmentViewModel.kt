@@ -89,18 +89,10 @@ class CollectionsFragmentViewModel(
         collectionEntity: CollectionEntity,
     ): LocalCollectionEntity {
         val localCollection = getCollectionByIdUseCase(collectionId = collectionEntity.id)
-        var imageId = localCollection?.collectionImageId ?: collectionsIconsIds[6]
-        if (collectionEntity.name == application.getString(string.favourites_collection) && localCollection == null) {
-            imageId = collectionsIconsIds[0]
-            saveCollectionLocally(
-                LocalCollectionEntity(
-                    collectionId = collectionEntity.id,
-                    collectionName = collectionEntity.name,
-                    collectionImageId = imageId,
-                    isFavourite = true
-                )
-            )
-        }
+        val imageId = localCollection?.collectionImageId ?: collectionsIconsIds[6]
+
+        doIfCollectionIsFavourite(collectionEntity, localCollection)
+
         return LocalCollectionEntity(
             collectionId = collectionEntity.id,
             collectionName = collectionEntity.name,
@@ -109,6 +101,21 @@ class CollectionsFragmentViewModel(
         )
     }
 
+    private fun doIfCollectionIsFavourite(
+        collectionEntity: CollectionEntity,
+        localCollection: LocalCollectionEntity?,
+    ) {
+        if (collectionEntity.name == application.getString(string.favourites_collection) && localCollection == null) {
+            saveCollectionLocally(
+                LocalCollectionEntity(
+                    collectionId = collectionEntity.id,
+                    collectionName = collectionEntity.name,
+                    collectionImageId = collectionsIconsIds[0],
+                    isFavourite = true
+                )
+            )
+        }
+    }
 
     private fun setupErrorCode(e: Throwable): ErrorModel {
         return when (e) {

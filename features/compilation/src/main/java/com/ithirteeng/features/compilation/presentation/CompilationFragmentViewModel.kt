@@ -8,6 +8,7 @@ import com.ithirteeng.customextensions.presentation.SingleEventLiveData
 import com.ithirteeng.errorhandler.domain.ErrorModel
 import com.ithirteeng.features.compilation.domain.usecase.DeleteMovieFromCompilationUseCase
 import com.ithirteeng.features.compilation.domain.usecase.GetCompilationMoviesListUseCase
+import com.ithirteeng.shared.collections.domain.usecase.GetFavouritesCollectionUseCase
 import com.ithirteeng.shared.movies.entity.MovieEntity
 import com.ithirteeng.shared.network.common.NoConnectivityException
 import kotlinx.coroutines.launch
@@ -18,6 +19,7 @@ class CompilationFragmentViewModel(
     private val router: CompilationRouter,
     private val getCompilationMoviesListUseCase: GetCompilationMoviesListUseCase,
     private val deleteMovieFromCompilationUseCase: DeleteMovieFromCompilationUseCase,
+    private val getFavouritesCollectionUseCase: GetFavouritesCollectionUseCase
 ) : AndroidViewModel(application) {
 
     fun navigateToMovieInfoScreen(movieEntity: MovieEntity) {

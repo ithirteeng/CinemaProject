@@ -22,4 +22,7 @@ class SharedCollectionRepositoryImpl(
 
     override fun deleteCollectionLocally(collectionId: String) =
         localDatasource.deleteCollectionLocally(collectionId)
+
+    override fun getFavouritesCollection(): LocalCollectionEntity? =
+        localDatasource.getFavouritesCollection()
 }

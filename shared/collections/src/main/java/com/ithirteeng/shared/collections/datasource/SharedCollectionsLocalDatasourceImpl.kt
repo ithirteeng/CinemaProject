@@ -21,4 +21,7 @@ class SharedCollectionsLocalDatasourceImpl(
 
     override fun deleteCollectionLocally(collectionId: String) =
         database.collectionDao().deleteCollectionById(collectionId)
+
+    override fun getFavouritesCollection(): LocalCollectionEntity? =
+        database.collectionDao().getFavouritesCollection()
 }
