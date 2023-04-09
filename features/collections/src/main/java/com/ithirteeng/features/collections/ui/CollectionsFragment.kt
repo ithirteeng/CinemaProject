@@ -13,6 +13,7 @@ import com.ithirteeng.features.collections.databinding.FragmentCollectionsBindin
 import com.ithirteeng.features.collections.presentation.CollectionsFragmentViewModel
 import com.ithirteeng.features.collections.ui.adapter.CollectionsAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.qualifier.named
 
 class CollectionsFragment : Fragment() {
 
@@ -22,7 +23,7 @@ class CollectionsFragment : Fragment() {
 
     private lateinit var binding: FragmentCollectionsBinding
 
-    private val viewModel: CollectionsFragmentViewModel by viewModel()
+    private val viewModel: CollectionsFragmentViewModel by viewModel(named(COLLECTION_MAIN))
 
     private val collectionsAdapter by lazy {
         CollectionsAdapter {

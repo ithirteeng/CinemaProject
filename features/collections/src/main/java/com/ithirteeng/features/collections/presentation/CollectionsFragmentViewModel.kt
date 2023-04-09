@@ -9,6 +9,7 @@ import com.ithirteeng.component.design.R.string
 import com.ithirteeng.errorhandler.domain.ErrorModel
 import com.ithirteeng.features.collections.domain.usecase.CreateCollectionUseCase
 import com.ithirteeng.features.collections.domain.usecase.GetCollectionsListUseCase
+import com.ithirteeng.features.collections.presentation.routers.CollectionsRouter
 import com.ithirteeng.shared.collections.domain.entity.CollectionEntity
 import com.ithirteeng.shared.collections.domain.entity.CreateCollectionEntity
 import com.ithirteeng.shared.collections.domain.entity.LocalCollectionEntity
@@ -26,6 +27,7 @@ class CollectionsFragmentViewModel(
     private val getCollectionByIdUseCase: GetCollectionByIdUseCase,
     private val saveCollectionLocallyUseCase: SaveCollectionLocallyUseCase,
     private val getCollectionsListUseCase: GetCollectionsListUseCase,
+    private val router: CollectionsRouter
 ) : AndroidViewModel(application) {
 
     fun saveCollectionLocally(localCollectionEntity: LocalCollectionEntity) {

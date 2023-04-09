@@ -6,8 +6,12 @@ import com.ithirteeng.features.collections.data.datasource.CollectionsRemoteData
 import com.ithirteeng.features.collections.data.repository.CollectionsRepositoryImpl
 import com.ithirteeng.features.collections.domain.repository.CollectionsRepository
 import com.ithirteeng.features.collections.domain.usecase.CreateCollectionUseCase
+import com.ithirteeng.features.collections.domain.usecase.GetCollectionMoviesListUseCase
 import com.ithirteeng.features.collections.domain.usecase.GetCollectionsListUseCase
+import com.ithirteeng.features.collections.presentation.CollectionInfoFragmentViewModel
 import com.ithirteeng.features.collections.presentation.CollectionsFragmentViewModel
+import com.ithirteeng.features.collections.ui.COLLECTION_INFO
+import com.ithirteeng.features.collections.ui.COLLECTION_MAIN
 import com.ithirteeng.shared.network.common.TOKEN_NETWORK_TOOLS
 import com.ithirteeng.shared.network.retrofitservice.createRetrofitService
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -26,14 +30,23 @@ val collectionsModule = module {
 
     factory { CreateCollectionUseCase(repository = get()) }
     factory { GetCollectionsListUseCase(repository = get()) }
+    factory { GetCollectionMoviesListUseCase(repository = get()) }
 
-    viewModel {
+    viewModel(named(COLLECTION_MAIN)) {
         CollectionsFragmentViewModel(
             createCollectionUseCase = get(),
             saveCollectionLocallyUseCase = get(),
             getCollectionByIdUseCase = get(),
             getCollectionsListUseCase = get(),
-            application = get()
+            application = get(),
+            router = get()
+        )
+    }
+
+    viewModel(named(COLLECTION_INFO)) {
+        CollectionInfoFragmentViewModel(
+            router = get(),
+            getCollectionMoviesListUseCase = get()
         )
     }
 

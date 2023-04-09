@@ -3,6 +3,7 @@ package com.ithirteeng.features.collections.data.datasource
 import com.ithirteeng.features.collections.data.api.CollectionsApi
 import com.ithirteeng.shared.collections.domain.entity.CollectionEntity
 import com.ithirteeng.shared.collections.domain.entity.CreateCollectionEntity
+import com.ithirteeng.shared.movies.entity.MovieEntity
 
 class CollectionsRemoteDatasourceImpl(
     private val api: CollectionsApi,
@@ -13,4 +14,7 @@ class CollectionsRemoteDatasourceImpl(
 
     override suspend fun getCollectionsList(): List<CollectionEntity> =
         api.getCollectionsList()
+
+    override suspend fun getCollectionMoviesList(collectionId: String): List<MovieEntity> =
+        api.getCollectionMoviesList(collectionId)
 }
