@@ -1,5 +1,7 @@
 package com.ithirteeng.features.compilation.presentation
 
+import com.ithirteeng.shared.movies.entity.MovieEntity
+
 interface CompilationRouter {
-    fun navigateToMovieInfoScreen(movieId: String)
+    fun navigateToMovieInfoScreen(movieEntity: MovieEntity)
 }

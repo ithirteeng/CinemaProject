@@ -1,9 +1,9 @@
 package com.ithirteeng.features.main.presentation
 
-import com.ithirteeng.shared.movies.utils.MoviesListType
+import com.ithirteeng.shared.movies.entity.MovieEntity
 
 interface MainRouter {
-    fun navigateToMovieScreen(movieId: String, moviesListType: MoviesListType)
+    fun navigateToMovieScreen(movieEntity: MovieEntity)
 
     fun navigate(episodeId: String, movieId: String, movieName: String)
 }

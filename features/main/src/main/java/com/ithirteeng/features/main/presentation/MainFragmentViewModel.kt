@@ -28,8 +28,8 @@ class MainFragmentViewModel(
     private val getMainPosterUseCase: GetMainPosterUseCase,
 ) : AndroidViewModel(application) {
 
-    fun navigateToMovieScreen(movieId: String, movieListType: MoviesListType) =
-        router.navigateToMovieScreen(movieId, movieListType)
+    fun navigateToMovieScreen(movieEntity: MovieEntity) =
+        router.navigateToMovieScreen(movieEntity)
 
     fun navigateToEpisodeScreen(episodeViewEntity: EpisodeViewEntity) =
         router.navigate(
