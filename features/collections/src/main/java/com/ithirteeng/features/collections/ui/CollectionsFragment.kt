@@ -37,6 +37,7 @@ class CollectionsFragment : Fragment() {
         val layout = inflater.inflate(R.layout.fragment_collections, container, false)
         binding = FragmentCollectionsBinding.bind(layout)
 
+        binding.progressBar.visibility = View.VISIBLE
         binding.collectionsRecyclerView.adapter = collectionsAdapter
         onGettingCollectionsList()
 
@@ -47,6 +48,7 @@ class CollectionsFragment : Fragment() {
         viewModel.getCollectionsList { handleErrors(it) }
         viewModel.getCollectionsListLiveData().observe(this.viewLifecycleOwner) {
             collectionsAdapter.submitList(it)
+            binding.progressBar.visibility = View.GONE
         }
 
     }
