@@ -21,8 +21,8 @@ class CollectionInfoFragmentViewModel(
         router.exit()
     }
 
-    fun navigateToMovieInfoScreen(movieId: String) {
-        router.navigateToMovieInfoScreen(movieId)
+    fun navigateToMovieInfoScreen(movieEntity: MovieEntity) {
+        router.navigateToMovieInfoScreen(movieEntity)
     }
 
     fun navigateToChangeCollectionScreen() {

@@ -1,10 +1,12 @@
 package com.ithirteeng.features.collections.presentation.routers
 
+import com.ithirteeng.shared.movies.entity.MovieEntity
+
 interface CollectionInfoRouter {
 
     fun exit()
 
-    fun navigateToMovieInfoScreen(movieId: String)
+    fun navigateToMovieInfoScreen(movieEntity: MovieEntity)
 
     fun navigateToChangeCollectionScreen()
 }

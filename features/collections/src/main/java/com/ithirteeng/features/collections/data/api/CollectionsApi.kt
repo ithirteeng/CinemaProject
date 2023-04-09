@@ -15,6 +15,6 @@ interface CollectionsApi {
     @GET("/api/collections")
     suspend fun getCollectionsList(): List<CollectionEntity>
 
-    @GET("api/collections/{collectionId}/movies")
+    @GET("collections/{collectionId}/movies")
     suspend fun getCollectionMoviesList(@Path("collectionId") collectionId: String): List<MovieEntity>
 }
