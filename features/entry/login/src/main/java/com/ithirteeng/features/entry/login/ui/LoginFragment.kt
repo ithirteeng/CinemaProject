@@ -65,15 +65,18 @@ class LoginFragment : Fragment() {
 
     private fun onGettingTokenEntity() {
         viewModel.getTokenLiveData().observe(this.viewLifecycleOwner) {
+            onGettingFavouritesCollection()
+        }
+    }
+
+    private fun onGettingFavouritesCollection() {
+        viewModel.makeGetFavouritesCollectionRequest { handleErrors(it) }
+        viewModel.getFavouritesCollectionLiveData().observe(this.viewLifecycleOwner) {
             viewModel.navigateToMainHostScreen()
             binding.loginButton.isEnabled = true
             binding.registrationButton.isEnabled = true
             binding.progressBar.visibility = View.GONE
         }
-    }
-
-    private fun onGettingFavouritesCollection() {
-
     }
 
     private fun onRegistrationButtonCLick() {

@@ -54,9 +54,9 @@ class LoginFragmentViewModel(
         viewModelScope.launch {
             postLoginDataUseCase(loginEntity)
                 .onSuccess {
-                    tokenLiveData.value = it
-                    setCurrentUserEmailUseCase(loginEntity.email)
                     saveTokenToLocalStorageUseCase(it)
+                    setCurrentUserEmailUseCase(loginEntity.email)
+                    tokenLiveData.value = it
                 }
                 .onFailure {
                     onErrorAppearance(setupErrorCode(it))
@@ -82,7 +82,7 @@ class LoginFragmentViewModel(
                         if (checkIfCollectionIsFavourite(collection)) {
                             launch(Dispatchers.IO) {
                                 saveFavouritesCollection(collection)
-                                favouritesCollectionLiveData.value = collection
+                                favouritesCollectionLiveData.postValue(collection)
                             }
                         }
                     }

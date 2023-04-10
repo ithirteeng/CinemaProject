@@ -8,7 +8,7 @@ import com.ithirteeng.features.entry.login.domain.repository.LoginRepository
 import com.ithirteeng.features.entry.login.domain.usecase.GetCollectionsListUseCase
 import com.ithirteeng.features.entry.login.domain.usecase.PostLoginDataUseCase
 import com.ithirteeng.features.entry.login.presentation.LoginFragmentViewModel
-import com.ithirteeng.shared.network.common.SIMP_NETWORK_TOOLS
+import com.ithirteeng.shared.network.common.TOKEN_NETWORK_TOOLS
 import com.ithirteeng.shared.network.retrofitservice.createRetrofitService
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.qualifier.named
@@ -16,7 +16,7 @@ import org.koin.dsl.module
 
 val loginModule = module {
 
-    single { createRetrofitService<LoginApi>(retrofit = get(named(SIMP_NETWORK_TOOLS))) }
+    single { createRetrofitService<LoginApi>(retrofit = get(named(TOKEN_NETWORK_TOOLS))) }
 
     factory<RemoteLoginDatasource> { RemoteLoginDatasourceImpl(api = get()) }
     factory<LoginRepository> { LoginRepositoryImpl(remoteDatasource = get()) }
