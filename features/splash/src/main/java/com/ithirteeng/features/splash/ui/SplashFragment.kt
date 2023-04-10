@@ -32,7 +32,7 @@ class SplashFragment : Fragment() {
         binding = FragmentSplashBinding.bind(layout)
 
         lifecycleScope.launch {
-            delay(4500)
+            delay(500)
             navigateToCorrectScreen()
         }
 
