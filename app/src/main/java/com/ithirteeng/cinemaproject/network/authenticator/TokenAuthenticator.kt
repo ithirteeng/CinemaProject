@@ -26,7 +26,7 @@ class TokenAuthenticator(
 
         saveTokenToLocalStorageUseCase(remoteToken)
 
-        return if (response.responseCount >= 1) {
+        return if (response.responseCount >= 4) {
             null
         } else {
             response.request.newBuilder()

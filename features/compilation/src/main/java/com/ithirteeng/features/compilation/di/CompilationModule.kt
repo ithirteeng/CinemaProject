@@ -28,7 +28,8 @@ val compilationModule = module {
             application = get(),
             router = get(),
             getCompilationMoviesListUseCase = get(),
-            deleteMovieFromCompilationUseCase = get()
+            deleteMovieFromCompilationUseCase = get(),
+            getFavouritesCollectionUseCase = get()
         )
     }
 
