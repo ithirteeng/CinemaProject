@@ -18,6 +18,7 @@ class RefreshTokenUseCase(
             .onFailure {
                 result = null
                 Log.e(API_ERROR, "token refresh", it)
+                throw it
             }
         return result
     }
