@@ -5,7 +5,6 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.ithirteeng.component.design.R.string
 import com.ithirteeng.errorhandler.domain.ErrorModel
 import com.ithirteeng.features.collections.domain.usecase.CreateCollectionUseCase
 import com.ithirteeng.features.collections.domain.usecase.GetCollectionsListUseCase
@@ -17,16 +16,18 @@ import com.ithirteeng.shared.collections.domain.usecase.GetCollectionByIdUseCase
 import com.ithirteeng.shared.collections.domain.usecase.UpsertCollectionLocallyUseCase
 import com.ithirteeng.shared.collections.presentation.collectionsIconsIds
 import com.ithirteeng.shared.network.common.NoConnectivityException
+import com.ithirteeng.shared.userstorage.domain.usecase.GetCurrentUserEmailUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
 class CollectionsFragmentViewModel(
-    private val application: Application,
+    application: Application,
     private val createCollectionUseCase: CreateCollectionUseCase,
     private val getCollectionByIdUseCase: GetCollectionByIdUseCase,
     private val upsertCollectionLocallyUseCase: UpsertCollectionLocallyUseCase,
     private val getCollectionsListUseCase: GetCollectionsListUseCase,
+    private val getCurrentUserEmailUseCase: GetCurrentUserEmailUseCase,
     private val router: CollectionsRouter,
 ) : AndroidViewModel(application) {
 
@@ -89,32 +90,16 @@ class CollectionsFragmentViewModel(
         collectionEntity: CollectionEntity,
     ): LocalCollectionEntity {
         val localCollection = getCollectionByIdUseCase(collectionId = collectionEntity.id)
-        val imageId = localCollection?.collectionImageId ?: collectionsIconsIds[6]
-
-        doIfCollectionIsFavourite(collectionEntity, localCollection)
+        val imageId = localCollection?.collectionImageId ?: collectionsIconsIds.random()
+        val isFavourite = localCollection?.isFavourite ?: false
 
         return LocalCollectionEntity(
             collectionId = collectionEntity.id,
             collectionName = collectionEntity.name,
             collectionImageId = imageId,
-            isFavourite = false
+            isFavourite = isFavourite,
+            userEmail = getCurrentUserEmailUseCase()
         )
-    }
-
-    private fun doIfCollectionIsFavourite(
-        collectionEntity: CollectionEntity,
-        localCollection: LocalCollectionEntity?,
-    ) {
-        if (collectionEntity.name == application.getString(string.favourites_collection) && localCollection == null) {
-            upsertCollectionLocally(
-                LocalCollectionEntity(
-                    collectionId = collectionEntity.id,
-                    collectionName = collectionEntity.name,
-                    collectionImageId = collectionsIconsIds[0],
-                    isFavourite = true
-                )
-            )
-        }
     }
 
     private fun setupErrorCode(e: Throwable): ErrorModel {

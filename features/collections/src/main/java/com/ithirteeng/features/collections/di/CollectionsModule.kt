@@ -39,7 +39,8 @@ val collectionsModule = module {
             getCollectionByIdUseCase = get(),
             getCollectionsListUseCase = get(),
             application = get(),
-            router = get()
+            router = get(),
+            getCurrentUserEmailUseCase = get()
         )
     }
 

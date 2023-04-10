@@ -65,4 +65,6 @@
     <string name="you_watched">Recent watched</string>
     <string name="watch">Watch</string>
 
+    <string name="add_collection_409">This movie already exists in collection!</string>
+
 </resources>

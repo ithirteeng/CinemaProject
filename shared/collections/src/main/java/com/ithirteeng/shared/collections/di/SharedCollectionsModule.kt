@@ -5,10 +5,7 @@ import com.ithirteeng.shared.collections.data.storage.provideDatabase
 import com.ithirteeng.shared.collections.datasource.SharedCollectionsLocalDatasource
 import com.ithirteeng.shared.collections.datasource.SharedCollectionsLocalDatasourceImpl
 import com.ithirteeng.shared.collections.domain.repository.SharedCollectionRepository
-import com.ithirteeng.shared.collections.domain.usecase.DeleteCollectionLocallyUseCase
-import com.ithirteeng.shared.collections.domain.usecase.GetCollectionByIdUseCase
-import com.ithirteeng.shared.collections.domain.usecase.UpsertCollectionLocallyUseCase
-import com.ithirteeng.shared.collections.domain.usecase.UpdateCollectionLocallyUseCase
+import com.ithirteeng.shared.collections.domain.usecase.*
 import org.koin.dsl.module
 
 val sharedCollectionsModule = module {
@@ -25,4 +22,5 @@ val sharedCollectionsModule = module {
     factory { UpdateCollectionLocallyUseCase(repository = get()) }
     factory { GetCollectionByIdUseCase(repository = get()) }
     factory { UpsertCollectionLocallyUseCase(repository = get()) }
+    factory { GetFavouritesCollectionUseCase(repository = get()) }
 }
