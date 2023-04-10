@@ -14,7 +14,7 @@ import com.ithirteeng.features.entry.registration.domain.usecase.PostRegistratio
 import com.ithirteeng.shared.collections.domain.entity.CollectionEntity
 import com.ithirteeng.shared.collections.domain.entity.CreateCollectionEntity
 import com.ithirteeng.shared.collections.domain.entity.LocalCollectionEntity
-import com.ithirteeng.shared.collections.domain.usecase.SaveCollectionLocallyUseCase
+import com.ithirteeng.shared.collections.domain.usecase.UpsertCollectionLocallyUseCase
 import com.ithirteeng.shared.network.common.NoConnectivityException
 import com.ithirteeng.shared.token.domain.usecase.SaveTokenToLocalStorageUseCase
 import com.ithirteeng.shared.validators.common.ValidationResult
@@ -34,7 +34,7 @@ class RegistrationFragmentViewModel(
     private val validateTextFieldUseCase: ValidateTextFieldUseCase,
     private val validatePasswordsUseCase: ValidatePasswordsUseCase,
     private val createCollectionUseCase: CreateCollectionUseCase,
-    private val saveCollectionLocallyUseCase: SaveCollectionLocallyUseCase,
+    private val upsertCollectionLocallyUseCase: UpsertCollectionLocallyUseCase,
 ) : AndroidViewModel(application) {
 
     fun navigateToLoginScreen() {
@@ -88,7 +88,7 @@ class RegistrationFragmentViewModel(
             createCollectionUseCase(CreateCollectionEntity(collectionName))
                 .onSuccess {
                     launch(Dispatchers.IO) {
-                        saveCollectionLocallyUseCase(
+                        upsertCollectionLocallyUseCase(
                             LocalCollectionEntity(
                                 collectionId = it.id,
                                 collectionName = it.name,

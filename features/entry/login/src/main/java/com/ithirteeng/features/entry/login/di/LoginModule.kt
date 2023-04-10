@@ -5,6 +5,7 @@ import com.ithirteeng.features.entry.login.data.datasource.RemoteLoginDatasource
 import com.ithirteeng.features.entry.login.data.datasource.RemoteLoginDatasourceImpl
 import com.ithirteeng.features.entry.login.data.repository.LoginRepositoryImpl
 import com.ithirteeng.features.entry.login.domain.repository.LoginRepository
+import com.ithirteeng.features.entry.login.domain.usecase.GetCollectionsListUseCase
 import com.ithirteeng.features.entry.login.domain.usecase.PostLoginDataUseCase
 import com.ithirteeng.features.entry.login.presentation.LoginFragmentViewModel
 import com.ithirteeng.shared.network.common.SIMP_NETWORK_TOOLS
@@ -21,6 +22,7 @@ val loginModule = module {
     factory<LoginRepository> { LoginRepositoryImpl(remoteDatasource = get()) }
 
     factory { PostLoginDataUseCase(repository = get()) }
+    factory { GetCollectionsListUseCase(repository = get()) }
 
     viewModel {
         LoginFragmentViewModel(
@@ -30,7 +32,9 @@ val loginModule = module {
             saveTokenToLocalStorageUseCase = get(),
             validateEmailUseCase = get(),
             validateTextFieldUseCase = get(),
-            setCurrentUserEmailUseCase = get()
+            setCurrentUserEmailUseCase = get(),
+            getCollectionsListUseCase = get(),
+            upsertCollectionLocallyUseCase = get()
         )
     }
 }

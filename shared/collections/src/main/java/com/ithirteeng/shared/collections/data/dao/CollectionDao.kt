@@ -9,7 +9,7 @@ interface CollectionDao {
     @Query("SELECT * FROM collections_table WHERE collectionId = :collectionId")
     fun getCollectionImageId(collectionId: String): LocalCollectionEntity?
 
-    @Insert
+    @Upsert
     fun saveCollectionData(localCollectionEntity: LocalCollectionEntity)
 
     @Delete

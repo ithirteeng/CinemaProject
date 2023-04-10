@@ -35,7 +35,7 @@ val collectionsModule = module {
     viewModel(named(COLLECTION_MAIN)) {
         CollectionsFragmentViewModel(
             createCollectionUseCase = get(),
-            saveCollectionLocallyUseCase = get(),
+            upsertCollectionLocallyUseCase = get(),
             getCollectionByIdUseCase = get(),
             getCollectionsListUseCase = get(),
             application = get(),

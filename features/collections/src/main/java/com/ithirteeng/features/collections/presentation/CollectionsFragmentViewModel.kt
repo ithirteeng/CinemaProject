@@ -14,7 +14,7 @@ import com.ithirteeng.shared.collections.domain.entity.CollectionEntity
 import com.ithirteeng.shared.collections.domain.entity.CreateCollectionEntity
 import com.ithirteeng.shared.collections.domain.entity.LocalCollectionEntity
 import com.ithirteeng.shared.collections.domain.usecase.GetCollectionByIdUseCase
-import com.ithirteeng.shared.collections.domain.usecase.SaveCollectionLocallyUseCase
+import com.ithirteeng.shared.collections.domain.usecase.UpsertCollectionLocallyUseCase
 import com.ithirteeng.shared.collections.presentation.collectionsIconsIds
 import com.ithirteeng.shared.network.common.NoConnectivityException
 import kotlinx.coroutines.Dispatchers
@@ -25,7 +25,7 @@ class CollectionsFragmentViewModel(
     private val application: Application,
     private val createCollectionUseCase: CreateCollectionUseCase,
     private val getCollectionByIdUseCase: GetCollectionByIdUseCase,
-    private val saveCollectionLocallyUseCase: SaveCollectionLocallyUseCase,
+    private val upsertCollectionLocallyUseCase: UpsertCollectionLocallyUseCase,
     private val getCollectionsListUseCase: GetCollectionsListUseCase,
     private val router: CollectionsRouter,
 ) : AndroidViewModel(application) {
@@ -38,9 +38,9 @@ class CollectionsFragmentViewModel(
         router.navigateToCollectionInfoScreen(collectionId, collectionName)
     }
 
-    fun saveCollectionLocally(localCollectionEntity: LocalCollectionEntity) {
+    fun upsertCollectionLocally(localCollectionEntity: LocalCollectionEntity) {
         viewModelScope.launch(Dispatchers.IO) {
-            saveCollectionLocallyUseCase(localCollectionEntity)
+            upsertCollectionLocallyUseCase(localCollectionEntity)
         }
     }
 
@@ -106,7 +106,7 @@ class CollectionsFragmentViewModel(
         localCollection: LocalCollectionEntity?,
     ) {
         if (collectionEntity.name == application.getString(string.favourites_collection) && localCollection == null) {
-            saveCollectionLocally(
+            upsertCollectionLocally(
                 LocalCollectionEntity(
                     collectionId = collectionEntity.id,
                     collectionName = collectionEntity.name,

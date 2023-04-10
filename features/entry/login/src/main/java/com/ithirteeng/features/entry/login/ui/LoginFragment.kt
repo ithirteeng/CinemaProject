@@ -72,6 +72,10 @@ class LoginFragment : Fragment() {
         }
     }
 
+    private fun onGettingFavouritesCollection() {
+
+    }
+
     private fun onRegistrationButtonCLick() {
         binding.registrationButton.setOnClickListener {
             viewModel.navigateToRegistrationScreen()
