@@ -10,4 +10,5 @@ data class LocalCollectionEntity(
     val collectionImageId: Int,
     val collectionName: String,
     var isFavourite: Boolean,
+    var userEmail: String,
 )

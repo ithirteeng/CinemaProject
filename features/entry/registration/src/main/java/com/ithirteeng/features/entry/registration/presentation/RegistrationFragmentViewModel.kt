@@ -7,7 +7,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.ithirteeng.customextensions.presentation.SingleEventLiveData
 import com.ithirteeng.errorhandler.domain.ErrorModel
-import com.ithirteeng.shared.collections.presentation.collectionsIconsIds
 import com.ithirteeng.features.entry.registration.domain.entity.RegistrationEntity
 import com.ithirteeng.features.entry.registration.domain.usecase.CreateCollectionUseCase
 import com.ithirteeng.features.entry.registration.domain.usecase.PostRegistrationDataUseCase
@@ -15,8 +14,10 @@ import com.ithirteeng.shared.collections.domain.entity.CollectionEntity
 import com.ithirteeng.shared.collections.domain.entity.CreateCollectionEntity
 import com.ithirteeng.shared.collections.domain.entity.LocalCollectionEntity
 import com.ithirteeng.shared.collections.domain.usecase.UpsertCollectionLocallyUseCase
+import com.ithirteeng.shared.collections.presentation.collectionsIconsIds
 import com.ithirteeng.shared.network.common.NoConnectivityException
 import com.ithirteeng.shared.token.domain.usecase.SaveTokenToLocalStorageUseCase
+import com.ithirteeng.shared.userstorage.domain.usecase.SetCurrentUserEmailUseCase
 import com.ithirteeng.shared.validators.common.ValidationResult
 import com.ithirteeng.shared.validators.domain.usecase.ValidateEmailUseCase
 import com.ithirteeng.shared.validators.domain.usecase.ValidatePasswordsUseCase
@@ -34,6 +35,7 @@ class RegistrationFragmentViewModel(
     private val validateTextFieldUseCase: ValidateTextFieldUseCase,
     private val validatePasswordsUseCase: ValidatePasswordsUseCase,
     private val createCollectionUseCase: CreateCollectionUseCase,
+    private val setCurrentUserEmailUseCase: SetCurrentUserEmailUseCase,
     private val upsertCollectionLocallyUseCase: UpsertCollectionLocallyUseCase,
 ) : AndroidViewModel(application) {
 
@@ -46,6 +48,10 @@ class RegistrationFragmentViewModel(
     }
 
     private val requestLiveData = SingleEventLiveData<Boolean>()
+
+    fun setCurrentUserEmail(userEmail: String) {
+        setCurrentUserEmailUseCase(userEmail)
+    }
 
     fun postRegistrationData(
         registrationEntity: RegistrationEntity,
@@ -82,6 +88,7 @@ class RegistrationFragmentViewModel(
 
     fun createFavouritesCollection(
         collectionName: String,
+        userEmail: String,
         onErrorAppearance: (errorModel: ErrorModel) -> Unit,
     ) {
         viewModelScope.launch {
@@ -93,7 +100,8 @@ class RegistrationFragmentViewModel(
                                 collectionId = it.id,
                                 collectionName = it.name,
                                 collectionImageId = collectionsIconsIds[0],
-                                isFavourite = true
+                                isFavourite = true,
+                                userEmail = userEmail
                             )
                         )
                     }

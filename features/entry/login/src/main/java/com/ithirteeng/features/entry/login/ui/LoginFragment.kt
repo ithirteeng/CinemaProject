@@ -70,7 +70,8 @@ class LoginFragment : Fragment() {
     }
 
     private fun onGettingFavouritesCollection() {
-        viewModel.makeGetFavouritesCollectionRequest { handleErrors(it) }
+        val userEmail = binding.emailEditText.text.toString()
+        viewModel.makeGetFavouritesCollectionRequest(userEmail) { handleErrors(it) }
         viewModel.getFavouritesCollectionLiveData().observe(this.viewLifecycleOwner) {
             viewModel.navigateToMainHostScreen()
             binding.loginButton.isEnabled = true

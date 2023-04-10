@@ -76,12 +76,16 @@ class RegistrationFragment : Fragment() {
 
     private fun onSuccessfulSendingRequest() {
         viewModel.getRequestLiveData().observe(this.viewLifecycleOwner) {
+            viewModel.setCurrentUserEmail(binding.emailEditText.text.toString())
             onCreatingFavouritesCollection()
         }
     }
 
     private fun onCreatingFavouritesCollection() {
-        viewModel.createFavouritesCollection(getString(favourites_collection)) { handleErrors(it) }
+        viewModel.createFavouritesCollection(
+            getString(favourites_collection),
+            binding.emailEditText.text.toString()
+        ) { handleErrors(it) }
         viewModel.getCollectionLiveData().observe(this.viewLifecycleOwner) {
             viewModel.navigateToMainHostScreen()
             binding.loginButton.isEnabled = true

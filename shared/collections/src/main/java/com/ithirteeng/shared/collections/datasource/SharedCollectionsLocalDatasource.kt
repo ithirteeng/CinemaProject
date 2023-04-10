@@ -14,5 +14,5 @@ interface SharedCollectionsLocalDatasource {
 
     fun deleteCollectionLocally(collectionId: String)
 
-    fun getFavouritesCollection(): LocalCollectionEntity?
+    fun getFavouritesCollection(userEmail: String): LocalCollectionEntity?
 }

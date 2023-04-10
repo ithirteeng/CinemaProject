@@ -34,7 +34,8 @@ val registrationModule = module {
             validateEmailUseCase = get(),
             validatePasswordsUseCase = get(),
             createCollectionUseCase = get(),
-            upsertCollectionLocallyUseCase = get()
+            upsertCollectionLocallyUseCase = get(),
+            setCurrentUserEmailUseCase = get()
         )
     }
 }

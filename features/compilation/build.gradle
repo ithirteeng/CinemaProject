@@ -28,4 +28,5 @@ dependencies {
     implementation project(":shared:customextensions")
     implementation project(":shared:movies")
     implementation project(":shared:collections")
+    implementation project(":shared:userstorage")
 }

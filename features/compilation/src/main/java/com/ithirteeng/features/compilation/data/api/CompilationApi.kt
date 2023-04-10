@@ -1,10 +1,8 @@
 package com.ithirteeng.features.compilation.data.api
 
+import com.ithirteeng.features.compilation.domain.entity.MovieIdEntity
 import com.ithirteeng.shared.movies.entity.MovieEntity
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface CompilationApi {
 
@@ -13,5 +11,11 @@ interface CompilationApi {
 
     @POST("movies/{movieId}/dislike")
     suspend fun deleteMovieFromCompilation(@Path("movieId") movieId: String)
+
+    @POST("collections/{collectionId}/movies")
+    suspend fun addMovieToFavouritesCollection(
+        @Body movieId: MovieIdEntity,
+        @Path("collectionId") collectionId: String,
+    )
 
 }

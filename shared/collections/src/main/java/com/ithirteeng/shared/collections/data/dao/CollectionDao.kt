@@ -21,6 +21,6 @@ interface CollectionDao {
     @Update
     fun updateCollection(localCollectionEntity: LocalCollectionEntity)
 
-    @Query("SELECT * FROM collections_table WHERE isFavourite = true")
-    fun getFavouritesCollection(): LocalCollectionEntity?
+    @Query("SELECT * FROM collections_table WHERE (isFavourite = true) AND (userEmail = :userEmail)")
+    fun getFavouritesCollection(userEmail: String): LocalCollectionEntity?
 }

@@ -6,11 +6,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import com.ithirteeng.customextensions.presentation.SingleEventLiveData
 import com.ithirteeng.errorhandler.domain.ErrorModel
+import com.ithirteeng.features.compilation.domain.usecase.AddMovieToFavouritesUseCase
 import com.ithirteeng.features.compilation.domain.usecase.DeleteMovieFromCompilationUseCase
 import com.ithirteeng.features.compilation.domain.usecase.GetCompilationMoviesListUseCase
 import com.ithirteeng.shared.collections.domain.usecase.GetFavouritesCollectionUseCase
 import com.ithirteeng.shared.movies.entity.MovieEntity
 import com.ithirteeng.shared.network.common.NoConnectivityException
+import com.ithirteeng.shared.userstorage.domain.usecase.GetCurrentUserEmailUseCase
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
@@ -19,7 +21,9 @@ class CompilationFragmentViewModel(
     private val router: CompilationRouter,
     private val getCompilationMoviesListUseCase: GetCompilationMoviesListUseCase,
     private val deleteMovieFromCompilationUseCase: DeleteMovieFromCompilationUseCase,
-    private val getFavouritesCollectionUseCase: GetFavouritesCollectionUseCase
+    private val getFavouritesCollectionUseCase: GetFavouritesCollectionUseCase,
+    private val addMovieToFavouritesUseCase: AddMovieToFavouritesUseCase,
+    private val getCurrentUserEmailUseCase: GetCurrentUserEmailUseCase,
 ) : AndroidViewModel(application) {
 
     fun navigateToMovieInfoScreen(movieEntity: MovieEntity) {
