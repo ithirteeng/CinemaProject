@@ -8,11 +8,19 @@ import androidx.fragment.app.Fragment
 import com.github.terrakok.cicerone.androidx.FragmentScreen
 import com.ithirteeng.features.collections.R
 import com.ithirteeng.features.collections.databinding.FragmentChangeCollectionBinding
+import com.ithirteeng.shared.collections.domain.entity.LocalCollectionEntity
 
 class ChangeCollectionFragment : Fragment() {
 
     companion object {
-        fun provideChangeCollectionScreen() = FragmentScreen { ChangeCollectionFragment() }
+        private const val COLLECTION_KEY = "collection key"
+        fun provideChangeCollectionScreen(localCollectionEntity: LocalCollectionEntity) =
+            FragmentScreen {
+                ChangeCollectionFragment().apply {
+                    val bundle = Bundle()
+                    bundle.putSerializable(COLLECTION_KEY, localCollectionEntity)
+                }
+            }
     }
 
     private lateinit var binding: FragmentChangeCollectionBinding

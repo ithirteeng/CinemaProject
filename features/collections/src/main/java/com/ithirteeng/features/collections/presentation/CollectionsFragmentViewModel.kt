@@ -6,14 +6,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.ithirteeng.errorhandler.domain.ErrorModel
-import com.ithirteeng.features.collections.domain.usecase.CreateCollectionUseCase
 import com.ithirteeng.features.collections.domain.usecase.GetCollectionsListUseCase
 import com.ithirteeng.features.collections.presentation.routers.CollectionsRouter
 import com.ithirteeng.shared.collections.domain.entity.CollectionEntity
-import com.ithirteeng.shared.collections.domain.entity.CreateCollectionEntity
 import com.ithirteeng.shared.collections.domain.entity.LocalCollectionEntity
 import com.ithirteeng.shared.collections.domain.usecase.GetCollectionByIdUseCase
-import com.ithirteeng.shared.collections.domain.usecase.UpsertCollectionLocallyUseCase
 import com.ithirteeng.shared.collections.presentation.collectionsIconsIds
 import com.ithirteeng.shared.network.common.NoConnectivityException
 import com.ithirteeng.shared.userstorage.domain.usecase.GetCurrentUserEmailUseCase
@@ -23,9 +20,7 @@ import retrofit2.HttpException
 
 class CollectionsFragmentViewModel(
     application: Application,
-    private val createCollectionUseCase: CreateCollectionUseCase,
     private val getCollectionByIdUseCase: GetCollectionByIdUseCase,
-    private val upsertCollectionLocallyUseCase: UpsertCollectionLocallyUseCase,
     private val getCollectionsListUseCase: GetCollectionsListUseCase,
     private val getCurrentUserEmailUseCase: GetCurrentUserEmailUseCase,
     private val router: CollectionsRouter,
@@ -41,32 +36,6 @@ class CollectionsFragmentViewModel(
 
     fun navigateToCollectionInfoScreen(collectionId: String, collectionName: String) {
         router.navigateToCollectionInfoScreen(collectionId, collectionName)
-    }
-
-    fun upsertCollectionLocally(localCollectionEntity: LocalCollectionEntity) {
-        viewModelScope.launch(Dispatchers.IO) {
-            upsertCollectionLocallyUseCase(localCollectionEntity)
-        }
-    }
-
-    private val createCollectionResultLiveData = MutableLiveData<CollectionEntity>()
-
-    fun getCreateCollectionResultLiveData(): LiveData<CollectionEntity> =
-        createCollectionResultLiveData
-
-    fun createCollection(
-        collectionName: String,
-        onErrorAppearance: (errorModel: ErrorModel) -> Unit,
-    ) {
-        viewModelScope.launch {
-            createCollectionUseCase(CreateCollectionEntity((collectionName)))
-                .onSuccess {
-                    createCollectionResultLiveData.value = it
-                }
-                .onFailure {
-                    onErrorAppearance(setupErrorCode(it))
-                }
-        }
     }
 
     private val collectionsListLiveData = MutableLiveData<List<LocalCollectionEntity>>()

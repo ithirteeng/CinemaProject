@@ -10,6 +10,7 @@ import com.ithirteeng.errorhandler.domain.ErrorModel
 import com.ithirteeng.errorhandler.presentation.ErrorHandler
 import com.ithirteeng.features.collections.R
 import com.ithirteeng.features.collections.databinding.FragmentCollectionsBinding
+import com.ithirteeng.features.collections.presentation.COLLECTION_MAIN
 import com.ithirteeng.features.collections.presentation.CollectionsFragmentViewModel
 import com.ithirteeng.features.collections.ui.adapter.CollectionsAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel

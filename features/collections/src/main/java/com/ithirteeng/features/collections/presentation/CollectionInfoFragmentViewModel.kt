@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.ithirteeng.errorhandler.domain.ErrorModel
 import com.ithirteeng.features.collections.domain.usecase.GetCollectionMoviesListUseCase
 import com.ithirteeng.features.collections.presentation.routers.CollectionInfoRouter
+import com.ithirteeng.shared.collections.domain.entity.LocalCollectionEntity
 import com.ithirteeng.shared.movies.entity.MovieEntity
 import com.ithirteeng.shared.network.common.NoConnectivityException
 import kotlinx.coroutines.launch
@@ -25,8 +26,8 @@ class CollectionInfoFragmentViewModel(
         router.navigateToMovieInfoScreen(movieEntity)
     }
 
-    fun navigateToChangeCollectionScreen() {
-        router.navigateToChangeCollectionScreen()
+    fun navigateToChangeCollectionScreen(localCollectionEntity: LocalCollectionEntity) {
+        router.navigateToChangeCollectionScreen(localCollectionEntity)
     }
 
     private val moviesListLiveData = MutableLiveData<List<MovieEntity>>()

@@ -8,10 +8,7 @@ import com.ithirteeng.features.collections.domain.repository.CollectionsReposito
 import com.ithirteeng.features.collections.domain.usecase.CreateCollectionUseCase
 import com.ithirteeng.features.collections.domain.usecase.GetCollectionMoviesListUseCase
 import com.ithirteeng.features.collections.domain.usecase.GetCollectionsListUseCase
-import com.ithirteeng.features.collections.presentation.CollectionInfoFragmentViewModel
-import com.ithirteeng.features.collections.presentation.CollectionsFragmentViewModel
-import com.ithirteeng.features.collections.ui.COLLECTION_INFO
-import com.ithirteeng.features.collections.ui.COLLECTION_MAIN
+import com.ithirteeng.features.collections.presentation.*
 import com.ithirteeng.shared.network.common.TOKEN_NETWORK_TOOLS
 import com.ithirteeng.shared.network.retrofitservice.createRetrofitService
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -34,8 +31,6 @@ val collectionsModule = module {
 
     viewModel(named(COLLECTION_MAIN)) {
         CollectionsFragmentViewModel(
-            createCollectionUseCase = get(),
-            upsertCollectionLocallyUseCase = get(),
             getCollectionByIdUseCase = get(),
             getCollectionsListUseCase = get(),
             application = get(),
@@ -48,6 +43,25 @@ val collectionsModule = module {
         CollectionInfoFragmentViewModel(
             router = get(),
             getCollectionMoviesListUseCase = get()
+        )
+    }
+
+    viewModel(named(COLLECTION_CHANGE)) {
+        ChangeCollectionFragmentViewModel(
+            router = get()
+        )
+    }
+
+    viewModel(named(COLLECTION_CREATE)) {
+        CreateCollectionFragmentViewModel(
+            router = get(),
+            createCollectionUseCase = get()
+        )
+    }
+
+    viewModel(named(CHOOSE_ICON)) {
+        ChooseIconFragmentViewModel(
+            router = get()
         )
     }
 

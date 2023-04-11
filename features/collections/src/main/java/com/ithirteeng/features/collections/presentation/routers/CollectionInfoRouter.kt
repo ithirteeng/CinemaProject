@@ -1,5 +1,6 @@
 package com.ithirteeng.features.collections.presentation.routers
 
+import com.ithirteeng.shared.collections.domain.entity.LocalCollectionEntity
 import com.ithirteeng.shared.movies.entity.MovieEntity
 
 interface CollectionInfoRouter {
@@ -8,5 +9,5 @@ interface CollectionInfoRouter {
 
     fun navigateToMovieInfoScreen(movieEntity: MovieEntity)
 
-    fun navigateToChangeCollectionScreen()
+    fun navigateToChangeCollectionScreen(collectionEntity: LocalCollectionEntity)
 }

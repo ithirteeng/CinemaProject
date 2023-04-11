@@ -11,4 +11,4 @@ data class LocalCollectionEntity(
     val collectionName: String,
     var isFavourite: Boolean,
     var userEmail: String,
-)
+): java.io.Serializable
