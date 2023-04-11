@@ -67,4 +67,9 @@
 
     <string name="add_collection_409">This movie already exists in collection!</string>
 
+    <string name="create_collection">Create collection</string>
+    <string name="collection_name">Name</string>
+    <string name="choose_icon">Choose icon</string>
+    <string name="save">Save</string>
+
 </resources>

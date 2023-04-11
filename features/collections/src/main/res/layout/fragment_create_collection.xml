@@ -1,6 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.CreateCollectionFragment"/>
+    tools:context=".ui.CreateCollectionFragment">
+
+    <ImageButton
+        android:id="@+id/backButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_20"
+        android:background="@color/transparent"
+        android:src="@drawable/arrow_back_icon"
+        app:layout_constraintBottom_toBottomOf="@+id/fragmentNameTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/fragmentNameTextView"
+        tools:ignore="ContentDescription,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+    <TextView
+        android:id="@+id/fragmentNameTextView"
+        style="@style/Theme.CinemaProject.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_32"
+        android:layout_marginTop="@dimen/margin_16"
+        android:text="@string/create_collection"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toEndOf="@+id/backButton"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:targetApi="p" />
+
+    <EditText
+        android:id="@+id/nameEditText"
+        style="@style/Theme.CinemaProject.Text2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_16"
+        android:layout_marginTop="@dimen/margin_40"
+        android:background="@drawable/name_edit_text_background"
+        android:ems="20"
+        android:inputType="textPersonName"
+        android:maxLines="1"
+        android:paddingHorizontal="@dimen/padding_16"
+        android:paddingVertical="@dimen/padding_10"
+        android:text="@string/collection_name"
+        android:textColor="@color/grey_text_color"
+        android:textColorHint="@color/grey_text_color"
+        android:textSize="@dimen/text_size_14"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fragmentNameTextView"
+        tools:ignore="Autofill,LabelFor,TouchTargetSizeCheck,VisualLintTextFieldSize" />
+
+    <ImageView
+        android:id="@+id/collectionImageView"
+        android:layout_width="@dimen/size_72"
+        android:layout_height="@dimen/size_72"
+        android:layout_marginStart="@dimen/margin_16"
+        android:layout_marginTop="@dimen/margin_16"
+        android:layout_marginEnd="@dimen/margin_24"
+        android:src="@drawable/collection_image_1"
+        app:layout_constraintEnd_toStartOf="@+id/chooseIconButton"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nameEditText"
+        app:srcCompat="@drawable/collection_image_15"
+        tools:ignore="ContentDescription" />
+
+    <Button
+        android:id="@+id/chooseIconButton"
+        style="@style/Theme.CinemaProject.EmptyButtonStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_16"
+        android:text="@string/choose_icon"
+        app:layout_constraintBottom_toBottomOf="@+id/collectionImageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/collectionImageView"
+        app:layout_constraintTop_toTopOf="@+id/collectionImageView"
+        tools:ignore="TouchTargetSizeCheck,VisualLintButtonSize" />
+
+    <Button
+        android:id="@+id/saveButton"
+        style="@style/Theme.CinemaProject.FilledButtonStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_16"
+        android:layout_marginTop="@dimen/margin_44"
+        android:text="@string/save"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/collectionImageView"
+        tools:ignore="HardcodedText,TextContrastCheck,TouchTargetSizeCheck,VisualLintButtonSize" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

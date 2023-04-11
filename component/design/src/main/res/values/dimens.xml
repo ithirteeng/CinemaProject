@@ -10,6 +10,7 @@
     <!-- paddings -->
     <dimen name="padding_1">1dp</dimen>
     <dimen name="padding_4">4dp</dimen>
+    <dimen name="padding_10">10dp</dimen>
     <dimen name="padding_13">13dp</dimen>
     <dimen name="padding_16">16dp</dimen>
     <dimen name="padding_20">20dp</dimen>
