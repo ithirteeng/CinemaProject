@@ -62,6 +62,7 @@ class ProfileFragment : Fragment() {
 
     private fun onGettingProfileData() {
         viewModel.getProfileLiveData().observe(this.viewLifecycleOwner) {
+            binding.cancelButton.isEnabled = true
             binding.nameTextView.text = it.fullName
             binding.emailTextView.text = it.email
             setAvatarImageByUrl(it.image)
@@ -112,6 +113,7 @@ class ProfileFragment : Fragment() {
 
     @Suppress("DEPRECATION")
     private fun doOnActivityResult(result: ActivityResult) {
+        binding.cancelButton.isEnabled = false
         val bitmap = if (result.data?.data !is Uri) {
             result.data?.extras?.get("data") as Bitmap
         } else {
