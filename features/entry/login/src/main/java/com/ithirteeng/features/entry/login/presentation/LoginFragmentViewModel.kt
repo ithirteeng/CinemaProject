@@ -78,17 +78,17 @@ class LoginFragmentViewModel(
         userEmail: String,
         onErrorAppearance: (errorModel: ErrorModel) -> Unit,
     ) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             getCollectionsListUseCase()
                 .onSuccess {
                     for (collection in it) {
-                        if (checkIfCollectionIsFavourite(collection)) {
-                            launch(Dispatchers.IO) {
-                                saveFavouritesCollection(collection, userEmail)
-                                favouritesCollectionLiveData.postValue(collection)
-                            }
-                        }
+                        saveCollectionLocally(
+                            collection,
+                            userEmail,
+                            checkIfCollectionIsFavourite(collection)
+                        )
                     }
+                    favouritesCollectionLiveData.postValue(it[0])
                 }
                 .onFailure { onErrorAppearance(setupErrorCode(it)) }
         }
@@ -98,13 +98,17 @@ class LoginFragmentViewModel(
         return collectionEntity.name == application.getString(string.favourites_collection)
     }
 
-    private fun saveFavouritesCollection(collectionEntity: CollectionEntity, email: String) {
+    private fun saveCollectionLocally(
+        collectionEntity: CollectionEntity,
+        email: String,
+        isCollectionFavourite: Boolean,
+    ) {
         upsertCollectionLocallyUseCase(
             LocalCollectionEntity(
                 collectionId = collectionEntity.id,
                 collectionName = collectionEntity.name,
                 collectionImageId = collectionsIconsIds[0],
-                isFavourite = true,
+                isFavourite = isCollectionFavourite,
                 userEmail = email
             )
         )
