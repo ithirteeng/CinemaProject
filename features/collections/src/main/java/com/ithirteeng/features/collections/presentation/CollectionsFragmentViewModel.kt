@@ -35,6 +35,10 @@ class CollectionsFragmentViewModel(
         router.exit()
     }
 
+    fun navigateToAddCollectionScreen() {
+        router.navigateToAddCollectionScreen()
+    }
+
     fun navigateToCollectionInfoScreen(collectionId: String, collectionName: String) {
         router.navigateToCollectionInfoScreen(collectionId, collectionName)
     }

@@ -56,7 +56,7 @@ class CollectionInfoFragment : Fragment() {
         binding.progressBar.visibility = View.VISIBLE
         collectionId = arguments?.getString(COLLECTION_INFO_KEY).toString()
         collectionName = arguments?.getString(COLLECTION_NAME).toString()
-        binding.textView.text = collectionName
+        binding.fragmentNameTextView.text = collectionName
 
         binding.moviesRecyclerView.adapter = moviesAdapter
 

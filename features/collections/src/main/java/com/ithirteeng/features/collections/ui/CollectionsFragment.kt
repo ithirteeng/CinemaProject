@@ -41,8 +41,15 @@ class CollectionsFragment : Fragment() {
         binding.progressBar.visibility = View.VISIBLE
         binding.collectionsRecyclerView.adapter = collectionsAdapter
         onGettingCollectionsList()
+        onAddButtonClick()
 
         return binding.root
+    }
+
+    private fun onAddButtonClick() {
+        binding.addButton.setOnClickListener {
+            viewModel.navigateToAddCollectionScreen()
+        }
     }
 
     private fun onGettingCollectionsList() {

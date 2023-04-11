@@ -2,6 +2,7 @@ package com.ithirteeng.cinemaproject.navigation.routers
 
 import com.github.terrakok.cicerone.Router
 import com.ithirteeng.features.collections.presentation.routers.CollectionsRouter
+import com.ithirteeng.features.collections.ui.ChooseIconFragment
 import com.ithirteeng.features.collections.ui.CollectionInfoFragment
 
 class CollectionsRouterImpl(
@@ -21,6 +22,6 @@ class CollectionsRouterImpl(
     }
 
     override fun navigateToAddCollectionScreen() {
-        TODO("Not yet implemented")
+        router.navigateTo(ChooseIconFragment.provideChooseIconScreen)
     }
 }

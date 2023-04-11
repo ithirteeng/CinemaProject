@@ -4,19 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.CollectionsFragment">
+    tools:context=".ui.CreateCollectionFragment">
 
     <ImageButton
-        android:id="@+id/addButton"
+        android:id="@+id/backButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/margin_22"
+        android:layout_marginStart="@dimen/margin_20"
         android:background="@color/transparent"
-        android:src="@drawable/add_collection_icon"
+        android:src="@drawable/arrow_back_icon"
         app:layout_constraintBottom_toBottomOf="@+id/fragmentNameTextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/fragmentNameTextView"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/fragmentNameTextView"
         tools:ignore="ContentDescription,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
@@ -25,39 +23,30 @@
         style="@style/Theme.CinemaProject.Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/margin_72"
+        android:layout_marginHorizontal="@dimen/margin_32"
         android:layout_marginTop="@dimen/margin_16"
-        android:layout_marginBottom="@dimen/margin_40"
-        android:text="@string/collections"
-        app:layout_constraintBottom_toTopOf="@+id/collectionsRecyclerView"
-        app:layout_constraintEnd_toStartOf="@+id/addButton"
-        app:layout_constraintHorizontal_bias="0.5"
+        android:text="@string/choose_icon"
         app:layout_constraintHorizontal_chainStyle="spread_inside"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/backButton"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed"
         tools:targetApi="p" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/collectionsRecyclerView"
+        android:id="@+id/recyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:overScrollMode="never"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:layout_marginTop="@dimen/margin_16"
+        android:clipToPadding="false"
+        android:paddingHorizontal="@dimen/padding_16"
+        android:paddingVertical="@dimen/padding_13"
+        app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:flow_firstHorizontalStyle="packed"
+
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fragmentNameTextView"
-        tools:listitem="@layout/collection_item_layout" />
-
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="@style/Theme.CinemaProject.ProgressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:spanCount="4"
+        tools:listitem="@layout/icon_item_layout" />
 </androidx.constraintlayout.widget.ConstraintLayout>
