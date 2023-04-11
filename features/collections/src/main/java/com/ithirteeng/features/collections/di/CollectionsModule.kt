@@ -5,9 +5,7 @@ import com.ithirteeng.features.collections.data.datasource.CollectionsRemoteData
 import com.ithirteeng.features.collections.data.datasource.CollectionsRemoteDatasourceImpl
 import com.ithirteeng.features.collections.data.repository.CollectionsRepositoryImpl
 import com.ithirteeng.features.collections.domain.repository.CollectionsRepository
-import com.ithirteeng.features.collections.domain.usecase.CreateCollectionUseCase
-import com.ithirteeng.features.collections.domain.usecase.GetCollectionMoviesListUseCase
-import com.ithirteeng.features.collections.domain.usecase.GetCollectionsListUseCase
+import com.ithirteeng.features.collections.domain.usecase.*
 import com.ithirteeng.features.collections.presentation.*
 import com.ithirteeng.shared.network.common.TOKEN_NETWORK_TOOLS
 import com.ithirteeng.shared.network.retrofitservice.createRetrofitService
@@ -28,6 +26,8 @@ val collectionsModule = module {
     factory { CreateCollectionUseCase(repository = get()) }
     factory { GetCollectionsListUseCase(repository = get()) }
     factory { GetCollectionMoviesListUseCase(repository = get()) }
+    factory { AddMovieToCollectionUseCase(repository = get()) }
+    factory { DeleteMovieFromCollection(repository = get()) }
 
     viewModel(named(COLLECTION_MAIN)) {
         CollectionsFragmentViewModel(
