@@ -125,6 +125,7 @@ class CreateCollectionFragment : Fragment() {
     }
 
     private fun handleErrors(errorModel: ErrorModel) {
+        binding.progressBar.visibility = View.GONE
         childFragmentManager.executePendingTransactions()
         ErrorHandler.showErrorDialog(requireContext(), childFragmentManager, errorModel)
     }

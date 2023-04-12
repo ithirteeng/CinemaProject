@@ -4,6 +4,7 @@ import com.ithirteeng.features.collections.domain.entity.MovieIdEntity
 import com.ithirteeng.shared.collections.domain.entity.CollectionEntity
 import com.ithirteeng.shared.collections.domain.entity.CreateCollectionEntity
 import com.ithirteeng.shared.movies.entity.MovieEntity
+import retrofit2.Response
 
 interface CollectionsRemoteDatasource {
 
@@ -17,5 +18,5 @@ interface CollectionsRemoteDatasource {
 
     suspend fun deleteMovieFromCollection(collectionId: String, movieId: MovieIdEntity)
 
-    suspend fun deleteCollectionById(collectionId: String)
+    suspend fun deleteCollectionById(collectionId: String): Response<Unit>
 }

@@ -4,6 +4,7 @@ import com.ithirteeng.features.collections.domain.entity.MovieIdEntity
 import com.ithirteeng.shared.collections.domain.entity.CollectionEntity
 import com.ithirteeng.shared.collections.domain.entity.CreateCollectionEntity
 import com.ithirteeng.shared.movies.entity.MovieEntity
+import retrofit2.Response
 import retrofit2.http.*
 
 interface CollectionsApi {
@@ -29,5 +30,5 @@ interface CollectionsApi {
     )
 
     @DELETE("collections/{collectionId}")
-    suspend fun deleteCollection(@Path("collectionId") collectionId: String)
+    suspend fun deleteCollection(@Path("collectionId") collectionId: String): Response<Unit>
 }

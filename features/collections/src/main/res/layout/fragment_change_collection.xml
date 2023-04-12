@@ -34,7 +34,6 @@
         tools:targetApi="p" />
 
     <EditText
-        android:inputType="text"
         android:id="@+id/nameEditText"
         style="@style/Theme.CinemaProject.Text2"
         android:layout_width="0dp"
@@ -42,6 +41,7 @@
         android:layout_marginHorizontal="@dimen/margin_16"
         android:layout_marginTop="@dimen/margin_40"
         android:background="@drawable/name_edit_text_background"
+        android:inputType="text"
         android:paddingHorizontal="@dimen/padding_16"
         android:paddingVertical="@dimen/padding_10"
         android:text="@string/collection_name"
@@ -109,4 +109,13 @@
         app:layout_constraintTop_toBottomOf="@+id/saveButton"
         tools:ignore="HardcodedText,TextContrastCheck,TouchTargetSizeCheck,VisualLintButtonSize" />
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="@style/Theme.CinemaProject.ProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

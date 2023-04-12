@@ -37,6 +37,7 @@ val collectionsModule = module {
     factory { SaveImageIdLocallyUseCase(repository = get()) }
     factory { GetImageIdUseCase(repository = get()) }
     factory { ClearImageStorageUseCase(repository = get()) }
+    factory { DeleteCollectionUseCase(repository = get()) }
 
     viewModel(named(COLLECTION_MAIN_VIEW_MODEL)) {
         CollectionsFragmentViewModel(

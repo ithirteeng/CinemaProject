@@ -5,6 +5,7 @@ import com.ithirteeng.features.collections.domain.entity.MovieIdEntity
 import com.ithirteeng.shared.collections.domain.entity.CollectionEntity
 import com.ithirteeng.shared.collections.domain.entity.CreateCollectionEntity
 import com.ithirteeng.shared.movies.entity.MovieEntity
+import retrofit2.Response
 
 class CollectionsRemoteDatasourceImpl(
     private val api: CollectionsApi,
@@ -25,6 +26,6 @@ class CollectionsRemoteDatasourceImpl(
     override suspend fun deleteMovieFromCollection(collectionId: String, movieId: MovieIdEntity) =
         api.deleteMovieFromCollection(collectionId, movieId)
 
-    override suspend fun deleteCollectionById(collectionId: String) =
+    override suspend fun deleteCollectionById(collectionId: String): Response<Unit> =
         api.deleteCollection(collectionId)
 }
