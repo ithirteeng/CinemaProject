@@ -15,4 +15,10 @@ interface CollectionsRepository {
     suspend fun addMovieToCollection(collectionId: String, movieId: MovieIdEntity): Result<Unit>
 
     suspend fun deleteMovieFromCollection(collectionId: String, movieId: MovieIdEntity): Result<Unit>
+
+    fun saveImageId(imageId: Int)
+
+    fun getImageId(): Int
+
+    fun clearStorage()
 }

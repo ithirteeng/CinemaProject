@@ -26,8 +26,8 @@ class CollectionInfoFragmentViewModel(
         router.navigateToMovieInfoScreen(movieEntity)
     }
 
-    fun navigateToChangeCollectionScreen(localCollectionEntity: LocalCollectionEntity) {
-        router.navigateToChangeCollectionScreen(localCollectionEntity)
+    fun navigateToChangeCollectionScreen(localCollectionEntity: LocalCollectionEntity, imageId: Int) {
+        router.navigateToChangeCollectionScreen(localCollectionEntity, imageId)
     }
 
     private val moviesListLiveData = MutableLiveData<List<MovieEntity>>()

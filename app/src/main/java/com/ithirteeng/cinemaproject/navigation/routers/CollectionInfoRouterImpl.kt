@@ -19,8 +19,16 @@ class CollectionInfoRouterImpl(
         router.navigateTo(MovieFragment.provideMovieScreen(movieEntity))
     }
 
-    override fun navigateToChangeCollectionScreen(localCollectionEntity: LocalCollectionEntity) {
-        router.navigateTo(ChangeCollectionFragment.provideChangeCollectionScreen(localCollectionEntity))
+    override fun navigateToChangeCollectionScreen(
+        collectionEntity: LocalCollectionEntity?,
+        imageId: Int,
+    ) {
+        router.navigateTo(
+            ChangeCollectionFragment.provideChangeCollectionScreen(
+                collectionEntity,
+                imageId
+            )
+        )
     }
 
 }

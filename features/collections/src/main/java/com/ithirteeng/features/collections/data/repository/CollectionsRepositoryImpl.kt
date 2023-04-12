@@ -1,5 +1,6 @@
 package com.ithirteeng.features.collections.data.repository
 
+import com.ithirteeng.features.collections.data.datasource.CollectionsLocalDatasource
 import com.ithirteeng.features.collections.data.datasource.CollectionsRemoteDatasource
 import com.ithirteeng.features.collections.domain.entity.MovieIdEntity
 import com.ithirteeng.features.collections.domain.repository.CollectionsRepository
@@ -9,6 +10,7 @@ import com.ithirteeng.shared.movies.entity.MovieEntity
 
 class CollectionsRepositoryImpl(
     private val remoteDatasource: CollectionsRemoteDatasource,
+    private val localDatasource: CollectionsLocalDatasource,
 ) : CollectionsRepository {
 
     override suspend fun createCollection(createCollectionEntity: CreateCollectionEntity): Result<CollectionEntity> {
@@ -58,4 +60,13 @@ class CollectionsRepositoryImpl(
             Result.failure(e)
         }
     }
+
+    override fun saveImageId(imageId: Int) =
+        localDatasource.saveImageId(imageId)
+
+    override fun getImageId(): Int =
+        localDatasource.getImageId()
+
+    override fun clearStorage() =
+        localDatasource.clearStorage()
 }

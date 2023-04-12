@@ -5,8 +5,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ithirteeng.errorhandler.domain.ErrorModel
+import com.ithirteeng.features.collections.domain.usecase.ClearImageStorageUseCase
 import com.ithirteeng.features.collections.domain.usecase.CreateCollectionUseCase
+import com.ithirteeng.features.collections.domain.usecase.GetImageIdUseCase
 import com.ithirteeng.features.collections.presentation.routers.CreateCollectionRouter
+import com.ithirteeng.features.collections.presentation.utils.ChooseIconReason
 import com.ithirteeng.shared.collections.domain.entity.CollectionEntity
 import com.ithirteeng.shared.collections.domain.entity.CreateCollectionEntity
 import com.ithirteeng.shared.network.common.NoConnectivityException
@@ -16,7 +19,24 @@ import retrofit2.HttpException
 class CreateCollectionFragmentViewModel(
     private val createCollectionUseCase: CreateCollectionUseCase,
     private val router: CreateCollectionRouter,
+    private val getImageIdUseCase: GetImageIdUseCase,
+    private val clearImageStorageUseCase: ClearImageStorageUseCase,
 ) : ViewModel() {
+
+    fun navigateToChooseIconScreen() {
+        router.navigateToChooseIconScreen(ChooseIconReason.CREATE)
+    }
+
+    fun exit() {
+        router.exit()
+    }
+
+    fun getChosenIconId(): Int {
+        val iconId = getImageIdUseCase()
+        clearImageStorageUseCase()
+        return iconId
+    }
+
     private val createCollectionResultLiveData = MutableLiveData<CollectionEntity>()
 
     fun getCreateCollectionResultLiveData(): LiveData<CollectionEntity> =

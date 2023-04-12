@@ -10,7 +10,7 @@ import com.ithirteeng.errorhandler.domain.ErrorModel
 import com.ithirteeng.errorhandler.presentation.ErrorHandler
 import com.ithirteeng.features.collections.R
 import com.ithirteeng.features.collections.databinding.FragmentCollectionInfoBinding
-import com.ithirteeng.features.collections.presentation.COLLECTION_INFO
+import com.ithirteeng.features.collections.presentation.COLLECTION_INFO_VIEW_MODEL
 import com.ithirteeng.features.collections.presentation.CollectionInfoFragmentViewModel
 import com.ithirteeng.features.collections.ui.adapter.CollectionMoviesAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -35,7 +35,7 @@ class CollectionInfoFragment : Fragment() {
 
     private lateinit var binding: FragmentCollectionInfoBinding
 
-    private val viewModel: CollectionInfoFragmentViewModel by viewModel(named(COLLECTION_INFO))
+    private val viewModel: CollectionInfoFragmentViewModel by viewModel(named(COLLECTION_INFO_VIEW_MODEL))
 
     private lateinit var collectionId: String
 

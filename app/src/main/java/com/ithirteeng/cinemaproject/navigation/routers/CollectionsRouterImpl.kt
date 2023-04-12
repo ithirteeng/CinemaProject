@@ -22,6 +22,6 @@ class CollectionsRouterImpl(
     }
 
     override fun navigateToAddCollectionScreen() {
-        router.navigateTo(CreateCollectionFragment.provideCreateCollectionScreen)
+        router.navigateTo(CreateCollectionFragment.provideCreateCollectionScreen())
     }
 }

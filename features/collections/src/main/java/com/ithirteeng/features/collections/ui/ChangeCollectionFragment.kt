@@ -14,13 +14,21 @@ class ChangeCollectionFragment : Fragment() {
 
     companion object {
         private const val COLLECTION_KEY = "collection key"
-        fun provideChangeCollectionScreen(localCollectionEntity: LocalCollectionEntity) =
-            FragmentScreen {
-                ChangeCollectionFragment().apply {
-                    val bundle = Bundle()
-                    bundle.putSerializable(COLLECTION_KEY, localCollectionEntity)
+        private const val CHANGE_ICON_KEY = "CHANGE_ICON_KEY"
+
+        fun provideChangeCollectionScreen(
+            localCollectionEntity: LocalCollectionEntity?,
+            imageId: Int?,
+        ) = FragmentScreen {
+            ChangeCollectionFragment().apply {
+                val bundle = Bundle()
+                bundle.putSerializable(COLLECTION_KEY, localCollectionEntity)
+                if (imageId != null) {
+                    bundle.putInt(CHANGE_ICON_KEY, imageId)
                 }
+                arguments = bundle
             }
+        }
     }
 
     private lateinit var binding: FragmentChangeCollectionBinding

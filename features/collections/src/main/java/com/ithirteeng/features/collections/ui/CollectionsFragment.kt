@@ -10,7 +10,7 @@ import com.ithirteeng.errorhandler.domain.ErrorModel
 import com.ithirteeng.errorhandler.presentation.ErrorHandler
 import com.ithirteeng.features.collections.R
 import com.ithirteeng.features.collections.databinding.FragmentCollectionsBinding
-import com.ithirteeng.features.collections.presentation.COLLECTION_MAIN
+import com.ithirteeng.features.collections.presentation.COLLECTION_MAIN_VIEW_MODEL
 import com.ithirteeng.features.collections.presentation.CollectionsFragmentViewModel
 import com.ithirteeng.features.collections.ui.adapter.CollectionsAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -24,7 +24,11 @@ class CollectionsFragment : Fragment() {
 
     private lateinit var binding: FragmentCollectionsBinding
 
-    private val viewModel: CollectionsFragmentViewModel by viewModel(named(COLLECTION_MAIN))
+    private val viewModel: CollectionsFragmentViewModel by viewModel(
+        named(
+            COLLECTION_MAIN_VIEW_MODEL
+        )
+    )
 
     private val collectionsAdapter by lazy {
         CollectionsAdapter {
@@ -39,12 +43,16 @@ class CollectionsFragment : Fragment() {
         val layout = inflater.inflate(R.layout.fragment_collections, container, false)
         binding = FragmentCollectionsBinding.bind(layout)
 
-        binding.progressBar.visibility = View.VISIBLE
         binding.collectionsRecyclerView.adapter = collectionsAdapter
         onGettingCollectionsList()
         onAddButtonClick()
 
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.progressBar.visibility = View.VISIBLE
     }
 
     private fun onAddButtonClick() {
