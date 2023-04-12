@@ -13,6 +13,7 @@ import com.ithirteeng.errorhandler.domain.ErrorModel
 import com.ithirteeng.errorhandler.presentation.ErrorDialogFragmentViewModel
 import com.ithirteeng.shared.errorhandler.R
 import com.ithirteeng.shared.errorhandler.databinding.ErrorDialogLayoutBinding
+import com.ithirteeng.shared.network.common.NoConnectivityException
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import retrofit2.HttpException
 
@@ -46,7 +47,7 @@ class ErrorDialogFragment : DialogFragment() {
 
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
-        if (errorModel.error is HttpException && errorModel.errorCode == 401) {
+        if (errorModel.error is HttpException && errorModel.errorCode == 401 || errorModel.error is NoConnectivityException) {
             viewModel.navigateToLoginFragment()
             viewModel.removeUserFullData()
         }

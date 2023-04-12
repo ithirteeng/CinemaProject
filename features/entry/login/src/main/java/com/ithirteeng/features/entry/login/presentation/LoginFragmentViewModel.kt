@@ -56,8 +56,8 @@ class LoginFragmentViewModel(
         viewModelScope.launch {
             postLoginDataUseCase(loginEntity)
                 .onSuccess {
-                    saveTokenToLocalStorageUseCase(it)
                     setCurrentUserEmailUseCase(loginEntity.email)
+                    saveTokenToLocalStorageUseCase(it)
                     tokenLiveData.value = it
                 }
                 .onFailure {
