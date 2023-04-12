@@ -22,6 +22,10 @@ class MainHostFragmentViewModel(
     fun navigateToCollectionsScreen() =
         router.navigateToCollectionsScreen()
 
+    fun clearBackstack() {
+        router.clearBackstack()
+    }
+
     fun exit() =
         router.exit()
 

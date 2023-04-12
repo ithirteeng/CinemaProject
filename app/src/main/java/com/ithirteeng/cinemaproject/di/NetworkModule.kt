@@ -14,7 +14,7 @@ import org.koin.dsl.module
 
 val networkModule = module {
     factory { provideLoggingInterceptor() }
-    factory { provideNetworkConnectionInterceptor() }
+    factory { provideNetworkConnectionInterceptor(context = get()) }
 
     single(named(SIMP_NETWORK_TOOLS)) {
         provideRetrofit(okHttpClient = get(named(SIMP_NETWORK_TOOLS)))

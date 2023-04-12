@@ -15,4 +15,6 @@ interface MainHostRouter {
     fun exit()
 
     fun getCurrentSection(): SectionType?
+
+    fun clearBackstack()
 }

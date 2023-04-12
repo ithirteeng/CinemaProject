@@ -47,5 +47,5 @@ ext.Dependencies =
                 NAVIGATION_UI               : "androidx.navigation:navigation-ui-ktx:${Versions.NAVIGATION}",
                 NAVIGATION_FEATURE          : "androidx.navigation:navigation-dynamic-features-fragment:${Versions.NAVIGATION}",
                 NAVIGATION_TEST             : "androidx.navigation:navigation-testing:${Versions.NAVIGATION}",
-                ENCRYPTED_SHARED_PREFERENCES: "androidx.security:security-crypto:${Versions.ENCRYPTED_SHARED_PREFERENCES}"
+                ENCRYPTED_SHARED_PREFERENCES: "androidx.security:security-crypto:${Versions.ENCRYPTED_SHARED_PREFERENCES}",
         ]

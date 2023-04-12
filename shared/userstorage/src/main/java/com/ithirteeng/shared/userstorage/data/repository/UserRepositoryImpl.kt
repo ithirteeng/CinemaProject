@@ -19,10 +19,16 @@ class UserRepositoryImpl(
     override fun clearUserData() =
         localDatasource.clearUserData()
 
-
     override fun getUserData(): UserEntity? =
         localDatasource.getUserData()
 
     override fun saveUserData(userEntity: UserEntity) =
         localDatasource.saveUserData(userEntity)
+
+    override fun setCurrentUserEmail(email: String) =
+        localDatasource.setCurrentUserEmail(email)
+
+    override fun getCurrentUserEmail(): String =
+        localDatasource.getCurrentUserEmail()
+
 }

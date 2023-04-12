@@ -16,6 +16,7 @@ dependencies {
     implementation Dependencies.RETROFIT
     implementation Dependencies.OKHTTP_INTERCEPTOR
     implementation Dependencies.GSON
+    implementation Dependencies.GLIDE
     implementation Dependencies.GSON_CONVERTER
     implementation Dependencies.CICERONE
 
@@ -24,4 +25,7 @@ dependencies {
     implementation project(":shared:token")
     implementation project(":shared:errorhandler")
     implementation project(":shared:customextensions")
+    implementation project(":shared:userstorage")
+    implementation project(":shared:movies")
+    implementation project(":shared:collections")
 }

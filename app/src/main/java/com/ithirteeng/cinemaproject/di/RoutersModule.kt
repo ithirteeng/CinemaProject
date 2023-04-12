@@ -3,6 +3,7 @@ package com.ithirteeng.cinemaproject.di
 import com.ithirteeng.cinemaproject.navigation.routers.*
 import com.ithirteeng.design.GLOBAL_ROUTER
 import com.ithirteeng.errorhandler.presentation.ErrorRouter
+import com.ithirteeng.features.collections.presentation.routers.*
 import com.ithirteeng.features.compilation.presentation.CompilationRouter
 import com.ithirteeng.features.entry.login.presentation.LoginRouter
 import com.ithirteeng.features.entry.registration.presentation.RegistrationRouter
@@ -26,6 +27,15 @@ val routersModule = module {
     factory<MovieRouter> { MovieRouterImpl(router = get(named(GLOBAL_ROUTER))) }
     factory<ProfileRouter> { ProfileRouterImpl(router = get(named(GLOBAL_ROUTER))) }
     factory<EpisodeRouter> { EpisodeRouterImpl(router = get(named(GLOBAL_ROUTER))) }
+    factory<CollectionsRouter> { CollectionsRouterImpl(router = get(named(GLOBAL_ROUTER))) }
+    factory<CollectionInfoRouter> { CollectionInfoRouterImpl(router = get(named(GLOBAL_ROUTER))) }
+    factory<ChooseIconRouter> { ChooseIconRouterImpl(router = get(named(GLOBAL_ROUTER))) }
+    factory<ChangeCollectionRouter> {
+        ChangeCollectionRouterImpl(router = get(named(GLOBAL_ROUTER)))
+    }
+    factory<CreateCollectionRouter> {
+        CreateCollectionRouterImpl(router = get(named(GLOBAL_ROUTER)))
+    }
 
     factory<MainHostRouter> { MainHostRouterImpl(router = get()) }
 }

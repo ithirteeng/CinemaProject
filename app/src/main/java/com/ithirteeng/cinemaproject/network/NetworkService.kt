@@ -1,5 +1,6 @@
 package com.ithirteeng.cinemaproject.network
 
+import android.content.Context
 import com.ithirteeng.cinemaproject.BuildConfig
 import com.ithirteeng.cinemaproject.network.interceptor.NetworkConnectionInterceptor
 import okhttp3.OkHttpClient
@@ -15,8 +16,8 @@ fun provideLoggingInterceptor(): HttpLoggingInterceptor {
     return loggingInterceptor
 }
 
-fun provideNetworkConnectionInterceptor(): NetworkConnectionInterceptor =
-    NetworkConnectionInterceptor()
+fun provideNetworkConnectionInterceptor(context: Context): NetworkConnectionInterceptor =
+    NetworkConnectionInterceptor(context)
 
 
 fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit =

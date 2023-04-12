@@ -5,6 +5,7 @@ import com.ithirteeng.features.compilation.data.datasource.CompilationDatasource
 import com.ithirteeng.features.compilation.data.datasource.CompilationDatasourceImpl
 import com.ithirteeng.features.compilation.data.repository.CompilationRepositoryImpl
 import com.ithirteeng.features.compilation.domain.repository.CompilationRepository
+import com.ithirteeng.features.compilation.domain.usecase.AddMovieToFavouritesUseCase
 import com.ithirteeng.features.compilation.domain.usecase.DeleteMovieFromCompilationUseCase
 import com.ithirteeng.features.compilation.domain.usecase.GetCompilationMoviesListUseCase
 import com.ithirteeng.features.compilation.presentation.CompilationFragmentViewModel
@@ -22,13 +23,17 @@ val compilationModule = module {
 
     factory { GetCompilationMoviesListUseCase(repository = get()) }
     factory { DeleteMovieFromCompilationUseCase(repository = get()) }
+    factory { AddMovieToFavouritesUseCase(repository = get()) }
 
     viewModel {
         CompilationFragmentViewModel(
             application = get(),
             router = get(),
             getCompilationMoviesListUseCase = get(),
-            deleteMovieFromCompilationUseCase = get()
+            deleteMovieFromCompilationUseCase = get(),
+            getFavouritesCollectionUseCase = get(),
+            addMovieToFavouritesUseCase = get(),
+            getCurrentUserEmailUseCase = get()
         )
     }
 

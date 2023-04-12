@@ -8,6 +8,7 @@
     <string name="like_button_content_description">like film</string>
     <string name="dislike_button_content_description">dislike film</string>
 
+    <string name="favourites_collection">Favourites</string>
 
     <string name="default_error">error</string>
     <string name="default_error_text">this is example of default error text</string>
@@ -63,5 +64,17 @@
     <string name="set_interests">Set interests</string>
     <string name="you_watched">Recent watched</string>
     <string name="watch">Watch</string>
+
+    <string name="add_collection_409">This movie already exists in collection!</string>
+
+    <string name="create_collection">Create collection</string>
+    <string name="change_collection">Change collection</string>
+    <string name="collection_name">Name</string>
+    <string name="choose_icon">Choose icon</string>
+    <string name="save">Save</string>
+    <string name="delete">Delete</string>
+
+    <string name="collection_name_empty_error">Name mustn\'t be empty</string>
+    <string name="collection_name_exists_error">Name already exists!</string>
 
 </resources>

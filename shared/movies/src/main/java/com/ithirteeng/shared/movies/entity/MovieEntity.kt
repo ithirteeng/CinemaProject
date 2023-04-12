@@ -19,4 +19,4 @@ data class MovieEntity(
     val poster: String,
     @SerializedName("tags")
     val tags: List<TagEntity>,
-)
+) : java.io.Serializable

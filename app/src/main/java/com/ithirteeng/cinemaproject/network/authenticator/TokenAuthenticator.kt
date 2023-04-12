@@ -19,20 +19,26 @@ class TokenAuthenticator(
 
     override fun authenticate(route: Route?, response: Response): Request? {
         val localToken = getTokenFromLocalStorageUseCase()
-
-        val remoteToken = runBlocking {
-            refreshTokenUseCase(localToken?.refreshToken)
+        
+        try {
+            val remoteToken = runBlocking {
+                refreshTokenUseCase(localToken?.refreshToken)
+            }
+            saveTokenToLocalStorageUseCase(remoteToken)
+        } catch (e: java.lang.Exception) {
+            return response.request.newBuilder()
+                .authorizationHeader(getTokenFromLocalStorageUseCase()?.accessToken.toString())
+                .build()
         }
 
-        saveTokenToLocalStorageUseCase(remoteToken)
-
-        return if (response.responseCount >= 1) {
+        return if (response.responseCount >= 2) {
             null
         } else {
             response.request.newBuilder()
-                .authorizationHeader(remoteToken?.accessToken.toString())
+                .authorizationHeader(getTokenFromLocalStorageUseCase()?.accessToken.toString())
                 .build()
         }
+
     }
 
     private val Response.responseCount: Int

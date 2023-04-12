@@ -21,35 +21,29 @@ import com.ithirteeng.features.movieinfo.ui.adapter.EpisodesAdapter
 import com.ithirteeng.shared.movies.entity.EpisodeEntity
 import com.ithirteeng.shared.movies.entity.MovieEntity
 import com.ithirteeng.shared.movies.entity.TagEntity
-import com.ithirteeng.shared.movies.utils.MoviesListType
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class MovieFragment : Fragment() {
 
     companion object {
-        private const val MOVIE_ID = "MOVIE_ID"
-        private const val MOVIE_TYPE = "MOVIE_TYPE"
+        private const val MOVIE_ENTITY = "MOVIE_ENTITY"
 
-        fun provideMovieScreen(movieId: String, moviesListType: MoviesListType) = FragmentScreen {
+        fun provideMovieScreen(movieEntity: MovieEntity) = FragmentScreen {
             MovieFragment().apply {
                 val bundle = Bundle()
-                bundle.putString(MOVIE_ID, movieId)
-                bundle.putSerializable(MOVIE_TYPE, moviesListType)
+                bundle.putSerializable(MOVIE_ENTITY, movieEntity)
                 arguments = bundle
             }
         }
+
     }
 
     private val viewModel: MovieFragmentViewModel by viewModel()
 
     private lateinit var binding: FragmentMovieBinding
 
-    private lateinit var movieId: String
-
-    private lateinit var movieName: String
-
-    private lateinit var moviesListType: MoviesListType
+    private lateinit var movieEntity: MovieEntity
 
     private var finishedRequests = 0
 
@@ -59,7 +53,7 @@ class MovieFragment : Fragment() {
 
     private val episodesAdapter by lazy {
         EpisodesAdapter {
-            viewModel.navigateToEpisodeScreen(it.episodeId, movieId, movieName)
+            viewModel.navigateToEpisodeScreen(it.episodeId, movieEntity.id, movieEntity.name)
         }
     }
 
@@ -73,13 +67,12 @@ class MovieFragment : Fragment() {
 
         finishedRequests = 0
 
-        movieId = arguments?.getString(MOVIE_ID, "").toString()
-        moviesListType = arguments?.getSerializable(MOVIE_TYPE) as MoviesListType
+        movieEntity = arguments?.getSerializable(MOVIE_ENTITY) as MovieEntity
 
         binding.allViewsGroup.visibility = View.GONE
         binding.progressBar.visibility = View.VISIBLE
 
-        onGettingMovie()
+        setMovieInfoFields()
         onGettingEpisodesList()
         onBackButtonClick()
 
@@ -95,22 +88,15 @@ class MovieFragment : Fragment() {
         }
     }
 
-    private fun onGettingMovie() {
-        viewModel.makeGetMoviesListRequest(movieId, moviesListType) {
-            handleErrors(it)
-        }
-        viewModel.getMovieLiveData().observe(this.viewLifecycleOwner) {
-            movieName = it?.name.toString()
-            finishedRequests++
-            onFinishedRequests()
-            cadresAdapter.submitList(it?.imageUrls)
-            setupScreenData(it)
-        }
-
+    private fun setMovieInfoFields() {
+        finishedRequests++
+        onFinishedRequests()
+        cadresAdapter.submitList(movieEntity.imageUrls)
+        setupScreenData(movieEntity)
     }
 
     private fun onGettingEpisodesList() {
-        viewModel.makeGetMovieEpisodesListRequest(movieId) {
+        viewModel.makeGetMovieEpisodesListRequest(movieEntity.id) {
             handleErrors(it)
         }
         viewModel.getMovieEpisodesLiveData().observe(this.viewLifecycleOwner) {
@@ -125,7 +111,11 @@ class MovieFragment : Fragment() {
 
     private fun onWatchButtonClick(episodeEntity: EpisodeEntity) {
         binding.watchButton.setOnClickListener {
-            viewModel.navigateToEpisodeScreen(episodeEntity.episodeId, movieId, movieName)
+            viewModel.navigateToEpisodeScreen(
+                episodeEntity.episodeId,
+                movieEntity.id,
+                movieEntity.name
+            )
         }
     }
 

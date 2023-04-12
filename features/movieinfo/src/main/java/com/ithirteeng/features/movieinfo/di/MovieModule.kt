@@ -6,7 +6,6 @@ import com.ithirteeng.features.movieinfo.data.datasource.MovieRemoteDatasourceIm
 import com.ithirteeng.features.movieinfo.data.repository.MovieRepositoryImpl
 import com.ithirteeng.features.movieinfo.domain.repository.MovieRepository
 import com.ithirteeng.features.movieinfo.domain.usecase.GetMovieEpisodesListUseCase
-import com.ithirteeng.features.movieinfo.domain.usecase.GetMoviesListUseCase
 import com.ithirteeng.features.movieinfo.presentation.MovieFragmentViewModel
 import com.ithirteeng.shared.network.common.TOKEN_NETWORK_TOOLS
 import com.ithirteeng.shared.network.retrofitservice.createRetrofitService
@@ -20,13 +19,11 @@ val movieModule = module {
     factory<MovieRemoteDatasource> { MovieRemoteDatasourceImpl(api = get()) }
     factory<MovieRepository> { MovieRepositoryImpl(remoteDatasource = get()) }
 
-    factory { GetMoviesListUseCase(repository = get()) }
     factory { GetMovieEpisodesListUseCase(repository = get()) }
 
     viewModel {
         MovieFragmentViewModel(
             application = get(),
-            getMoviesListUseCase = get(),
             getMovieEpisodesListUseCase = get(),
             router = get()
         )

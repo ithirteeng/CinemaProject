@@ -39,7 +39,9 @@ class CompilationFragment : Fragment() {
 
     private lateinit var cardStackLayoutManager: CardStackLayoutManager
 
-    private lateinit var movieId: String
+    private lateinit var movieEntity: MovieEntity
+
+    private lateinit var favouritesCollectionsId: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,12 +52,22 @@ class CompilationFragment : Fragment() {
 
         setupCardStackLayoutManager()
 
+        onGettingFavouritesCollectionData()
         onGettingMoviesList()
+        setupButtonOnClickFunctions()
+
+        return binding.root
+    }
+
+    override fun onStop() {
+        super.onStop()
+        setViewsVisibility(View.GONE)
+    }
+
+    private fun setupButtonOnClickFunctions() {
         onDislikeButtonClick()
         onLikeButtonClick()
         onPlayButtonClick()
-
-        return binding.root
     }
 
     private fun onGettingMoviesList() {
@@ -79,9 +91,12 @@ class CompilationFragment : Fragment() {
         }
     }
 
-    override fun onStop() {
-        super.onStop()
-        setViewsVisibility(View.GONE)
+    private fun onGettingFavouritesCollectionData() {
+        viewModel.getCollection().observe(this.viewLifecycleOwner) {
+            if (it != null) {
+                favouritesCollectionsId = it.collectionId
+            }
+        }
     }
 
     private fun setViewsVisibility(visibility: Int) {
@@ -129,9 +144,10 @@ class CompilationFragment : Fragment() {
             binding.cardStackView.swipe()
         }
     }
+
     private fun onPlayButtonClick() {
         binding.playButton.setOnClickListener {
-            viewModel.navigateToMovieInfoScreen(movieId)
+            viewModel.navigateToMovieInfoScreen(movieEntity)
         }
     }
 
@@ -146,7 +162,7 @@ class CompilationFragment : Fragment() {
 
     private fun onCardAppeared(position: Int) {
         binding.movieNameTextView.text = cardStackAdapter.currentList[position].name
-        movieId = cardStackAdapter.currentList[position].id
+        movieEntity = cardStackAdapter.currentList[position]
     }
 
     private fun onCardDisappeared(position: Int) {
@@ -155,6 +171,10 @@ class CompilationFragment : Fragment() {
         }
         if (lastCardDirection == Direction.Left) {
             viewModel.deleteMovieFromCompilation(moviesList[position - 1].id) { handleErrors(it) }
+        } else {
+            viewModel.addMoviesToFavourite(moviesList[position - 1].id, favouritesCollectionsId) {
+                handleErrors(it)
+            }
         }
     }
 

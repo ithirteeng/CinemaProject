@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.github.terrakok.cicerone.Router
 import com.github.terrakok.cicerone.androidx.FragmentScreen
-import com.ithirteeng.features.collections.CollectionsFragment
+import com.ithirteeng.features.collections.ui.CollectionsFragment
 import com.ithirteeng.features.compilation.ui.CompilationFragment
 import com.ithirteeng.features.main.ui.MainFragment
 import com.ithirteeng.features.mainhost.utils.SectionType
@@ -82,6 +82,11 @@ class MainHostCustomRouter(
             )
             else -> replaceLastScreen(ProfileFragment.provideProfileScreen, sectionType)
         }
+    }
+
+    fun clearBackStack() {
+        sectionsBackstack.clear()
+        screensBackstack.clear()
     }
 
     fun exit() {

@@ -11,7 +11,7 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
         jcenter()
-        maven {url='https://jitpack.io'}
+        maven { url = 'https://jitpack.io' }
     }
 }
 rootProject.name = "CinemaProject"
@@ -38,3 +38,4 @@ include ':features:profile'
 include ':shared:movies'
 include ':features:movieinfo'
 include ':features:episode'
+include ':shared:collections'

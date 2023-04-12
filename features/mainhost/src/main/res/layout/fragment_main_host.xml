@@ -20,10 +20,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
+        android:animateLayoutChanges="false"
         android:background="@color/nav_bar_color"
         android:visibility="visible"
         app:itemIconTint="@color/nav_item_color"
+        app:itemTextAppearance="@style/Theme.CinemaProject.Text1"
+        app:itemTextAppearanceActive="@style/Theme.CinemaProject.Text1"
+        app:itemTextAppearanceInactive="@style/Theme.CinemaProject.Text1"
         app:itemTextColor="@color/nav_item_color"
+        app:labelVisibilityMode="labeled"
         app:menu="@menu/bottom_navigation_menu" />
 
 </LinearLayout>

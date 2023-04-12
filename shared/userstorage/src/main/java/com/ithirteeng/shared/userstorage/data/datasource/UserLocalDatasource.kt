@@ -14,4 +14,8 @@ interface UserLocalDatasource {
     fun getUserData(): UserEntity?
 
     fun saveUserData(userEntity: UserEntity)
+
+    fun setCurrentUserEmail(email: String)
+
+    fun getCurrentUserEmail(): String
 }
