@@ -7,13 +7,15 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.github.terrakok.cicerone.androidx.FragmentScreen
-import com.ithirteeng.component.design.R.string.empty_error
+import com.ithirteeng.component.design.R.string
+import com.ithirteeng.customextensions.presentation.setEditTextInputSpaceFilter
 import com.ithirteeng.errorhandler.domain.ErrorModel
 import com.ithirteeng.errorhandler.presentation.ErrorHandler
 import com.ithirteeng.features.collections.R
 import com.ithirteeng.features.collections.databinding.FragmentCreateCollectionBinding
 import com.ithirteeng.features.collections.presentation.COLLECTION_CREATE_VIEW_MODEL
 import com.ithirteeng.features.collections.presentation.CreateCollectionFragmentViewModel
+import com.ithirteeng.shared.collections.domain.entity.CollectionEntity
 import com.ithirteeng.shared.collections.presentation.collectionsIconsIds
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.qualifier.named
@@ -31,12 +33,15 @@ class CreateCollectionFragment : Fragment() {
         named(COLLECTION_CREATE_VIEW_MODEL)
     )
 
+    private var imageId: Int = collectionsIconsIds[0]
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
         val layout = inflater.inflate(R.layout.fragment_create_collection, container, false)
         binding = FragmentCreateCollectionBinding.bind(layout)
+        binding.nameEditText.setEditTextInputSpaceFilter()
 
         onChooseIconButtonClick()
         onSaveButtonClick()
@@ -49,6 +54,7 @@ class CreateCollectionFragment : Fragment() {
         super.onResume()
         val imageId = viewModel.getChosenIconId()
         if (imageId != -1) {
+            this.imageId = imageId
             binding.collectionImageView.setImageResource(imageId)
         } else {
             binding.collectionImageView.setImageResource(collectionsIconsIds[0])
@@ -70,13 +76,47 @@ class CreateCollectionFragment : Fragment() {
     private fun onSaveButtonClick() {
         binding.saveButton.setOnClickListener {
             if (checkCollectionNameValidity()) {
-                viewModel.createCollection(binding.nameEditText.text.toString()) { handleErrors(it) }
-                viewModel.getCreateCollectionResultLiveData().observe(this.viewLifecycleOwner) {
-                    viewModel.exit()
-                }
+                binding.progressBar.visibility = View.VISIBLE
+                onGettingCollectionList()
             } else {
-                Toast.makeText(requireContext(), getString(empty_error), Toast.LENGTH_SHORT).show()
+                binding.progressBar.visibility = View.GONE
+                Toast.makeText(
+                    requireContext(),
+                    getString(string.collection_name_empty_error),
+                    Toast.LENGTH_SHORT
+                ).show()
             }
+        }
+    }
+
+    private fun onGettingCollectionList() {
+        viewModel.makeGetCollectionListRequest { handleErrors(it) }
+        viewModel.getCollectionListLiveData().observe(this.viewLifecycleOwner) {
+            if (viewModel.checkOnCorrectName(binding.nameEditText.text.toString(), it)) {
+                onCreatingCollection()
+            } else {
+                binding.progressBar.visibility = View.GONE
+                Toast.makeText(
+                    requireContext(),
+                    getString(string.collection_name_exists_error),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+    }
+
+    private fun onCreatingCollection() {
+        viewModel.createCollection(binding.nameEditText.text.toString()) { handleErrors(it) }
+        viewModel.getCreateCollectionResultLiveData().observe(this.viewLifecycleOwner) {
+            onSavingCollectionLocally(it)
+        }
+    }
+
+    private fun onSavingCollectionLocally(collectionEntity: CollectionEntity) {
+        viewModel.saveCollectionLocally(collectionEntity, imageId)
+        viewModel.getOnSavingCollectionLiveData().observe(this.viewLifecycleOwner) {
+            viewModel.exit()
+            binding.progressBar.visibility = View.GONE
         }
     }
 

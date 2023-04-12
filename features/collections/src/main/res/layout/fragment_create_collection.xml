@@ -16,7 +16,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/fragmentNameTextView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/fragmentNameTextView"
-        tools:ignore="ContentDescription,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+        tools:ignore="ContentDescription,SpeakableTextPresentCheck,TouchTargetSizeCheck,ImageContrastCheck" />
 
     <TextView
         android:id="@+id/fragmentNameTextView"
@@ -30,6 +30,7 @@
         app:layout_constraintStart_toEndOf="@+id/backButton"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed"
+        tools:ignore="TextContrastCheck"
         tools:targetApi="p" />
 
     <EditText
@@ -40,11 +41,12 @@
         android:layout_marginHorizontal="@dimen/margin_16"
         android:layout_marginTop="@dimen/margin_40"
         android:background="@drawable/name_edit_text_background"
+        android:hint="@string/collection_name"
+        android:inputType="text"
         android:maxLines="1"
         android:paddingHorizontal="@dimen/padding_16"
         android:paddingVertical="@dimen/padding_10"
-        android:hint="@string/collection_name"
-        android:textColor="@color/grey_text_color"
+        android:textColor="@color/white"
         android:textColorHint="@color/grey_text_color"
         android:textSize="@dimen/text_size_14"
         app:layout_constraintEnd_toEndOf="parent"
@@ -81,7 +83,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/collectionImageView"
         app:layout_constraintTop_toTopOf="@+id/collectionImageView"
-        tools:ignore="TouchTargetSizeCheck,VisualLintButtonSize" />
+        tools:ignore="TouchTargetSizeCheck,VisualLintButtonSize,TextContrastCheck" />
 
     <Button
         android:id="@+id/saveButton"
@@ -95,5 +97,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/collectionImageView"
         tools:ignore="HardcodedText,TextContrastCheck,TouchTargetSizeCheck,VisualLintButtonSize" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="@style/Theme.CinemaProject.ProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

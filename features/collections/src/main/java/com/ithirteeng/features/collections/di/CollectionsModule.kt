@@ -66,7 +66,10 @@ val collectionsModule = module {
             router = get(),
             createCollectionUseCase = get(),
             getImageIdUseCase = get(),
-            clearImageStorageUseCase = get()
+            clearImageStorageUseCase = get(),
+            getCurrentUserEmailUseCase = get(),
+            getCollectionsListUseCase = get(),
+            saveCollectionLocallyUseCase = get()
         )
     }
 
