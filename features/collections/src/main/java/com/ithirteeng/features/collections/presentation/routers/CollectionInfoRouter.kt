@@ -9,5 +9,5 @@ interface CollectionInfoRouter {
 
     fun navigateToMovieInfoScreen(movieEntity: MovieEntity)
 
-    fun navigateToChangeCollectionScreen(collectionEntity: LocalCollectionEntity?, imageId: Int)
+    fun navigateToChangeCollectionScreen(collectionEntity: LocalCollectionEntity)
 }

@@ -4,6 +4,7 @@ import com.github.terrakok.cicerone.Router
 import com.ithirteeng.features.collections.presentation.routers.CollectionsRouter
 import com.ithirteeng.features.collections.ui.CollectionInfoFragment
 import com.ithirteeng.features.collections.ui.CreateCollectionFragment
+import com.ithirteeng.shared.collections.domain.entity.LocalCollectionEntity
 
 class CollectionsRouterImpl(
     private val router: Router,
@@ -12,13 +13,8 @@ class CollectionsRouterImpl(
         router.exit()
     }
 
-    override fun navigateToCollectionInfoScreen(collectionId: String, collectionName: String) {
-        router.navigateTo(
-            CollectionInfoFragment.provideCollectionInfoScreen(
-                collectionId,
-                collectionName
-            )
-        )
+    override fun navigateToCollectionInfoScreen(localCollectionEntity: LocalCollectionEntity) {
+        router.navigateTo(CollectionInfoFragment.provideCollectionInfoScreen(localCollectionEntity))
     }
 
     override fun navigateToAddCollectionScreen() {

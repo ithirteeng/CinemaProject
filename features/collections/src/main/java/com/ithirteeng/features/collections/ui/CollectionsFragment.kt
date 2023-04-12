@@ -24,15 +24,11 @@ class CollectionsFragment : Fragment() {
 
     private lateinit var binding: FragmentCollectionsBinding
 
-    private val viewModel: CollectionsFragmentViewModel by viewModel(
-        named(
-            COLLECTION_MAIN_VIEW_MODEL
-        )
-    )
+    private val viewModel: CollectionsFragmentViewModel by viewModel(named(COLLECTION_MAIN_VIEW_MODEL))
 
     private val collectionsAdapter by lazy {
         CollectionsAdapter {
-            viewModel.navigateToCollectionInfoScreen(it.collectionId, it.collectionName)
+            viewModel.navigateToCollectionInfoScreen(it)
         }
     }
 

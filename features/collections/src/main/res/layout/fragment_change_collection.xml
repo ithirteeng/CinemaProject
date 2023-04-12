@@ -16,7 +16,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/fragmentNameTextView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/fragmentNameTextView"
-        tools:ignore="ContentDescription,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+        tools:ignore="ContentDescription,SpeakableTextPresentCheck,TouchTargetSizeCheck,ImageContrastCheck" />
 
     <TextView
         android:id="@+id/fragmentNameTextView"
@@ -30,9 +30,11 @@
         app:layout_constraintStart_toEndOf="@+id/backButton"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed"
+        tools:ignore="TextContrastCheck"
         tools:targetApi="p" />
 
-    <TextView
+    <EditText
+        android:inputType="text"
         android:id="@+id/nameEditText"
         style="@style/Theme.CinemaProject.Text2"
         android:layout_width="0dp"
@@ -43,7 +45,7 @@
         android:paddingHorizontal="@dimen/padding_16"
         android:paddingVertical="@dimen/padding_10"
         android:text="@string/collection_name"
-        android:textColor="@color/white_press_color"
+        android:textColor="@color/white"
         android:textSize="@dimen/text_size_14"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -79,7 +81,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/collectionImageView"
         app:layout_constraintTop_toTopOf="@+id/collectionImageView"
-        tools:ignore="TouchTargetSizeCheck,VisualLintButtonSize" />
+        tools:ignore="TouchTargetSizeCheck,VisualLintButtonSize,TextContrastCheck" />
 
     <Button
         android:id="@+id/saveButton"

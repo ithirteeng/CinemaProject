@@ -13,6 +13,7 @@ import com.ithirteeng.features.collections.databinding.FragmentCollectionInfoBin
 import com.ithirteeng.features.collections.presentation.COLLECTION_INFO_VIEW_MODEL
 import com.ithirteeng.features.collections.presentation.CollectionInfoFragmentViewModel
 import com.ithirteeng.features.collections.ui.adapter.CollectionMoviesAdapter
+import com.ithirteeng.shared.collections.domain.entity.LocalCollectionEntity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.qualifier.named
 
@@ -20,14 +21,12 @@ class CollectionInfoFragment : Fragment() {
 
     companion object {
         private const val COLLECTION_INFO_KEY = "COLLECTION_INFO_KEY"
-        private const val COLLECTION_NAME = "COLLECTION_NAME"
 
-        fun provideCollectionInfoScreen(collectionId: String, collectionName: String) =
+        fun provideCollectionInfoScreen(localCollectionEntity: LocalCollectionEntity) =
             FragmentScreen {
                 CollectionInfoFragment().apply {
                     val bundle = Bundle()
-                    bundle.putString(COLLECTION_INFO_KEY, collectionId)
-                    bundle.putString(COLLECTION_NAME, collectionName)
+                    bundle.putSerializable(COLLECTION_INFO_KEY, localCollectionEntity)
                     arguments = bundle
                 }
             }
@@ -35,11 +34,13 @@ class CollectionInfoFragment : Fragment() {
 
     private lateinit var binding: FragmentCollectionInfoBinding
 
-    private val viewModel: CollectionInfoFragmentViewModel by viewModel(named(COLLECTION_INFO_VIEW_MODEL))
+    private val viewModel: CollectionInfoFragmentViewModel by viewModel(
+        named(
+            COLLECTION_INFO_VIEW_MODEL
+        )
+    )
 
-    private lateinit var collectionId: String
-
-    private lateinit var collectionName: String
+    private lateinit var localCollectionEntity: LocalCollectionEntity
 
     private val moviesAdapter by lazy {
         CollectionMoviesAdapter {
@@ -47,6 +48,7 @@ class CollectionInfoFragment : Fragment() {
         }
     }
 
+    @Suppress("DEPRECATION")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -55,17 +57,23 @@ class CollectionInfoFragment : Fragment() {
         binding = FragmentCollectionInfoBinding.bind(layout)
 
         binding.progressBar.visibility = View.VISIBLE
-        collectionId = arguments?.getString(COLLECTION_INFO_KEY).toString()
-        collectionName = arguments?.getString(COLLECTION_NAME).toString()
-        binding.fragmentNameTextView.text = collectionName
+
+        localCollectionEntity = arguments?.getSerializable(COLLECTION_INFO_KEY) as LocalCollectionEntity
+        binding.fragmentNameTextView.text = localCollectionEntity.collectionName
 
         binding.moviesRecyclerView.adapter = moviesAdapter
 
         onGettingMoviesList()
-
+        onRedactButtonClick()
         onBackButtonPressed()
 
         return binding.root
+    }
+
+    private fun onRedactButtonClick() {
+        binding.redactionButton.setOnClickListener {
+            viewModel.navigateToChangeCollectionScreen(localCollectionEntity)
+        }
     }
 
     private fun onBackButtonPressed() {
@@ -75,7 +83,7 @@ class CollectionInfoFragment : Fragment() {
     }
 
     private fun onGettingMoviesList() {
-        viewModel.makeGetMoviesListRequest(collectionId) { handleErrors(it) }
+        viewModel.makeGetMoviesListRequest(localCollectionEntity.collectionId) { handleErrors(it) }
         viewModel.getMovieListLiveData().observe(this.viewLifecycleOwner) {
             moviesAdapter.submitList(it)
             binding.progressBar.visibility = View.GONE

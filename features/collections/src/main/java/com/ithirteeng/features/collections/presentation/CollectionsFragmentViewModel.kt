@@ -34,8 +34,8 @@ class CollectionsFragmentViewModel(
         router.navigateToAddCollectionScreen()
     }
 
-    fun navigateToCollectionInfoScreen(collectionId: String, collectionName: String) {
-        router.navigateToCollectionInfoScreen(collectionId, collectionName)
+    fun navigateToCollectionInfoScreen(localCollectionEntity: LocalCollectionEntity) {
+        router.navigateToCollectionInfoScreen(localCollectionEntity)
     }
 
     private val collectionsListLiveData = MutableLiveData<List<LocalCollectionEntity>>()
