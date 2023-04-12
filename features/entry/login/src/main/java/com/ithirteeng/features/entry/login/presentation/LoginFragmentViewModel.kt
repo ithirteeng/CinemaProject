@@ -13,6 +13,7 @@ import com.ithirteeng.features.entry.login.domain.usecase.GetCollectionsListUseC
 import com.ithirteeng.features.entry.login.domain.usecase.PostLoginDataUseCase
 import com.ithirteeng.shared.collections.domain.entity.CollectionEntity
 import com.ithirteeng.shared.collections.domain.entity.LocalCollectionEntity
+import com.ithirteeng.shared.collections.domain.usecase.GetCollectionByIdUseCase
 import com.ithirteeng.shared.collections.domain.usecase.UpsertCollectionLocallyUseCase
 import com.ithirteeng.shared.collections.presentation.collectionsIconsIds
 import com.ithirteeng.shared.network.common.NoConnectivityException
@@ -36,6 +37,7 @@ class LoginFragmentViewModel(
     private val setCurrentUserEmailUseCase: SetCurrentUserEmailUseCase,
     private val upsertCollectionLocallyUseCase: UpsertCollectionLocallyUseCase,
     private val getCollectionsListUseCase: GetCollectionsListUseCase,
+    private val getCollectionByIdUseCase: GetCollectionByIdUseCase
 ) : AndroidViewModel(application) {
 
     fun navigateToRegistrationScreen() {
@@ -82,8 +84,10 @@ class LoginFragmentViewModel(
             getCollectionsListUseCase()
                 .onSuccess {
                     for (collection in it) {
+                        val localCollection = getCollectionByIdUseCase(collection.id)
                         saveCollectionLocally(
                             collection,
+                            localCollection?.collectionImageId ?: collectionsIconsIds[0],
                             userEmail,
                             checkIfCollectionIsFavourite(collection)
                         )
@@ -100,6 +104,7 @@ class LoginFragmentViewModel(
 
     private fun saveCollectionLocally(
         collectionEntity: CollectionEntity,
+        collectionIcon: Int,
         email: String,
         isCollectionFavourite: Boolean,
     ) {
@@ -107,7 +112,7 @@ class LoginFragmentViewModel(
             LocalCollectionEntity(
                 collectionId = collectionEntity.id,
                 collectionName = collectionEntity.name,
-                collectionImageId = collectionsIconsIds[0],
+                collectionImageId = collectionIcon,
                 isFavourite = isCollectionFavourite,
                 userEmail = email
             )

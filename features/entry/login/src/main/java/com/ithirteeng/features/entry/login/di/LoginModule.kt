@@ -34,7 +34,8 @@ val loginModule = module {
             validateTextFieldUseCase = get(),
             setCurrentUserEmailUseCase = get(),
             getCollectionsListUseCase = get(),
-            upsertCollectionLocallyUseCase = get()
+            upsertCollectionLocallyUseCase = get(),
+            getCollectionByIdUseCase = get()
         )
     }
 }
