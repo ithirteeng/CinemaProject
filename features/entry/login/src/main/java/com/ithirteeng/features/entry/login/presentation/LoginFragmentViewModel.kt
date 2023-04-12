@@ -37,7 +37,7 @@ class LoginFragmentViewModel(
     private val setCurrentUserEmailUseCase: SetCurrentUserEmailUseCase,
     private val upsertCollectionLocallyUseCase: UpsertCollectionLocallyUseCase,
     private val getCollectionsListUseCase: GetCollectionsListUseCase,
-    private val getCollectionByIdUseCase: GetCollectionByIdUseCase
+    private val getCollectionByIdUseCase: GetCollectionByIdUseCase,
 ) : AndroidViewModel(application) {
 
     fun navigateToRegistrationScreen() {
@@ -80,19 +80,21 @@ class LoginFragmentViewModel(
         userEmail: String,
         onErrorAppearance: (errorModel: ErrorModel) -> Unit,
     ) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             getCollectionsListUseCase()
                 .onSuccess {
-                    for (collection in it) {
-                        val localCollection = getCollectionByIdUseCase(collection.id)
-                        saveCollectionLocally(
-                            collection,
-                            localCollection?.collectionImageId ?: collectionsIconsIds[0],
-                            userEmail,
-                            checkIfCollectionIsFavourite(collection)
-                        )
+                    launch(Dispatchers.IO) {
+                        for (collection in it) {
+                            val localCollection = getCollectionByIdUseCase(collection.id)
+                            saveCollectionLocally(
+                                collection,
+                                localCollection?.collectionImageId ?: collectionsIconsIds[0],
+                                userEmail,
+                                checkIfCollectionIsFavourite(collection)
+                            )
+                        }
+                        favouritesCollectionLiveData.postValue(it[0])
                     }
-                    favouritesCollectionLiveData.postValue(it[0])
                 }
                 .onFailure { onErrorAppearance(setupErrorCode(it)) }
         }
