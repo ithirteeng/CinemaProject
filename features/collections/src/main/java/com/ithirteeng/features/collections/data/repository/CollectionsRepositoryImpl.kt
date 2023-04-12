@@ -61,6 +61,15 @@ class CollectionsRepositoryImpl(
         }
     }
 
+    override suspend fun deleteCollectionById(collectionId: String): Result<Unit> {
+        return try {
+            remoteDatasource.deleteCollectionById(collectionId)
+            Result.success(Unit)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
     override fun saveImageId(imageId: Int) =
         localDatasource.saveImageId(imageId)
 

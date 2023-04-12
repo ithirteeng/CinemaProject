@@ -24,4 +24,7 @@ class CollectionsRemoteDatasourceImpl(
 
     override suspend fun deleteMovieFromCollection(collectionId: String, movieId: MovieIdEntity) =
         api.deleteMovieFromCollection(collectionId, movieId)
+
+    override suspend fun deleteCollectionById(collectionId: String) =
+        api.deleteCollection(collectionId)
 }

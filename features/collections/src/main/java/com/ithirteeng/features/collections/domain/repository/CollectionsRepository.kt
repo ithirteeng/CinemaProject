@@ -16,6 +16,8 @@ interface CollectionsRepository {
 
     suspend fun deleteMovieFromCollection(collectionId: String, movieId: MovieIdEntity): Result<Unit>
 
+    suspend fun deleteCollectionById(collectionId: String): Result<Unit>
+
     fun saveImageId(imageId: Int)
 
     fun getImageId(): Int

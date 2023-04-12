@@ -57,7 +57,15 @@ val collectionsModule = module {
 
     viewModel(named(COLLECTION_CHANGE_VIEW_MODEL)) {
         ChangeCollectionFragmentViewModel(
-            router = get()
+            router = get(),
+            createCollectionUseCase = get(),
+            getImageIdUseCase = get(),
+            clearImageStorageUseCase = get(),
+            getCurrentUserEmailUseCase = get(),
+            getCollectionsListUseCase = get(),
+            saveCollectionLocallyUseCase = get(),
+            deleteCollectionLocallyUseCase = get(),
+            deleteCollectionUseCase = get()
         )
     }
 

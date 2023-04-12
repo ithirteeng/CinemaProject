@@ -27,4 +27,7 @@ interface CollectionsApi {
         @Path("collectionId") collectionId: String,
         movieId: MovieIdEntity,
     )
+
+    @DELETE("collections/{collectionId}")
+    suspend fun deleteCollection(@Path("collectionId") collectionId: String)
 }

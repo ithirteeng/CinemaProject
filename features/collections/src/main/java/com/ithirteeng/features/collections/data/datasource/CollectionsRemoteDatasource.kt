@@ -6,6 +6,7 @@ import com.ithirteeng.shared.collections.domain.entity.CreateCollectionEntity
 import com.ithirteeng.shared.movies.entity.MovieEntity
 
 interface CollectionsRemoteDatasource {
+
     suspend fun createCollection(createCollectionEntity: CreateCollectionEntity): CollectionEntity
 
     suspend fun getCollectionsList(): List<CollectionEntity>
@@ -15,4 +16,6 @@ interface CollectionsRemoteDatasource {
     suspend fun addMovieToCollection(collectionId: String, movieId: MovieIdEntity)
 
     suspend fun deleteMovieFromCollection(collectionId: String, movieId: MovieIdEntity)
+
+    suspend fun deleteCollectionById(collectionId: String)
 }
