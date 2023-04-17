@@ -1,6 +1,6 @@
 package com.ithirteeng.shared.collections.data.repository
 
-import com.ithirteeng.shared.collections.datasource.SharedCollectionsLocalDatasource
+import com.ithirteeng.shared.collections.data.datasource.SharedCollectionsLocalDatasource
 import com.ithirteeng.shared.collections.domain.entity.LocalCollectionEntity
 import com.ithirteeng.shared.collections.domain.repository.SharedCollectionRepository
 
@@ -25,4 +25,7 @@ class SharedCollectionRepositoryImpl(
 
     override fun getFavouritesCollection(userEmail: String): LocalCollectionEntity? =
         localDatasource.getFavouritesCollection(userEmail)
+
+    override fun getCollectionsByEmail(userEmail: String): List<LocalCollectionEntity>? =
+        localDatasource.getCollectionsByEmail(userEmail)
 }

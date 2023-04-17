@@ -102,7 +102,7 @@ class MovieFragment : Fragment() {
         viewModel.getMovieEpisodesLiveData().observe(this.viewLifecycleOwner) {
             finishedRequests++
             onFinishedRequests()
-            if (it != null) {
+            if (it != null && it.isNotEmpty()) {
                 episodesAdapter.submitList(it)
                 onWatchButtonClick(it.first())
             }

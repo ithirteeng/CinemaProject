@@ -7,8 +7,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ithirteeng.errorhandler.domain.ErrorModel
 import com.ithirteeng.features.episode.domain.usecase.*
+import com.ithirteeng.shared.collections.domain.entity.LocalCollectionEntity
+import com.ithirteeng.shared.collections.domain.usecase.GetCollectionsListUseCase
 import com.ithirteeng.shared.movies.entity.EpisodeEntity
 import com.ithirteeng.shared.network.common.NoConnectivityException
+import com.ithirteeng.shared.userstorage.domain.usecase.GetCurrentUserEmailUseCase
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
@@ -18,13 +22,15 @@ class EpisodeFragmentViewModel(
     private val getEpisodeUseCase: GetEpisodeUseCase,
     private val setEpisodeTimeUseCase: SetEpisodeTimeUseCase,
     private val getEpisodesYearsUseCase: GetEpisodesYearsUseCase,
+    private val addMovieToCollectionUseCase: AddMovieToCollectionUseCase,
+    private val getCollectionsListUseCase: GetCollectionsListUseCase,
+    private val getUserEmailUseCase: GetCurrentUserEmailUseCase,
     private val router: EpisodeRouter,
 ) : ViewModel() {
 
     fun exit() {
         router.exit()
     }
-
 
     private val episodeTimeLiveData = MutableLiveData<Int>()
 
@@ -93,6 +99,37 @@ class EpisodeFragmentViewModel(
         viewModelScope.launch {
             setEpisodeTimeUseCase(episodeId, timeInSeconds.toString())
                 .onSuccess { successfulRequestLiveData.value = true }
+                .onFailure { onErrorAppearance(setupErrorCode(it)) }
+        }
+    }
+
+
+    private val collectionsListLiveData = MutableLiveData<List<LocalCollectionEntity>?>()
+
+    fun getCollectionsListLiveData(): LiveData<List<LocalCollectionEntity>?> =
+        collectionsListLiveData
+
+    fun getCollectionsList() {
+        viewModelScope.launch(Dispatchers.IO) {
+            collectionsListLiveData.postValue(getCollectionsListUseCase(getUserEmailUseCase()))
+        }
+    }
+
+
+    private val addToCollectionResultLiveData = MutableLiveData<Boolean>()
+
+    fun getAddToCollectionResultLiveData(): LiveData<Boolean> = addToCollectionResultLiveData
+
+    fun addMovieToCollection(
+        movieId: String,
+        collectionId: String,
+        onErrorAppearance: (errorModel: ErrorModel) -> Unit,
+    ) {
+        viewModelScope.launch {
+            addMovieToCollectionUseCase.invoke(movieId, collectionId)
+                .onSuccess {
+                    addToCollectionResultLiveData.value = true
+                }
                 .onFailure { onErrorAppearance(setupErrorCode(it)) }
         }
     }
