@@ -36,7 +36,8 @@ val episodeModule = module {
             router = get(),
             getCollectionsListUseCase = get(),
             getUserEmailUseCase = get(),
-            addMovieToCollectionUseCase = get()
+            addMovieToCollectionUseCase = get(),
+            application = get()
         )
     }
 }

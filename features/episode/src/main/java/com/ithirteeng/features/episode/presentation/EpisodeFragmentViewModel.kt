@@ -1,10 +1,12 @@
 package com.ithirteeng.features.episode.presentation
 
+import android.app.Application
 import android.util.Log
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.ithirteeng.component.design.R.string.movie_collection_error
 import com.ithirteeng.errorhandler.domain.ErrorModel
 import com.ithirteeng.features.episode.domain.usecase.*
 import com.ithirteeng.shared.collections.domain.entity.LocalCollectionEntity
@@ -17,6 +19,7 @@ import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
 class EpisodeFragmentViewModel(
+    private val application: Application,
     private val getEpisodeTimeUseCase: GetEpisodeTimeUseCase,
     private val getEpisodesListUseCase: GetEpisodesListUseCase,
     private val getEpisodeUseCase: GetEpisodeUseCase,
@@ -26,7 +29,7 @@ class EpisodeFragmentViewModel(
     private val getCollectionsListUseCase: GetCollectionsListUseCase,
     private val getUserEmailUseCase: GetCurrentUserEmailUseCase,
     private val router: EpisodeRouter,
-) : ViewModel() {
+) : AndroidViewModel(application) {
 
     fun exit() {
         router.exit()
@@ -137,7 +140,13 @@ class EpisodeFragmentViewModel(
 
     private fun setupErrorCode(e: Throwable): ErrorModel {
         return when (e) {
-            is HttpException -> ErrorModel(e.code(), e.message(), e)
+            is HttpException -> {
+                if (e.code() == 409) {
+                    ErrorModel(e.code(), application.getString(movie_collection_error))
+                } else {
+                    ErrorModel(e.code(), e.message(), e)
+                }
+            }
             is NoConnectivityException -> ErrorModel(e.code(), null, e)
             else -> ErrorModel(0, e.message, e)
         }

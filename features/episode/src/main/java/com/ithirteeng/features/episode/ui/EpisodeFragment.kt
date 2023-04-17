@@ -66,7 +66,7 @@ class EpisodeFragment : Fragment() {
             viewModel.addMovieToCollection(movieId, entity.collectionId) { handleErrors(it) }
             binding.progressBar.visibility = View.VISIBLE
             viewModel.getAddToCollectionResultLiveData().observe(this.viewLifecycleOwner) {
-                binding.collectionRecyclerView.visibility = View.INVISIBLE
+                binding.collectionRecyclerView.visibility = View.GONE
                 binding.progressBar.visibility = View.GONE
             }
         }
@@ -120,7 +120,7 @@ class EpisodeFragment : Fragment() {
     private fun onAddButtonClick() {
         binding.addButton.setOnClickListener {
             if (binding.collectionRecyclerView.visibility == View.VISIBLE) {
-                binding.collectionRecyclerView.visibility = View.INVISIBLE
+                binding.collectionRecyclerView.visibility = View.GONE
             } else {
                 binding.collectionRecyclerView.visibility = View.VISIBLE
             }
@@ -241,6 +241,7 @@ class EpisodeFragment : Fragment() {
         childFragmentManager.executePendingTransactions()
         ErrorHandler.showErrorDialog(requireContext(), childFragmentManager, errorModel)
         binding.progressBar.visibility = View.GONE
+        binding.collectionRecyclerView.visibility = View.GONE
     }
 
     private fun setupPlayerListener() {

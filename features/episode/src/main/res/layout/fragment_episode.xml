@@ -114,8 +114,8 @@
             android:layout_marginHorizontal="@dimen/margin_16"
             android:layout_marginBottom="@dimen/margin_4"
             android:text="@string/undefined"
-            app:layout_constraintEnd_toStartOf="@id/chatButton"
             app:layout_constraintBottom_toTopOf="@+id/movieYearsTextView"
+            app:layout_constraintEnd_toStartOf="@id/chatButton"
             app:layout_constraintStart_toEndOf="@+id/episodePosterImageView"
             app:layout_constraintTop_toTopOf="@+id/episodePosterImageView"
             app:layout_constraintVertical_bias="0.0"
@@ -208,17 +208,18 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/collectionRecyclerView"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_8"
             android:layout_marginBottom="@dimen/margin_24"
             android:background="@color/nav_bar_color"
             android:clipToPadding="false"
-            android:visibility="invisible"
+            android:visibility="gone"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/addButton"
             app:layout_constraintStart_toStartOf="@+id/addButton"
             app:layout_constraintTop_toBottomOf="@+id/addButton"
+            app:layout_constraintVertical_bias="0"
             tools:listitem="@layout/test_collection_item_layput" />
 
 
