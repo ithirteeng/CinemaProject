@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.ithirteeng.features.episode.R
-import com.ithirteeng.features.episode.databinding.CollectionItemLayoutBinding
+import com.ithirteeng.features.episode.databinding.TestCollectionItemLayputBinding
 import com.ithirteeng.shared.collections.domain.entity.LocalCollectionEntity
 
 class CollectionsAdapter(
@@ -16,19 +16,19 @@ class CollectionsAdapter(
 
     inner class CollectionsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-        private val binding = CollectionItemLayoutBinding.bind(view)
+        private val binding = TestCollectionItemLayputBinding.bind(view)
 
         private lateinit var entity: LocalCollectionEntity
 
         init {
-            binding.root.setOnClickListener {
-                onCollectionClick(entity)
+            binding.collectionButton.setOnClickListener {
+                onCollectionClick(this.entity)
             }
         }
 
         fun bind(localCollectionEntity: LocalCollectionEntity) {
             entity = localCollectionEntity
-            binding.root.text = entity.collectionName
+            binding.collectionButton.text = entity.collectionName
         }
 
     }
@@ -36,7 +36,7 @@ class CollectionsAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CollectionsViewHolder {
         val layout = LayoutInflater
             .from(parent.context)
-            .inflate(R.layout.collection_item_layout, parent, false)
+            .inflate(R.layout.test_collection_item_layput, parent, false)
         return CollectionsViewHolder(layout)
     }
 

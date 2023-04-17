@@ -211,15 +211,15 @@
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/margin_8"
             android:layout_marginBottom="@dimen/margin_24"
-            android:background="@color/background_color"
+            android:background="@color/nav_bar_color"
             android:clipToPadding="false"
-            android:visibility="gone"
+            android:visibility="invisible"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/addButton"
             app:layout_constraintStart_toStartOf="@+id/addButton"
             app:layout_constraintTop_toBottomOf="@+id/addButton"
-            tools:listitem="@layout/collection_item_layout" />
+            tools:listitem="@layout/test_collection_item_layput" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

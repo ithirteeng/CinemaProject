@@ -61,6 +61,17 @@ class EpisodeFragment : Fragment() {
 
     private val exoPlayer by lazy { ExoPlayer.Builder(requireContext()).build() }
 
+    private val collectionsAdapter by lazy {
+        CollectionsAdapter { entity ->
+            viewModel.addMovieToCollection(movieId, entity.collectionId) { handleErrors(it) }
+            binding.progressBar.visibility = View.VISIBLE
+            viewModel.getAddToCollectionResultLiveData().observe(this.viewLifecycleOwner) {
+                binding.collectionRecyclerView.visibility = View.INVISIBLE
+                binding.progressBar.visibility = View.GONE
+            }
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -68,18 +79,30 @@ class EpisodeFragment : Fragment() {
         val layout = inflater.inflate(R.layout.fragment_episode, container, false)
         binding = FragmentEpisodeBinding.bind(layout)
 
-        finishedRequests = 0
         binding.progressBar.visibility = View.VISIBLE
         setAllViewsVisibility(View.INVISIBLE)
 
+        finishedRequests = 0
         getBundleValues()
-
         setupOnGettingFunctions()
 
+        setupCollectionsRecyclerView()
+        setupOnClickButtonFunctions()
+        return binding.root
+    }
+
+    private fun setupOnClickButtonFunctions() {
         onBackButtonClick()
         onBackArrowClick()
+        onAddButtonClick()
+    }
 
-        return binding.root
+    private fun setupCollectionsRecyclerView() {
+        binding.collectionRecyclerView.adapter = collectionsAdapter
+        viewModel.getCollectionsList()
+        viewModel.getCollectionsListLiveData().observe(this.viewLifecycleOwner) {
+            collectionsAdapter.submitList(it)
+        }
     }
 
     private fun getBundleValues() {
@@ -92,6 +115,17 @@ class EpisodeFragment : Fragment() {
         onGettingEpisodesList()
         onGettingMovieYears()
         onGettingEpisodeData()
+    }
+
+    private fun onAddButtonClick() {
+        binding.addButton.setOnClickListener {
+            if (binding.collectionRecyclerView.visibility == View.VISIBLE) {
+                binding.collectionRecyclerView.visibility = View.INVISIBLE
+            } else {
+                binding.collectionRecyclerView.visibility = View.VISIBLE
+            }
+
+        }
     }
 
     private fun onBackButtonClick() {
@@ -206,6 +240,7 @@ class EpisodeFragment : Fragment() {
     private fun handleErrors(errorModel: ErrorModel) {
         childFragmentManager.executePendingTransactions()
         ErrorHandler.showErrorDialog(requireContext(), childFragmentManager, errorModel)
+        binding.progressBar.visibility = View.GONE
     }
 
     private fun setupPlayerListener() {
