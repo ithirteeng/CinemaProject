@@ -9,6 +9,8 @@ interface EpisodeRepository {
 
     suspend fun setEpisodeTime(episodeId: String, time: String): Result<Unit>
 
+    suspend fun addMovieToCollection(movieId: String, collectionId: String): Result<Unit>
+
     fun getEpisodeData(episodeId: String, episodesList: List<EpisodeEntity>): EpisodeEntity?
 
     fun setupEpisodeYears(episodesList: List<EpisodeEntity>): String?

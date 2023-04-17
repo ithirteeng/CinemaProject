@@ -1,6 +1,7 @@
 package com.ithirteeng.features.episode.data.api
 
-import com.ithirteeng.features.episode.domain.TimeEntity
+import com.ithirteeng.features.episode.domain.entity.MovieIdEntity
+import com.ithirteeng.features.episode.domain.entity.TimeEntity
 import com.ithirteeng.shared.movies.entity.EpisodeEntity
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -18,5 +19,10 @@ interface EpisodeApi {
     @POST("episodes/{episodeId}/time")
     suspend fun setEpisodeTime(@Path("episodeId") episodeId: String, @Body time: TimeEntity)
 
+    @POST("collections/{collectionId}/movies")
+    suspend fun addMovieToCollection(
+        @Body movieId: MovieIdEntity,
+        @Path("collectionId") collectionId: String,
+    )
 
 }

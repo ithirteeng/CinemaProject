@@ -1,4 +1,4 @@
-package com.ithirteeng.features.episode.domain
+package com.ithirteeng.features.episode.domain.entity
 
 import com.google.gson.annotations.SerializedName
 

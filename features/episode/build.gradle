@@ -30,4 +30,5 @@ dependencies {
     implementation project(":shared:errorhandler")
     implementation project(":shared:customextensions")
     implementation project(":shared:movies")
+    implementation project(":shared:collections")
 }
