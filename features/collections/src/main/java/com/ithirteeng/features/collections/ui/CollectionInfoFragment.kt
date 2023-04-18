@@ -67,7 +67,15 @@ class CollectionInfoFragment : Fragment() {
         onRedactButtonClick()
         onBackButtonPressed()
 
+        doIfCollectionIsFavourite()
+
         return binding.root
+    }
+
+    private fun doIfCollectionIsFavourite() {
+        if (localCollectionEntity.isFavourite) {
+            binding.redactionButton.visibility = View.GONE
+        }
     }
 
     private fun onRedactButtonClick() {
