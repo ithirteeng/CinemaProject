@@ -3,6 +3,7 @@ package com.ithirteeng.features.episode.data.datasource
 import com.ithirteeng.features.episode.data.api.EpisodeApi
 import com.ithirteeng.features.episode.domain.entity.MovieIdEntity
 import com.ithirteeng.features.episode.domain.entity.TimeEntity
+import com.ithirteeng.shared.collections.domain.entity.CollectionEntity
 import com.ithirteeng.shared.movies.entity.EpisodeEntity
 
 class EpisodeRemoteDatasourceImpl(
@@ -20,5 +21,8 @@ class EpisodeRemoteDatasourceImpl(
 
     override suspend fun addMovieToCollection(movieId: String, collectionId: String) =
         api.addMovieToCollection(MovieIdEntity(movieId), collectionId)
+
+    override suspend fun getCollectionsList(): List<CollectionEntity> =
+        api.getCollectionsList()
 
 }

@@ -63,7 +63,7 @@ class EpisodeFragment : Fragment() {
 
     private val collectionsAdapter by lazy {
         CollectionsAdapter { entity ->
-            viewModel.addMovieToCollection(movieId, entity.collectionId) { handleErrors(it) }
+            viewModel.addMovieToCollection(movieId, entity.id) { handleErrors(it) }
             binding.progressBar.visibility = View.VISIBLE
             viewModel.getAddToCollectionResultLiveData().observe(this.viewLifecycleOwner) {
                 binding.collectionRecyclerView.visibility = View.GONE
@@ -100,7 +100,7 @@ class EpisodeFragment : Fragment() {
 
     private fun setupCollectionsRecyclerView() {
         binding.collectionRecyclerView.adapter = collectionsAdapter
-        viewModel.getCollectionsList()
+        viewModel.getCollectionsList { handleErrors(it) }
         viewModel.getCollectionsListLiveData().observe(this.viewLifecycleOwner) {
             collectionsAdapter.submitList(it)
         }
@@ -133,7 +133,7 @@ class EpisodeFragment : Fragment() {
         binding.heartButton.setOnClickListener {
             val favouritesCollection = viewModel.findFavouritesCollection()
             binding.progressBar.visibility = View.VISIBLE
-            viewModel.addMovieToCollection(movieId, favouritesCollection?.collectionId.toString()) {
+            viewModel.addMovieToCollection(movieId, favouritesCollection?.id.toString()) {
                 handleErrors(it)
             }
             viewModel.getAddToCollectionResultLiveData().observe(this.viewLifecycleOwner) {

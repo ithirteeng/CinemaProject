@@ -8,17 +8,17 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.ithirteeng.features.episode.R
 import com.ithirteeng.features.episode.databinding.TestCollectionItemLayputBinding
-import com.ithirteeng.shared.collections.domain.entity.LocalCollectionEntity
+import com.ithirteeng.shared.collections.domain.entity.CollectionEntity
 
 class CollectionsAdapter(
-    private val onCollectionClick: (localCollectionEntity: LocalCollectionEntity) -> Unit,
-) : ListAdapter<LocalCollectionEntity, CollectionsAdapter.CollectionsViewHolder>(CollectionCallBack) {
+    private val onCollectionClick: (collectionEntity: CollectionEntity) -> Unit,
+) : ListAdapter<CollectionEntity, CollectionsAdapter.CollectionsViewHolder>(CollectionCallBack) {
 
     inner class CollectionsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         private val binding = TestCollectionItemLayputBinding.bind(view)
 
-        private lateinit var entity: LocalCollectionEntity
+        private lateinit var entity: CollectionEntity
 
         init {
             binding.collectionButton.setOnClickListener {
@@ -26,9 +26,9 @@ class CollectionsAdapter(
             }
         }
 
-        fun bind(localCollectionEntity: LocalCollectionEntity) {
-            entity = localCollectionEntity
-            binding.collectionButton.text = entity.collectionName
+        fun bind(collectionEntity: CollectionEntity) {
+            entity = collectionEntity
+            binding.collectionButton.text = entity.name
         }
 
     }
@@ -46,19 +46,19 @@ class CollectionsAdapter(
     }
 }
 
-object CollectionCallBack : DiffUtil.ItemCallback<LocalCollectionEntity>() {
+object CollectionCallBack : DiffUtil.ItemCallback<CollectionEntity>() {
     override fun areItemsTheSame(
-        oldItem: LocalCollectionEntity,
-        newItem: LocalCollectionEntity,
+        oldItem: CollectionEntity,
+        newItem: CollectionEntity,
     ): Boolean {
         return oldItem == newItem
     }
 
     override fun areContentsTheSame(
-        oldItem: LocalCollectionEntity,
-        newItem: LocalCollectionEntity,
+        oldItem: CollectionEntity,
+        newItem: CollectionEntity,
     ): Boolean {
-        return oldItem.collectionId == newItem.collectionId
+        return oldItem.id == newItem.id
     }
 
 }
