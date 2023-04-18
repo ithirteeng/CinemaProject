@@ -12,7 +12,7 @@ data class LastMessageEntity(
     @SerializedName("authorName")
     val authorName: String,
     @SerializedName("authorAvatar")
-    val authorAvatar: String,
+    val authorAvatar: String?,
     @SerializedName("text")
     val text: String,
 )

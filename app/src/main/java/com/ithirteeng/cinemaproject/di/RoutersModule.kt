@@ -5,6 +5,7 @@ import com.ithirteeng.design.GLOBAL_ROUTER
 import com.ithirteeng.errorhandler.presentation.ErrorRouter
 import com.ithirteeng.features.collections.presentation.routers.*
 import com.ithirteeng.features.compilation.presentation.CompilationRouter
+import com.ithirteeng.features.discussions.presentation.router.DiscussionsRouter
 import com.ithirteeng.features.entry.login.presentation.LoginRouter
 import com.ithirteeng.features.entry.registration.presentation.RegistrationRouter
 import com.ithirteeng.features.episode.presentation.EpisodeRouter
@@ -30,6 +31,7 @@ val routersModule = module {
     factory<CollectionsRouter> { CollectionsRouterImpl(router = get(named(GLOBAL_ROUTER))) }
     factory<CollectionInfoRouter> { CollectionInfoRouterImpl(router = get(named(GLOBAL_ROUTER))) }
     factory<ChooseIconRouter> { ChooseIconRouterImpl(router = get(named(GLOBAL_ROUTER))) }
+    factory<DiscussionsRouter> { DiscussionsRouterImpl(router = get(named(GLOBAL_ROUTER))) }
     factory<ChangeCollectionRouter> {
         ChangeCollectionRouterImpl(router = get(named(GLOBAL_ROUTER)))
     }

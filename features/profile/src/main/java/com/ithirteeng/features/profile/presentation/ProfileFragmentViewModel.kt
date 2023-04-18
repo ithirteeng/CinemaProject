@@ -34,6 +34,9 @@ class ProfileFragmentViewModel(
     private fun navigateToLoginScreen() =
         router.navigateToLoginScreen()
 
+    fun navigateToDiscussionsScreen() =
+        router.navigateToDiscussionsScreen()
+
     private fun clearLocalUserData() {
         clearProfileDataLocallyUseCase()
         removeTokenFromLocalStorageUseCase()
