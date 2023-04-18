@@ -1,10 +1,11 @@
-package com.ithirteeng.features.discussions
+package com.ithirteeng.features.discussions.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.ithirteeng.features.discussions.R
 import com.ithirteeng.features.discussions.databinding.FragmentDiscussionsBinding
 
 class DiscussionsFragment : Fragment() {
