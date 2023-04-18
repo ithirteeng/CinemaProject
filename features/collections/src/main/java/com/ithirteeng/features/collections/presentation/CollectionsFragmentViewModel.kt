@@ -11,6 +11,7 @@ import com.ithirteeng.features.collections.presentation.routers.CollectionsRoute
 import com.ithirteeng.shared.collections.domain.entity.CollectionEntity
 import com.ithirteeng.shared.collections.domain.entity.LocalCollectionEntity
 import com.ithirteeng.shared.collections.domain.usecase.GetCollectionByIdUseCase
+import com.ithirteeng.shared.collections.domain.usecase.UpsertCollectionLocallyUseCase
 import com.ithirteeng.shared.collections.presentation.collectionsIconsIds
 import com.ithirteeng.shared.network.common.NoConnectivityException
 import com.ithirteeng.shared.userstorage.domain.usecase.GetCurrentUserEmailUseCase
@@ -23,7 +24,8 @@ class CollectionsFragmentViewModel(
     private val getCollectionByIdUseCase: GetCollectionByIdUseCase,
     private val getCollectionsListUseCase: GetCollectionsListUseCase,
     private val getCurrentUserEmailUseCase: GetCurrentUserEmailUseCase,
-    private val router: CollectionsRouter,
+    private val upsertCollectionLocallyUseCase: UpsertCollectionLocallyUseCase,
+    val router: CollectionsRouter,
 ) : AndroidViewModel(application) {
 
     fun exit() {
@@ -65,14 +67,23 @@ class CollectionsFragmentViewModel(
         val localCollection = getCollectionByIdUseCase(collectionId = collectionEntity.id)
         val imageId = localCollection?.collectionImageId ?: collectionsIconsIds.random()
         val isFavourite = localCollection?.isFavourite ?: false
-
-        return LocalCollectionEntity(
+        val resultEntity = LocalCollectionEntity(
             collectionId = collectionEntity.id,
             collectionName = collectionEntity.name,
             collectionImageId = imageId,
             isFavourite = isFavourite,
             userEmail = getCurrentUserEmailUseCase()
         )
+        if (localCollection == null) {
+            saveCollectionIfNotInLocalStorage(resultEntity)
+        }
+        return resultEntity
+    }
+
+    private fun saveCollectionIfNotInLocalStorage(localCollectionEntity: LocalCollectionEntity) {
+        viewModelScope.launch(Dispatchers.IO) {
+            upsertCollectionLocallyUseCase(localCollectionEntity)
+        }
     }
 
     private fun setupErrorCode(e: Throwable): ErrorModel {

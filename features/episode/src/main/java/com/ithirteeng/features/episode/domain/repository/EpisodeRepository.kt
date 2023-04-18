@@ -1,5 +1,6 @@
 package com.ithirteeng.features.episode.domain.repository
 
+import com.ithirteeng.shared.collections.domain.entity.CollectionEntity
 import com.ithirteeng.shared.movies.entity.EpisodeEntity
 
 interface EpisodeRepository {
@@ -14,4 +15,6 @@ interface EpisodeRepository {
     fun getEpisodeData(episodeId: String, episodesList: List<EpisodeEntity>): EpisodeEntity?
 
     fun setupEpisodeYears(episodesList: List<EpisodeEntity>): String?
+
+    suspend fun getCollectionsList(): Result<List<CollectionEntity>>
 }

@@ -45,7 +45,8 @@ val collectionsModule = module {
             getCollectionsListUseCase = get(),
             application = get(),
             router = get(),
-            getCurrentUserEmailUseCase = get()
+            getCurrentUserEmailUseCase = get(),
+            upsertCollectionLocallyUseCase = get()
         )
     }
 

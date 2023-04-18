@@ -2,6 +2,7 @@ package com.ithirteeng.features.episode.data.repository
 
 import com.ithirteeng.features.episode.data.datasource.EpisodeRemoteDatasource
 import com.ithirteeng.features.episode.domain.repository.EpisodeRepository
+import com.ithirteeng.shared.collections.domain.entity.CollectionEntity
 import com.ithirteeng.shared.movies.entity.EpisodeEntity
 
 class EpisodeRepositoryImpl(
@@ -56,6 +57,14 @@ class EpisodeRepositoryImpl(
         } else {
             val list = episodesList.sortedBy { it.year }
             "${list.first().year} - ${list.last().year}"
+        }
+    }
+
+    override suspend fun getCollectionsList(): Result<List<CollectionEntity>> {
+        return try {
+            Result.success(remoteDatasource.getCollectionsList())
+        } catch (e: java.lang.Exception) {
+            Result.failure(e)
         }
     }
 }

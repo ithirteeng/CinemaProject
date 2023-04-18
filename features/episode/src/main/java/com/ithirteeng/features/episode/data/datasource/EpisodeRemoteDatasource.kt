@@ -1,5 +1,6 @@
 package com.ithirteeng.features.episode.data.datasource
 
+import com.ithirteeng.shared.collections.domain.entity.CollectionEntity
 import com.ithirteeng.shared.movies.entity.EpisodeEntity
 
 interface EpisodeRemoteDatasource {
@@ -10,4 +11,6 @@ interface EpisodeRemoteDatasource {
     suspend fun setEpisodeTime(episodeId: String, time: String)
 
     suspend fun addMovieToCollection(movieId: String, collectionId: String)
+
+    suspend fun getCollectionsList(): List<CollectionEntity>
 }

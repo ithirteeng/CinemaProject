@@ -6,15 +6,13 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.ithirteeng.component.design.R.string.favourites_collection
 import com.ithirteeng.component.design.R.string.movie_collection_error
 import com.ithirteeng.errorhandler.domain.ErrorModel
 import com.ithirteeng.features.episode.domain.usecase.*
-import com.ithirteeng.shared.collections.domain.entity.LocalCollectionEntity
-import com.ithirteeng.shared.collections.domain.usecase.GetCollectionsListUseCase
+import com.ithirteeng.shared.collections.domain.entity.CollectionEntity
 import com.ithirteeng.shared.movies.entity.EpisodeEntity
 import com.ithirteeng.shared.network.common.NoConnectivityException
-import com.ithirteeng.shared.userstorage.domain.usecase.GetCurrentUserEmailUseCase
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
@@ -27,7 +25,6 @@ class EpisodeFragmentViewModel(
     private val getEpisodesYearsUseCase: GetEpisodesYearsUseCase,
     private val addMovieToCollectionUseCase: AddMovieToCollectionUseCase,
     private val getCollectionsListUseCase: GetCollectionsListUseCase,
-    private val getUserEmailUseCase: GetCurrentUserEmailUseCase,
     private val router: EpisodeRouter,
 ) : AndroidViewModel(application) {
 
@@ -107,14 +104,20 @@ class EpisodeFragmentViewModel(
     }
 
 
-    private val collectionsListLiveData = MutableLiveData<List<LocalCollectionEntity>?>()
+    private val collectionsListLiveData = MutableLiveData<List<CollectionEntity>>()
 
-    fun getCollectionsListLiveData(): LiveData<List<LocalCollectionEntity>?> =
+    fun getCollectionsListLiveData(): LiveData<List<CollectionEntity>> =
         collectionsListLiveData
 
-    fun getCollectionsList() {
-        viewModelScope.launch(Dispatchers.IO) {
-            collectionsListLiveData.postValue(getCollectionsListUseCase(getUserEmailUseCase()))
+    fun getCollectionsList(onErrorAppearance: (errorModel: ErrorModel) -> Unit) {
+        viewModelScope.launch {
+            viewModelScope.launch {
+                getCollectionsListUseCase()
+                    .onSuccess {
+                        collectionsListLiveData.value = it
+                    }
+                    .onFailure { onErrorAppearance(setupErrorCode(it)) }
+            }
         }
     }
 
@@ -133,15 +136,20 @@ class EpisodeFragmentViewModel(
         viewModelScope.launch {
             addMovieToCollectionUseCase.invoke(movieId, collectionId)
                 .onSuccess {
+                    collectionFlag = !collectionFlag
                     addToCollectionResultLiveData.value = collectionFlag
+                }
+                .onFailure {
+                    onErrorAppearance(setupErrorCode(it))
                     collectionFlag = !collectionFlag
                 }
-                .onFailure { onErrorAppearance(setupErrorCode(it)) }
         }
     }
 
-    fun findFavouritesCollection(): LocalCollectionEntity? {
-        return collectionsListLiveData.value?.findLast { it.isFavourite }
+    fun findFavouritesCollection(): CollectionEntity? {
+        return collectionsListLiveData.value?.findLast {
+            it.name == application.getString(favourites_collection)
+        }
     }
 
 
