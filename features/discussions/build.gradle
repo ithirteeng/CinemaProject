@@ -2,6 +2,7 @@ apply plugin: Plugins.ANDROID_LIBRARY
 apply plugin: Plugins.KOTLIN_ANDROID
 
 apply from: "$rootDir/build-system/module-types/android-library.gradle"
+apply plugin: 'org.jetbrains.kotlin.android'
 
 dependencies {
     implementation Dependencies.KOTLIN_STANDARD_LIBRARY
