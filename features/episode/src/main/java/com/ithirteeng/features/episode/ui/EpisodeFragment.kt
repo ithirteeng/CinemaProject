@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewGroup.*
 import android.widget.ImageButton
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.media3.common.MediaItem
 import androidx.media3.exoplayer.ExoPlayer
@@ -22,6 +21,7 @@ import com.ithirteeng.features.episode.databinding.FragmentEpisodeBinding
 import com.ithirteeng.features.episode.presentation.EpisodeFragmentViewModel
 import com.ithirteeng.shared.movies.entity.EpisodeEntity
 import org.koin.androidx.viewmodel.ext.android.viewModel
+
 
 class EpisodeFragment : Fragment() {
 
@@ -95,6 +95,7 @@ class EpisodeFragment : Fragment() {
         onBackButtonClick()
         onBackArrowClick()
         onAddButtonClick()
+        onLikeButtonClick()
     }
 
     private fun setupCollectionsRecyclerView() {
@@ -125,6 +126,19 @@ class EpisodeFragment : Fragment() {
                 binding.collectionRecyclerView.visibility = View.VISIBLE
             }
 
+        }
+    }
+
+    private fun onLikeButtonClick() {
+        binding.heartButton.setOnClickListener {
+            val favouritesCollection = viewModel.findFavouritesCollection()
+            binding.progressBar.visibility = View.VISIBLE
+            viewModel.addMovieToCollection(movieId, favouritesCollection?.collectionId.toString()) {
+                handleErrors(it)
+            }
+            viewModel.getAddToCollectionResultLiveData().observe(this.viewLifecycleOwner) {
+                binding.progressBar.visibility = View.GONE
+            }
         }
     }
 
@@ -247,9 +261,8 @@ class EpisodeFragment : Fragment() {
     private fun setupPlayerListener() {
         val volumeButton = binding.videoPlayer.findViewById<ImageButton>(R.id.volumeButton)
         volumeButton.setOnClickListener {
-            Toast.makeText(requireContext(), " DSFd", Toast.LENGTH_SHORT).show()
+            // Toast.makeText(requireContext(), " DSFd", Toast.LENGTH_SHORT).show()
         }
-
     }
 
 }

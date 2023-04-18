@@ -121,6 +121,8 @@ class EpisodeFragmentViewModel(
 
     private val addToCollectionResultLiveData = MutableLiveData<Boolean>()
 
+    private var collectionFlag = false
+
     fun getAddToCollectionResultLiveData(): LiveData<Boolean> = addToCollectionResultLiveData
 
     fun addMovieToCollection(
@@ -131,10 +133,15 @@ class EpisodeFragmentViewModel(
         viewModelScope.launch {
             addMovieToCollectionUseCase.invoke(movieId, collectionId)
                 .onSuccess {
-                    addToCollectionResultLiveData.value = true
+                    addToCollectionResultLiveData.value = collectionFlag
+                    collectionFlag = !collectionFlag
                 }
                 .onFailure { onErrorAppearance(setupErrorCode(it)) }
         }
+    }
+
+    fun findFavouritesCollection(): LocalCollectionEntity? {
+        return collectionsListLiveData.value?.findLast { it.isFavourite }
     }
 
 
