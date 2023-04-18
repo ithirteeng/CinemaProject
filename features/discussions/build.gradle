@@ -21,5 +21,6 @@ dependencies {
     implementation Dependencies.CICERONE
 
     implementation project(":component:design")
+    implementation project(":shared:network")
     implementation project(":shared:customextensions")
 }

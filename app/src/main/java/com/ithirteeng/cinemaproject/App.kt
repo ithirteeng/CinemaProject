@@ -15,6 +15,7 @@ import com.ithirteeng.features.movieinfo.di.movieModule
 import com.ithirteeng.features.profile.di.profileModule
 import com.ithirteeng.features.splash.di.splashModule
 import com.ithirteeng.features.collections.di.collectionsModule
+import com.ithirteeng.features.discussions.di.discussionsModule
 import com.ithirteeng.shared.collections.di.sharedCollectionsModule
 import com.ithirteeng.shared.token.di.tokenModule
 import com.ithirteeng.shared.userstorage.di.userModule
@@ -49,7 +50,8 @@ class App : Application() {
                 compilationModule,
                 profileModule,
                 sharedCollectionsModule,
-                collectionsModule
+                collectionsModule,
+                discussionsModule
             )
         }
     }
