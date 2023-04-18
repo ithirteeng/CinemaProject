@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewGroup.*
 import android.widget.ImageButton
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.media3.common.MediaItem
 import androidx.media3.exoplayer.ExoPlayer
@@ -22,6 +21,7 @@ import com.ithirteeng.features.episode.databinding.FragmentEpisodeBinding
 import com.ithirteeng.features.episode.presentation.EpisodeFragmentViewModel
 import com.ithirteeng.shared.movies.entity.EpisodeEntity
 import org.koin.androidx.viewmodel.ext.android.viewModel
+
 
 class EpisodeFragment : Fragment() {
 
@@ -61,6 +61,17 @@ class EpisodeFragment : Fragment() {
 
     private val exoPlayer by lazy { ExoPlayer.Builder(requireContext()).build() }
 
+    private val collectionsAdapter by lazy {
+        CollectionsAdapter { entity ->
+            viewModel.addMovieToCollection(movieId, entity.collectionId) { handleErrors(it) }
+            binding.progressBar.visibility = View.VISIBLE
+            viewModel.getAddToCollectionResultLiveData().observe(this.viewLifecycleOwner) {
+                binding.collectionRecyclerView.visibility = View.GONE
+                binding.progressBar.visibility = View.GONE
+            }
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -68,18 +79,31 @@ class EpisodeFragment : Fragment() {
         val layout = inflater.inflate(R.layout.fragment_episode, container, false)
         binding = FragmentEpisodeBinding.bind(layout)
 
-        finishedRequests = 0
         binding.progressBar.visibility = View.VISIBLE
         setAllViewsVisibility(View.INVISIBLE)
 
+        finishedRequests = 0
         getBundleValues()
-
         setupOnGettingFunctions()
 
+        setupCollectionsRecyclerView()
+        setupOnClickButtonFunctions()
+        return binding.root
+    }
+
+    private fun setupOnClickButtonFunctions() {
         onBackButtonClick()
         onBackArrowClick()
+        onAddButtonClick()
+        onLikeButtonClick()
+    }
 
-        return binding.root
+    private fun setupCollectionsRecyclerView() {
+        binding.collectionRecyclerView.adapter = collectionsAdapter
+        viewModel.getCollectionsList()
+        viewModel.getCollectionsListLiveData().observe(this.viewLifecycleOwner) {
+            collectionsAdapter.submitList(it)
+        }
     }
 
     private fun getBundleValues() {
@@ -92,6 +116,30 @@ class EpisodeFragment : Fragment() {
         onGettingEpisodesList()
         onGettingMovieYears()
         onGettingEpisodeData()
+    }
+
+    private fun onAddButtonClick() {
+        binding.addButton.setOnClickListener {
+            if (binding.collectionRecyclerView.visibility == View.VISIBLE) {
+                binding.collectionRecyclerView.visibility = View.GONE
+            } else {
+                binding.collectionRecyclerView.visibility = View.VISIBLE
+            }
+
+        }
+    }
+
+    private fun onLikeButtonClick() {
+        binding.heartButton.setOnClickListener {
+            val favouritesCollection = viewModel.findFavouritesCollection()
+            binding.progressBar.visibility = View.VISIBLE
+            viewModel.addMovieToCollection(movieId, favouritesCollection?.collectionId.toString()) {
+                handleErrors(it)
+            }
+            viewModel.getAddToCollectionResultLiveData().observe(this.viewLifecycleOwner) {
+                binding.progressBar.visibility = View.GONE
+            }
+        }
     }
 
     private fun onBackButtonClick() {
@@ -206,14 +254,15 @@ class EpisodeFragment : Fragment() {
     private fun handleErrors(errorModel: ErrorModel) {
         childFragmentManager.executePendingTransactions()
         ErrorHandler.showErrorDialog(requireContext(), childFragmentManager, errorModel)
+        binding.progressBar.visibility = View.GONE
+        binding.collectionRecyclerView.visibility = View.GONE
     }
 
     private fun setupPlayerListener() {
         val volumeButton = binding.videoPlayer.findViewById<ImageButton>(R.id.volumeButton)
         volumeButton.setOnClickListener {
-            Toast.makeText(requireContext(), " DSFd", Toast.LENGTH_SHORT).show()
+            // Toast.makeText(requireContext(), " DSFd", Toast.LENGTH_SHORT).show()
         }
-
     }
 
 }

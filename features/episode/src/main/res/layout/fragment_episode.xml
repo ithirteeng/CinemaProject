@@ -23,7 +23,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/arrow_back_icon"
-            tools:ignore="ContentDescription,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+            tools:ignore="ContentDescription,SpeakableTextPresentCheck,TouchTargetSizeCheck,ImageContrastCheck" />
 
         <FrameLayout
             android:id="@+id/frameLayout"
@@ -37,9 +37,9 @@
 
             <androidx.media3.ui.PlayerView
                 android:id="@+id/videoPlayer"
-                app:animation_enabled="false"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/size_210"
+                app:animation_enabled="false"
                 app:controller_layout_id="@layout/custom_exoplayer_controller"
                 app:show_timeout="2000" />
 
@@ -61,7 +61,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/frameLayout"
             app:layout_constraintVertical_bias="0.0"
-            app:layout_constraintVertical_chainStyle="packed" />
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:ignore="TextContrastCheck,VisualLintOverlap" />
 
         <ImageView
             android:id="@+id/episodePosterImageView"
@@ -89,7 +90,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/episodePosterImageView" />
+            app:layout_constraintTop_toBottomOf="@+id/episodePosterImageView"
+            tools:ignore="TextContrastCheck,VisualLintOverlap" />
 
         <TextView
             android:id="@+id/descriptionTextView"
@@ -104,22 +106,23 @@
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/descriptionHeaderTextView"
-            tools:ignore="TextContrastCheck" />
+            tools:ignore="TextContrastCheck,VisualLintOverlap" />
 
         <TextView
             android:id="@+id/movieNameTextView"
             style="@style/Theme.CinemaProject.Text4"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/margin_16"
             android:layout_marginBottom="@dimen/margin_4"
             android:text="@string/undefined"
             app:layout_constraintBottom_toTopOf="@+id/movieYearsTextView"
+            app:layout_constraintEnd_toStartOf="@id/chatButton"
             app:layout_constraintStart_toEndOf="@+id/episodePosterImageView"
             app:layout_constraintTop_toTopOf="@+id/episodePosterImageView"
             app:layout_constraintVertical_bias="0.0"
             app:layout_constraintVertical_chainStyle="packed"
-            tools:ignore="TextContrastCheck" />
+            tools:ignore="TextContrastCheck,VisualLintOverlap" />
 
         <TextView
             android:id="@+id/movieYearsTextView"
@@ -131,13 +134,12 @@
             app:layout_constraintBottom_toBottomOf="@+id/episodePosterImageView"
             app:layout_constraintStart_toEndOf="@+id/episodePosterImageView"
             app:layout_constraintTop_toBottomOf="@+id/movieNameTextView"
-            tools:ignore="TextContrastCheck" />
+            tools:ignore="TextContrastCheck,VisualLintOverlap" />
 
         <ImageButton
             android:id="@+id/chatButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_16"
             android:layout_marginEnd="@dimen/margin_22"
             android:background="@color/transparent"
             android:src="@drawable/chat_icon"
@@ -205,6 +207,21 @@
             app:layout_constraintGuide_begin="300dp"
             app:layout_constraintGuide_percent="0.55" />
 
-
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/collectionRecyclerView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_16"
+            android:layout_marginBottom="@dimen/margin_24"
+            android:background="@color/nav_bar_color"
+            android:clipToPadding="false"
+            android:visibility="gone"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/addButton"
+            app:layout_constraintStart_toStartOf="@+id/addButton"
+            app:layout_constraintTop_toBottomOf="@+id/addButton"
+            app:layout_constraintVertical_bias="0"
+            tools:listitem="@layout/test_collection_item_layput" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

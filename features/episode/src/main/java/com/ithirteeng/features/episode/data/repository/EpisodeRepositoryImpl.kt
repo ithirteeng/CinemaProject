@@ -32,6 +32,15 @@ class EpisodeRepositoryImpl(
         }
     }
 
+    override suspend fun addMovieToCollection(movieId: String, collectionId: String): Result<Unit> {
+        return try {
+            remoteDatasource.addMovieToCollection(movieId, collectionId)
+            Result.success(Unit)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
     override fun getEpisodeData(
         episodeId: String,
         episodesList: List<EpisodeEntity>,

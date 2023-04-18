@@ -8,4 +8,6 @@ interface EpisodeRemoteDatasource {
     suspend fun getEpisodeTime(episodeId: String): String
 
     suspend fun setEpisodeTime(episodeId: String, time: String)
+
+    suspend fun addMovieToCollection(movieId: String, collectionId: String)
 }

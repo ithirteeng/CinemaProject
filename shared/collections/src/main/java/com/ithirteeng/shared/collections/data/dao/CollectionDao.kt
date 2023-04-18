@@ -23,4 +23,7 @@ interface CollectionDao {
 
     @Query("SELECT * FROM collections_table WHERE (isFavourite = 1) AND (userEmail = :userEmail)")
     fun getFavouritesCollection(userEmail: String): LocalCollectionEntity?
+
+    @Query("SELECT * FROM collections_table WHERE userEmail = :userEmail")
+    fun getCollectionsByEmail(userEmail: String): List<LocalCollectionEntity>?
 }
