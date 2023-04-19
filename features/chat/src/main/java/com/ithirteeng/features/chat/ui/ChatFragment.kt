@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment
 import com.github.terrakok.cicerone.androidx.FragmentScreen
 import com.ithirteeng.features.chat.R
 import com.ithirteeng.features.chat.databinding.FragmentChatBinding
+import com.ithirteeng.features.chat.presentation.ChatFragmentViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ChatFragment : Fragment() {
 
@@ -28,6 +30,8 @@ class ChatFragment : Fragment() {
 
     private lateinit var binding: FragmentChatBinding
 
+    private val viewModel: ChatFragmentViewModel by viewModel()
+
     private lateinit var chatId: String
 
     private lateinit var chatName: String
@@ -41,13 +45,14 @@ class ChatFragment : Fragment() {
 
         setupChatArguments()
         setupViews()
+        onBackButtonClick()
 
         return binding.root
     }
 
     private fun onBackButtonClick() {
         binding.backButton.setOnClickListener {
-
+            viewModel.exit()
         }
     }
 
