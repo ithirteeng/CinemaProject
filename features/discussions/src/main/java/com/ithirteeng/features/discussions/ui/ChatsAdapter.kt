@@ -2,6 +2,7 @@ package com.ithirteeng.features.discussions.ui
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,8 +37,12 @@ class ChatsAdapter(
         @SuppressLint("UseCompatLoadingForDrawables")
         fun bind(chatEntity: ChatEntity) {
             this.chatEntity = chatEntity
+            val message = "<font color='#AFAFAF'>${chatEntity.lastMessage.authorName}: </font>"
             binding.chatNameTextView.text = chatEntity.chatName
-            binding.lastMessageTextView.text = chatEntity.lastMessage.text
+            binding.lastMessageTextView.text = Html.fromHtml(
+                message + chatEntity.lastMessage.text,
+                Html.FROM_HTML_MODE_COMPACT
+            )
             if (chatEntity.lastMessage.authorAvatar != null) {
                 Glide
                     .with(binding.root)
