@@ -50,6 +50,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/margin_16"
         android:maxLines="3"
+        android:ellipsize="end"
         android:text="@string/undefined"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="parent"

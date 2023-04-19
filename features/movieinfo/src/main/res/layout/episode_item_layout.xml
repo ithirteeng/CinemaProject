@@ -51,6 +51,7 @@
         android:layout_marginTop="@dimen/margin_12"
         android:layout_marginBottom="@dimen/margin_6"
         android:maxLines="2"
+        android:ellipsize="end"
         android:text="@string/undefined"
         app:layout_constraintBottom_toTopOf="@+id/episodeYearTextView"
         app:layout_constraintEnd_toEndOf="parent"

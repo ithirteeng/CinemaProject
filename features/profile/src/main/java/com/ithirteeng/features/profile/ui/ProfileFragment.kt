@@ -86,6 +86,13 @@ class ProfileFragment : Fragment() {
     private fun setupOnButtonClickFunctions() {
         onCancelButtonClick()
         onChangeButtonClick()
+        onDiscussionsButtonClick()
+    }
+
+    private fun onDiscussionsButtonClick() {
+        binding.discussionsButton.setOnClickListener {
+            viewModel.navigateToDiscussionsScreen()
+        }
     }
 
     private fun onChangeButtonClick() {

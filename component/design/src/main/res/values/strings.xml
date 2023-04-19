@@ -73,6 +73,8 @@
     <string name="choose_icon">Choose icon</string>
     <string name="save">Save</string>
     <string name="delete">Delete</string>
+    
+    <string name="discussions_text">Discussions</string>
 
     <string name="collection_name_empty_error">Name mustn\'t be empty</string>
     <string name="collection_name_exists_error">Name already exists!</string>
