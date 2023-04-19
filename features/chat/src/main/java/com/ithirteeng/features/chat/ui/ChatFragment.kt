@@ -84,6 +84,8 @@ class ChatFragment : Fragment() {
     private fun onGettingUserId() {
         viewModel.makeGetUserIdRequest { handleErrors(it) }
         binding.progressBar.visibility = View.VISIBLE
+        binding.sendButton.isEnabled = false
+        binding.messageEditText.isEnabled = false
         viewModel.getUserIdLiveData().observe(this.viewLifecycleOwner) {
             onGettingMessagesList(it)
         }
@@ -92,6 +94,8 @@ class ChatFragment : Fragment() {
     private fun onGettingMessagesList(userId: String) {
         viewModel.getMessagesList(userId)
         viewModel.getMessagesListLiveData().observe(this.viewLifecycleOwner) {
+            binding.sendButton.isEnabled = true
+            binding.messageEditText.isEnabled = true
             binding.progressBar.visibility = View.GONE
             chatAdapter.submitList(it)
         }
@@ -99,13 +103,15 @@ class ChatFragment : Fragment() {
 
     private fun onSendButtonClick() {
         binding.sendButton.setOnClickListener {
-            if (!binding.messageEditText.text.isNullOrEmpty()) {
-                val string = binding.messageEditText.text.toString()
-                viewModel.sendMessage(string.trim())
-                hideKeyboard()
-                binding.messageEditText.setText("")
+            val string = binding.messageEditText.text.toString().trim()
+            if (string.isNotEmpty()) {
+                viewModel.sendMessage(string)
                 binding.progressBar.visibility = View.VISIBLE
+                binding.sendButton.isEnabled = false
+                binding.messageEditText.isEnabled = false
             }
+            hideKeyboard()
+            binding.messageEditText.setText("")
         }
     }
 
@@ -113,6 +119,8 @@ class ChatFragment : Fragment() {
         childFragmentManager.executePendingTransactions()
         ErrorHandler.showErrorDialog(requireContext(), childFragmentManager, errorModel)
         binding.progressBar.visibility = View.GONE
+        binding.sendButton.isEnabled = true
+        binding.messageEditText.isEnabled = true
     }
 
     private fun hideKeyboard() {
