@@ -25,7 +25,7 @@ class DiscussionsFragment : Fragment() {
 
     private val chatsAdapter by lazy {
         ChatsAdapter {
-            //todo: navigate to chat screen
+            viewModel.navigateToChatScreen(it.chatId, it.chatName)
         }
     }
 
