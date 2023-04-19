@@ -36,7 +36,11 @@ val chatModule = module {
 
     viewModel {
         ChatFragmentViewModel(
-            router = get()
+            router = get(),
+            initSocketUseCase = get(),
+            sendMessageUseCase = get(),
+            closeSocketUseCase = get(),
+            getMessagesFlowUseCase = get()
         )
     }
 }

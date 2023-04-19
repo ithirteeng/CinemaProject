@@ -43,11 +43,19 @@ class ChatFragment : Fragment() {
         val layout = inflater.inflate(R.layout.fragment_chat, container, false)
         binding = FragmentChatBinding.bind(layout)
 
+
         setupChatArguments()
         setupViews()
         onBackButtonClick()
+        onSendButtonClick()
 
+        viewModel.initSocket(chatId)
         return binding.root
+    }
+
+    override fun onPause() {
+        viewModel.closeSocket()
+        super.onPause()
     }
 
     private fun onBackButtonClick() {
@@ -64,5 +72,14 @@ class ChatFragment : Fragment() {
     private fun setupViews() {
         binding.fragmentNameTextView.text = chatName
     }
+
+    private fun onSendButtonClick() {
+        binding.sendButton.setOnClickListener {
+            if (!binding.messageEditText.text.isNullOrEmpty()) {
+                viewModel.sendMessage(binding.messageEditText.text.toString())
+            }
+        }
+    }
+
 
 }
