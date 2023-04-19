@@ -13,6 +13,7 @@ import com.ithirteeng.shared.network.common.NoConnectivityException
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
+import java.util.*
 
 class ChatFragmentViewModel(
     private val router: ChatRouter,
@@ -49,22 +50,39 @@ class ChatFragmentViewModel(
         viewModelScope.launch {
             getMessagesFlowUseCase().collect {
                 val message = getCorrectMessage(userId, it)
-                addDateToList(it)
-                messagesList.add(message)
+                if (message !is Message.Error) {
+                    addDateToList(it)
+                    messagesList.add(message)
+                }
                 onGettingMessagesLiveData.value = messagesList
             }
         }
     }
 
     private fun addDateToList(messageEntity: MessageEntity?) {
+        val newMessageEntity = MessageEntity(
+            messageId = UUID.randomUUID().toString(),
+            creationDateTime = messageEntity?.creationDateTime.toString(),
+            authorId = "",
+            authorName = "",
+            authorAvatar = "",
+            text = ""
+        )
         if (messagesList.isEmpty()) {
-            messagesList.add(Message.DateMessage(messageEntity))
+            messagesList.add(Message.DateMessage(newMessageEntity))
+        } else {
+            val lastDateString =
+                messagesList.last().messageEntity?.creationDateTime.toString().split("T")[0]
+            val newDateString = messageEntity?.creationDateTime.toString().split("T")[0]
+            if (lastDateString != newDateString) {
+                messagesList.add(Message.DateMessage(newMessageEntity))
+            }
         }
     }
 
     private fun getCorrectMessage(userId: String, messageEntity: MessageEntity?): Message {
         return if (messageEntity == null) {
-            Message.Error("null object")
+            Message.Error()
         } else if (messageEntity.authorId == userId) {
             Message.MineMessage(messageEntity)
         } else {

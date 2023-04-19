@@ -1,10 +1,11 @@
 package com.ithirteeng.features.chat.ui
 
+import android.app.Activity
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import com.github.terrakok.cicerone.androidx.FragmentScreen
 import com.ithirteeng.errorhandler.domain.ErrorModel
@@ -39,6 +40,8 @@ class ChatFragment : Fragment() {
 
     private lateinit var chatName: String
 
+    private val chatAdapter = ChatAdapter()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -52,8 +55,9 @@ class ChatFragment : Fragment() {
         onSendButtonClick()
 
         viewModel.initSocket(chatId)
-
         onGettingUserId()
+
+        binding.chatsRecyclerView.adapter = chatAdapter
         return binding.root
     }
 
@@ -89,14 +93,18 @@ class ChatFragment : Fragment() {
         viewModel.getMessagesList(userId)
         viewModel.getMessagesListLiveData().observe(this.viewLifecycleOwner) {
             binding.progressBar.visibility = View.GONE
-            Log.d("CHAT_DEBUG", it.last().toString())
+            chatAdapter.submitList(it)
         }
     }
 
     private fun onSendButtonClick() {
         binding.sendButton.setOnClickListener {
             if (!binding.messageEditText.text.isNullOrEmpty()) {
-                viewModel.sendMessage(binding.messageEditText.text.toString())
+                val string = binding.messageEditText.text.toString()
+                viewModel.sendMessage(string.trim())
+                hideKeyboard()
+                binding.messageEditText.setText("")
+                binding.progressBar.visibility = View.VISIBLE
             }
         }
     }
@@ -107,5 +115,14 @@ class ChatFragment : Fragment() {
         binding.progressBar.visibility = View.GONE
     }
 
+    private fun hideKeyboard() {
+        val imm: InputMethodManager =
+            activity?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        var view: View? = activity?.currentFocus
+        if (view == null) {
+            view = View(activity)
+        }
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
+    }
 
 }
