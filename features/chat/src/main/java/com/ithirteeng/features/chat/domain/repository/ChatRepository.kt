@@ -11,4 +11,6 @@ interface ChatRepository {
     fun closeSocket()
 
     fun initSocket(chatId: String)
+
+    suspend fun getUserId(): Result<String>
 }

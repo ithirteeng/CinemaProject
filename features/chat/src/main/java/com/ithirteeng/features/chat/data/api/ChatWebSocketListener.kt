@@ -19,7 +19,6 @@ class ChatWebSocketListener : WebSocketListener() {
         runBlocking {
             flow.emit(response.message)
         }
-
         super.onOpen(webSocket, response)
     }
 

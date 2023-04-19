@@ -10,4 +10,6 @@ interface ChatRemoteDatasource {
     fun closeSocket()
 
     fun initSocket(chatId: String)
+
+    suspend fun getUserId(): String
 }

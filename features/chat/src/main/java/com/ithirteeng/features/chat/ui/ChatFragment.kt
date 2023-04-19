@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.github.terrakok.cicerone.androidx.FragmentScreen
+import com.ithirteeng.errorhandler.domain.ErrorModel
+import com.ithirteeng.errorhandler.presentation.ErrorHandler
 import com.ithirteeng.features.chat.R
 import com.ithirteeng.features.chat.databinding.FragmentChatBinding
 import com.ithirteeng.features.chat.presentation.ChatFragmentViewModel
@@ -51,7 +53,7 @@ class ChatFragment : Fragment() {
 
         viewModel.initSocket(chatId)
 
-        onGettingMessagesList()
+        onGettingUserId()
         return binding.root
     }
 
@@ -75,9 +77,18 @@ class ChatFragment : Fragment() {
         binding.fragmentNameTextView.text = chatName
     }
 
-    private fun onGettingMessagesList() {
-        viewModel.getMessagesList()
+    private fun onGettingUserId() {
+        viewModel.makeGetUserIdRequest { handleErrors(it) }
+        binding.progressBar.visibility = View.VISIBLE
+        viewModel.getUserIdLiveData().observe(this.viewLifecycleOwner) {
+            onGettingMessagesList(it)
+        }
+    }
+
+    private fun onGettingMessagesList(userId: String) {
+        viewModel.getMessagesList(userId)
         viewModel.getMessagesListLiveData().observe(this.viewLifecycleOwner) {
+            binding.progressBar.visibility = View.GONE
             Log.d("CHAT_DEBUG", it.last().toString())
         }
     }
@@ -88,6 +99,12 @@ class ChatFragment : Fragment() {
                 viewModel.sendMessage(binding.messageEditText.text.toString())
             }
         }
+    }
+
+    private fun handleErrors(errorModel: ErrorModel) {
+        childFragmentManager.executePendingTransactions()
+        ErrorHandler.showErrorDialog(requireContext(), childFragmentManager, errorModel)
+        binding.progressBar.visibility = View.GONE
     }
 
 

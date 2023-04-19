@@ -23,6 +23,14 @@ class ChatRepositoryImpl(
         remoteDatasource.initSocket(chatId)
     }
 
+    override suspend fun getUserId(): Result<String> {
+        return try {
+            Result.success(remoteDatasource.getUserId())
+        } catch (e: java.lang.Exception) {
+            Result.failure(e)
+        }
+    }
+
     override fun sendMessage(message: String) {
         remoteDatasource.sendMessage(message)
     }

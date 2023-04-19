@@ -21,7 +21,6 @@ class ChatWebSocket(
             .build()
 
         socket = okHttpClient.newWebSocket(request, webSocketListener)
-        okHttpClient.dispatcher.executorService.shutdown()
     }
 
     fun getSocket(): WebSocket = socket
