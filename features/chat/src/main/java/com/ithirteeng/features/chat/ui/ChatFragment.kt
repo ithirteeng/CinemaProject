@@ -1,6 +1,7 @@
 package com.ithirteeng.features.chat.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -43,13 +44,14 @@ class ChatFragment : Fragment() {
         val layout = inflater.inflate(R.layout.fragment_chat, container, false)
         binding = FragmentChatBinding.bind(layout)
 
-
         setupChatArguments()
         setupViews()
         onBackButtonClick()
         onSendButtonClick()
 
         viewModel.initSocket(chatId)
+
+        onGettingMessagesList()
         return binding.root
     }
 
@@ -71,6 +73,13 @@ class ChatFragment : Fragment() {
 
     private fun setupViews() {
         binding.fragmentNameTextView.text = chatName
+    }
+
+    private fun onGettingMessagesList() {
+        viewModel.getMessagesList()
+        viewModel.getMessagesListLiveData().observe(this.viewLifecycleOwner) {
+            Log.d("CHAT_DEBUG", it.last().toString())
+        }
     }
 
     private fun onSendButtonClick() {

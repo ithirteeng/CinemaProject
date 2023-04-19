@@ -1,11 +1,11 @@
 package com.ithirteeng.features.chat.data.datasource
 
-import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.SharedFlow
 
 interface ChatRemoteDatasource {
-    fun getMessages(): MutableSharedFlow<String>
+    fun getMessages(): SharedFlow<String>
 
-    fun sendMessage(message: String, )
+    fun sendMessage(message: String)
 
     fun closeSocket()
 

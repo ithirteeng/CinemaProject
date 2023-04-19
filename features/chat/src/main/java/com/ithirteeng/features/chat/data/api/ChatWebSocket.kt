@@ -1,7 +1,7 @@
 package com.ithirteeng.features.chat.data.api
 
 import com.ithirteeng.features.chat.BuildConfig
-import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.SharedFlow
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.WebSocket
@@ -26,6 +26,6 @@ class ChatWebSocket(
 
     fun getSocket(): WebSocket = socket
 
-    fun getGetMessagesFlow(): MutableSharedFlow<String> = webSocketListener.getFlow()
+    fun getGetMessagesFlow(): SharedFlow<String> = webSocketListener.getFlow()
 
 }

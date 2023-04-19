@@ -1,13 +1,13 @@
 package com.ithirteeng.features.chat.data.datasource
 
 import com.ithirteeng.features.chat.data.api.ChatWebSocket
-import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.SharedFlow
 
 class ChatRemoteDatasourceImpl(
     private val socket: ChatWebSocket,
 ) : ChatRemoteDatasource {
 
-    override fun getMessages(): MutableSharedFlow<String> {
+    override fun getMessages(): SharedFlow<String> {
         return socket.getGetMessagesFlow()
     }
 
