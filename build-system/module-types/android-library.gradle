@@ -9,6 +9,8 @@ android {
 		minSdk Configs.MIN_SDK
 		targetSdk Configs.TARGET_SDK
 		testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+		buildConfigField "String", "BASE_URL", "\"http://107684.web.hosting-russia.ru:8000/api/\""
 	}
 
 	buildTypes {
