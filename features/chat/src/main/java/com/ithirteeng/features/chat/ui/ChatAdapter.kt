@@ -30,7 +30,7 @@ class ChatAdapter : ListAdapter<Message, RecyclerView.ViewHolder>(MessageDiffCal
 
         @SuppressLint("UseCompatLoadingForDrawables")
         fun bind(messageEntity: MessageEntity?) {
-            binding.messageTextView.text = messageEntity?.text
+            binding.messageTextView.text = messageEntity?.text?.trim()
             binding.authorTextView.text = setupAuthorTextView(messageEntity)
             if (messageEntity != null) {
                 if (!messageEntity.isFirst) {
@@ -61,7 +61,7 @@ class ChatAdapter : ListAdapter<Message, RecyclerView.ViewHolder>(MessageDiffCal
 
         @SuppressLint("UseCompatLoadingForDrawables")
         fun bind(messageEntity: MessageEntity?) {
-            binding.messageTextView.text = messageEntity?.text
+            binding.messageTextView.text = messageEntity?.text?.trim()
             binding.authorTextView.text = setupAuthorTextView(messageEntity)
             if (messageEntity != null) {
                 if (!messageEntity.isFirst) {
