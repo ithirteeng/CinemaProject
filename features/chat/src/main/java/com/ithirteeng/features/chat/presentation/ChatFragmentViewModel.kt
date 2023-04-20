@@ -9,6 +9,7 @@ import com.ithirteeng.features.chat.domain.entity.MessageEntity
 import com.ithirteeng.features.chat.domain.model.Message
 import com.ithirteeng.features.chat.domain.usecase.*
 import com.ithirteeng.features.chat.presentation.router.ChatRouter
+import com.ithirteeng.features.chat.presentation.utils.DateHelper
 import com.ithirteeng.shared.network.common.NoConnectivityException
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -72,9 +73,9 @@ class ChatFragmentViewModel(
         if (messagesList.isEmpty()) {
             messagesList.add(Message.DateMessage(newMessageEntity))
         } else {
+            val newDateString = DateHelper.getDate(messageEntity?.creationDateTime.toString())
             val lastDateString =
-                messagesList.last().messageEntity?.creationDateTime.toString().split("T")[0]
-            val newDateString = messageEntity?.creationDateTime.toString().split("T")[0]
+                DateHelper.getDate(messagesList.last().messageEntity?.creationDateTime.toString())
             if (lastDateString != newDateString) {
                 messagesList.add(Message.DateMessage(newMessageEntity))
             }

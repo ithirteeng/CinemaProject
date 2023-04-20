@@ -16,11 +16,9 @@ import com.ithirteeng.features.chat.databinding.MineMessageItemBinding
 import com.ithirteeng.features.chat.databinding.OthersMessageItemBinding
 import com.ithirteeng.features.chat.domain.entity.MessageEntity
 import com.ithirteeng.features.chat.domain.model.Message
-import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
-import java.time.format.TextStyle
+import com.ithirteeng.features.chat.presentation.utils.DateHelper
 import java.util.*
+
 
 class ChatAdapter : ListAdapter<Message, RecyclerView.ViewHolder>(MessageDiffCallBack) {
 
@@ -58,18 +56,7 @@ class ChatAdapter : ListAdapter<Message, RecyclerView.ViewHolder>(MessageDiffCal
         private val binding = DateMessageItemBinding.bind(view)
 
         fun bind(messageEntity: MessageEntity?) {
-            binding.textView.text = setupDate(messageEntity)
-        }
-
-        private fun setupDate(messageEntity: MessageEntity?): String {
-            val date = LocalDate.parse(
-                messageEntity?.creationDateTime.toString().split("T")[0],
-                DateTimeFormatter.ISO_LOCAL_DATE
-            )
-
-            val day = date.dayOfMonth
-            val month = date.month.getDisplayName(TextStyle.FULL, Locale.getDefault())
-            return "$day $month"
+            binding.textView.text = DateHelper.getDate(messageEntity?.creationDateTime.toString())
         }
     }
 
@@ -85,16 +72,9 @@ class ChatAdapter : ListAdapter<Message, RecyclerView.ViewHolder>(MessageDiffCal
     }
 
     private fun setupAuthorTextView(messageEntity: MessageEntity?): String {
-        return "${messageEntity?.authorName} • ${getTime(messageEntity?.creationDateTime.toString())}"
+        return "${messageEntity?.authorName} • ${DateHelper.getTime(messageEntity?.creationDateTime.toString())}"
     }
 
-    private fun getTime(dateTime: String): String {
-        val time = dateTime.split(".")[0]
-        val localDateTime = LocalDateTime.parse(time, DateTimeFormatter.ISO_LOCAL_DATE_TIME)
-        val minutes =
-            if (localDateTime.minute < 10) "0${localDateTime.minute}" else localDateTime.minute
-        return "${localDateTime.hour}:${minutes}"
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {

@@ -2,7 +2,6 @@ package com.ithirteeng.features.chat.ui
 
 import android.app.Activity
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -55,10 +54,10 @@ class ChatFragment : Fragment() {
         onBackButtonClick()
         onSendButtonClick()
 
-        viewModel.initSocket(chatId)
-        onGettingUserId()
-
         binding.chatsRecyclerView.adapter = chatAdapter
+        viewModel.initSocket(chatId)
+
+        onGettingUserId()
         return binding.root
     }
 
@@ -99,6 +98,7 @@ class ChatFragment : Fragment() {
             binding.messageEditText.isEnabled = true
             binding.progressBar.visibility = View.GONE
             chatAdapter.submitList(it)
+            binding.chatsRecyclerView.scrollToPosition(chatAdapter.itemCount - 1)
         }
     }
 
