@@ -29,6 +29,7 @@
                 android:id="@+id/messageTextView"
                 style="@style/Theme.CinemaProject.Text1"
                 android:layout_width="wrap_content"
+                android:layout_gravity="end"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/margin_16"
                 android:layout_marginTop="@dimen/margin_12"
@@ -68,6 +69,7 @@
 
             <ImageView
                 android:id="@+id/authorImageView"
+                android:scaleType="centerCrop"
                 android:layout_width="@dimen/size_32"
                 android:layout_height="@dimen/size_32"
                 app:srcCompat="@drawable/image_placeholder"

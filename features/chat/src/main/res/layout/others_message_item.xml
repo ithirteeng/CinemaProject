@@ -27,6 +27,7 @@
                 android:id="@+id/authorImageView"
                 android:layout_width="@dimen/size_32"
                 android:layout_height="@dimen/size_32"
+                android:scaleType="centerCrop"
                 app:srcCompat="@drawable/image_placeholder"
                 tools:ignore="ContentDescription" />
         </androidx.cardview.widget.CardView>
