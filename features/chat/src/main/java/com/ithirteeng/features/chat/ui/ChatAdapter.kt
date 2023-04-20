@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.ithirteeng.component.design.R.*
 import com.ithirteeng.features.chat.R
 import com.ithirteeng.features.chat.databinding.DateMessageItemBinding
 import com.ithirteeng.features.chat.databinding.MineMessageItemBinding
@@ -17,6 +18,7 @@ import com.ithirteeng.features.chat.databinding.OthersMessageItemBinding
 import com.ithirteeng.features.chat.domain.entity.MessageEntity
 import com.ithirteeng.features.chat.domain.model.Message
 import com.ithirteeng.features.chat.presentation.utils.DateHelper
+import com.ithirteeng.features.chat.presentation.utils.MessagePadding
 import java.util.*
 
 
@@ -30,8 +32,10 @@ class ChatAdapter : ListAdapter<Message, RecyclerView.ViewHolder>(MessageDiffCal
             binding.authorTextView.text = setupAuthorTextView(messageEntity)
             if (messageEntity?.authorAvatar == "BAD") {
                 binding.cardView.visibility = View.INVISIBLE
+                setPaddingForView(binding.root, MessagePadding.SMALL, false)
             } else {
                 binding.cardView.visibility = View.VISIBLE
+                setPaddingForView(binding.root, MessagePadding.MEDIUM, false)
                 binding.authorImageView.setupImageView(messageEntity?.authorAvatar, binding.root)
             }
         }
@@ -45,8 +49,10 @@ class ChatAdapter : ListAdapter<Message, RecyclerView.ViewHolder>(MessageDiffCal
             binding.authorTextView.text = setupAuthorTextView(messageEntity)
             if (messageEntity?.authorAvatar == "BAD") {
                 binding.cardView.visibility = View.INVISIBLE
+                setPaddingForView(binding.root, MessagePadding.SMALL, false)
             } else {
                 binding.cardView.visibility = View.VISIBLE
+                setPaddingForView(binding.root, MessagePadding.MEDIUM, false)
                 binding.authorImageView.setupImageView(messageEntity?.authorAvatar, binding.root)
             }
         }
@@ -57,6 +63,21 @@ class ChatAdapter : ListAdapter<Message, RecyclerView.ViewHolder>(MessageDiffCal
 
         fun bind(messageEntity: MessageEntity?) {
             binding.textView.text = DateHelper.getDate(messageEntity?.creationDateTime.toString())
+            setPaddingForView(binding.root, MessagePadding.BIG, true)
+        }
+    }
+
+    private fun setPaddingForView(view: View, paddingType: MessagePadding, isDate: Boolean) {
+        val padding = when (paddingType) {
+            MessagePadding.BIG -> view.context.resources.getDimension(dimen.padding_24)
+            MessagePadding.MEDIUM -> view.context.resources.getDimension(dimen.padding_16)
+            else -> view.context.resources.getDimension(dimen.padding_4)
+        }
+        if (isDate) {
+            val padding8 = view.context.resources.getDimension(dimen.padding_8)
+            view.setPadding(0, padding8.toInt(), 0, padding.toInt())
+        } else {
+            view.setPadding(0, 0, 0, padding.toInt())
         }
     }
 

@@ -98,7 +98,7 @@ class ChatFragment : Fragment() {
             binding.messageEditText.isEnabled = true
             binding.progressBar.visibility = View.GONE
             chatAdapter.submitList(it)
-            binding.chatsRecyclerView.scrollToPosition(chatAdapter.itemCount - 1)
+            binding.chatsRecyclerView.smoothScrollToPosition(chatAdapter.itemCount - 1)
         }
     }
 

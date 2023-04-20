@@ -8,14 +8,14 @@
 
     <LinearLayout
         android:id="@+id/textLinearLayout"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/margin_40"
         android:background="@drawable/others_message_background"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toEndOf="@+id/cardView"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -37,7 +37,7 @@
         <TextView
             android:id="@+id/authorTextView"
             style="@style/Theme.CinemaProject.Text2"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/margin_16"
             android:layout_marginVertical="@dimen/margin_4"
@@ -58,7 +58,8 @@
         app:cardCornerRadius="1000dp"
         app:layout_constraintBottom_toBottomOf="@+id/textLinearLayout"
         app:layout_constraintEnd_toStartOf="@+id/textLinearLayout"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent">
 
         <ImageView
