@@ -21,6 +21,10 @@ class DiscussionsFragmentViewModel(
         router.exit()
     }
 
+    fun navigateToChatScreen(chatId: String, chatName: String) {
+        router.navigateToChatScreen(chatId, chatName)
+    }
+
     private val chatsListLiveData = MutableLiveData<List<ChatEntity>>()
 
     fun getChatsLiveData(): LiveData<List<ChatEntity>> = chatsListLiveData

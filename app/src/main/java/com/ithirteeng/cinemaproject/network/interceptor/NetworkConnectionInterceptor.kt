@@ -20,7 +20,7 @@ class NetworkConnectionInterceptor(
         return try {
             chain.proceed(request)
         } catch (e: IOException) {
-            if (isNetworkAvailable()) {
+            if (isNetworkAvailable() || e is java.net.ConnectException) {
                 chain.proceed(request)
             } else {
                 handleError()

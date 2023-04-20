@@ -18,8 +18,8 @@ class MovieFragmentViewModel(
     private val router: MovieRouter,
 ) : AndroidViewModel(application) {
 
-    fun navigateToChatScreen(chatId: String) =
-        router.navigateToChatScreen(chatId)
+    fun navigateToChatScreen(chatId: String, chatName: String) =
+        router.navigateToChatScreen(chatId, chatName)
 
     fun navigateToEpisodeScreen(episodeId: String, movieId: String, movieName: String) =
         router.navigateToEpisodeScreen(episodeId, movieId, movieName)

@@ -3,6 +3,7 @@ package com.ithirteeng.cinemaproject.di
 import com.ithirteeng.cinemaproject.navigation.routers.*
 import com.ithirteeng.design.GLOBAL_ROUTER
 import com.ithirteeng.errorhandler.presentation.ErrorRouter
+import com.ithirteeng.features.chat.presentation.router.ChatRouter
 import com.ithirteeng.features.collections.presentation.routers.*
 import com.ithirteeng.features.compilation.presentation.CompilationRouter
 import com.ithirteeng.features.discussions.presentation.router.DiscussionsRouter
@@ -32,6 +33,7 @@ val routersModule = module {
     factory<CollectionInfoRouter> { CollectionInfoRouterImpl(router = get(named(GLOBAL_ROUTER))) }
     factory<ChooseIconRouter> { ChooseIconRouterImpl(router = get(named(GLOBAL_ROUTER))) }
     factory<DiscussionsRouter> { DiscussionsRouterImpl(router = get(named(GLOBAL_ROUTER))) }
+    factory<ChatRouter> { ChatRouterImpl(router = get(named(GLOBAL_ROUTER))) }
     factory<ChangeCollectionRouter> {
         ChangeCollectionRouterImpl(router = get(named(GLOBAL_ROUTER)))
     }

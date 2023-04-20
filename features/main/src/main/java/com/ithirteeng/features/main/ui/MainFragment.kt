@@ -137,7 +137,7 @@ class MainFragment : Fragment() {
             finishedRequests++
             handleProgressBarVisibility()
             if (it.isNotEmpty()) {
-                setupRecentItem(it.last())
+                setupRecentItem(it.first())
                 binding.recentTextView.visibility = View.VISIBLE
                 binding.recentGroup.visibility = View.VISIBLE
             }

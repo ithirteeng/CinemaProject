@@ -74,7 +74,9 @@ class MovieFragment : Fragment() {
 
         setMovieInfoFields()
         onGettingEpisodesList()
+
         onBackButtonClick()
+        onChatButtonClick()
 
         binding.episodesRecyclerView.adapter = episodesAdapter
         binding.cadresRecyclerView.adapter = cadresAdapter
@@ -85,6 +87,15 @@ class MovieFragment : Fragment() {
     private fun onBackButtonClick() {
         binding.backButton.setOnClickListener {
             viewModel.exit()
+        }
+    }
+
+    private fun onChatButtonClick() {
+        binding.chatButton.setOnClickListener {
+            viewModel.navigateToChatScreen(
+                movieEntity.chatInfo.chatId,
+                movieEntity.chatInfo.chatName
+            )
         }
     }
 

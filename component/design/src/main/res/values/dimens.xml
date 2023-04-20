@@ -35,12 +35,14 @@
     <dimen name="margin_40">40dp</dimen>
     <dimen name="margin_44">44dp</dimen>
     <dimen name="margin_55">55dp</dimen>
+    <dimen name="margin_56">56dp</dimen>
     <dimen name="margin_64">64dp</dimen>
     <dimen name="margin_72">72dp</dimen>
 
     <!-- const sizes -->
     <dimen name="size_24">24dp</dimen>
     <dimen name="size_30">30dp</dimen>
+    <dimen name="size_32">32dp</dimen>
     <dimen name="size_44">44dp</dimen>
     <dimen name="size_56">56dp</dimen>
     <dimen name="size_64">64dp</dimen>
