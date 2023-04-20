@@ -134,6 +134,7 @@ class MovieFragment : Fragment() {
     private fun setupScreenData(movieEntity: MovieEntity?) {
         binding.descriptionTextView.text = movieEntity?.description
         binding.ageTextView.text = movieEntity?.age
+        colorizeAge(movieEntity?.age.toString())
         movieEntity?.tags?.let { setupGenresFlexbox(it) }
         Glide
             .with(binding.root)
@@ -141,6 +142,31 @@ class MovieFragment : Fragment() {
             .placeholder(binding.root.context.getDrawable(drawable.image_placeholder))
             .error(binding.root.context.getDrawable(drawable.image_placeholder))
             .into(binding.mainPosterImageView)
+    }
+
+    private fun colorizeAge(age: String) {
+        when (age) {
+            "0+" -> binding.ageTextView.setTextColor(resources.getColor(
+                color.zero_age_color,
+                requireActivity().theme)
+            )
+            "6+" -> binding.ageTextView.setTextColor(resources.getColor(
+                color.six_age_color,
+                requireActivity().theme)
+            )
+            "12+" -> binding.ageTextView.setTextColor(resources.getColor(
+                color.twelve_age_color,
+                requireActivity().theme)
+            )
+            "16+" -> binding.ageTextView.setTextColor(
+                resources.getColor(color.sixteen_age_color,
+                    requireActivity().theme)
+            )
+            else -> binding.ageTextView.setTextColor(
+                resources.getColor(color.eighteen_age_color,
+                    requireActivity().theme)
+            )
+        }
     }
 
     private fun setupGenresFlexbox(genres: List<TagEntity>) {
