@@ -5,7 +5,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.github.terrakok.cicerone.androidx.FragmentScreen
 import com.ithirteeng.errorhandler.domain.ErrorModel
@@ -32,6 +34,8 @@ class MainFragment : Fragment() {
     private val viewModel: MainFragmentViewModel by viewModel()
 
     private var finishedRequests = 0
+
+    private var ifRecentReady = false
 
     private val inTrendAdapter by lazy {
         InTrendMoviesAdapter {
@@ -108,11 +112,6 @@ class MainFragment : Fragment() {
             finishedRequests++
             inTrendAdapter.submitList(it)
             handleProgressBarVisibility()
-
-            if (it.isNotEmpty()) {
-                binding.inTrendRecyclerView.visibility = View.VISIBLE
-                binding.inTrendTextView.visibility = View.VISIBLE
-            }
         }
     }
 
@@ -124,10 +123,6 @@ class MainFragment : Fragment() {
             forYouMoviesAdapter.submitList(it)
             handleProgressBarVisibility()
 
-            if (it.isNotEmpty()) {
-                binding.forYouRecyclerView.visibility = View.VISIBLE
-                binding.forYouTextView.visibility = View.VISIBLE
-            }
         }
     }
 
@@ -138,8 +133,7 @@ class MainFragment : Fragment() {
             handleProgressBarVisibility()
             if (it.isNotEmpty()) {
                 setupRecentItem(it.first())
-                binding.recentTextView.visibility = View.VISIBLE
-                binding.recentGroup.visibility = View.VISIBLE
+                ifRecentReady = true
             }
         }
     }
@@ -172,11 +166,6 @@ class MainFragment : Fragment() {
             finishedRequests++
             newMoviesAdapter.submitList(it)
             handleProgressBarVisibility()
-
-            if (it.isNotEmpty()) {
-                binding.newTextView.visibility = View.VISIBLE
-                binding.newRecyclerView.visibility = View.VISIBLE
-            }
         }
     }
 
@@ -184,7 +173,30 @@ class MainFragment : Fragment() {
         if (finishedRequests == REQUEST_AMOUNT) {
             binding.progressBar.visibility = View.GONE
             binding.allViewsGroup.visibility = View.VISIBLE
+            makeMoviesGroupViewVisible()
         }
+    }
+
+    private fun makeMoviesGroupViewVisible() {
+        if (inTrendAdapter.itemCount > 0) {
+            makeTextViewAndRecyclerViewVisible(binding.inTrendTextView, binding.inTrendRecyclerView)
+        }
+        if (forYouMoviesAdapter.itemCount > 0) {
+            makeTextViewAndRecyclerViewVisible(binding.forYouTextView, binding.forYouRecyclerView)
+        }
+        if (newMoviesAdapter.itemCount > 0) {
+            makeTextViewAndRecyclerViewVisible(binding.newTextView, binding.newRecyclerView)
+        }
+
+        if (ifRecentReady) {
+            binding.recentTextView.visibility = View.VISIBLE
+            binding.recentGroup.visibility = View.VISIBLE
+        }
+    }
+
+    private fun makeTextViewAndRecyclerViewVisible(textView: TextView, recyclerView: RecyclerView) {
+        textView.visibility = View.VISIBLE
+        recyclerView.visibility = View.VISIBLE
     }
 
 
