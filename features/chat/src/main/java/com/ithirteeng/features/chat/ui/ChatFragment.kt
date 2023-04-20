@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.github.terrakok.cicerone.androidx.FragmentScreen
 import com.ithirteeng.errorhandler.domain.ErrorModel
 import com.ithirteeng.errorhandler.presentation.ErrorHandler
@@ -54,7 +56,6 @@ class ChatFragment : Fragment() {
         onBackButtonClick()
         onSendButtonClick()
 
-        binding.chatsRecyclerView.adapter = chatAdapter
         viewModel.initSocket(chatId)
 
         onGettingUserId()
@@ -79,6 +80,11 @@ class ChatFragment : Fragment() {
 
     private fun setupViews() {
         binding.fragmentNameTextView.text = chatName
+        val layoutManager = LinearLayoutManager(requireContext())
+        layoutManager.stackFromEnd = true
+        binding.chatsRecyclerView.layoutManager = layoutManager
+        setupAdapter()
+        binding.chatsRecyclerView.adapter = chatAdapter
     }
 
     private fun onGettingUserId() {
@@ -98,8 +104,16 @@ class ChatFragment : Fragment() {
             binding.messageEditText.isEnabled = true
             binding.progressBar.visibility = View.GONE
             chatAdapter.submitList(it)
-            binding.chatsRecyclerView.smoothScrollToPosition(chatAdapter.itemCount - 1)
         }
+    }
+
+    private fun setupAdapter() {
+        chatAdapter.registerAdapterDataObserver(object :
+            RecyclerView.AdapterDataObserver() {
+            override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
+                binding.chatsRecyclerView.scrollToPosition(positionStart + itemCount - 1)
+            }
+        })
     }
 
     private fun onSendButtonClick() {
