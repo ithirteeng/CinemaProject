@@ -4,8 +4,8 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.ImageView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -19,6 +19,7 @@ import com.ithirteeng.features.chat.domain.entity.MessageEntity
 import com.ithirteeng.features.chat.domain.model.Message
 import com.ithirteeng.features.chat.presentation.utils.DateHelper
 import com.ithirteeng.features.chat.presentation.utils.MessagePadding
+import com.ithirteeng.features.chat.presentation.utils.MessageType
 import java.util.*
 
 
@@ -27,15 +28,29 @@ class ChatAdapter : ListAdapter<Message, RecyclerView.ViewHolder>(MessageDiffCal
     inner class OthersViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val binding = OthersMessageItemBinding.bind(view)
 
+        @SuppressLint("UseCompatLoadingForDrawables")
         fun bind(messageEntity: MessageEntity?) {
             binding.messageTextView.text = messageEntity?.text
             binding.authorTextView.text = setupAuthorTextView(messageEntity)
+            if (messageEntity != null) {
+                if (!messageEntity.isFirst) {
+                    binding.textsLayout.background = binding.root.resources.getDrawable(
+                        R.drawable.others_square_message_background,
+                        binding.root.context.theme
+                    )
+                } else {
+                    binding.textsLayout.background = binding.root.resources.getDrawable(
+                        R.drawable.others_message_background,
+                        binding.root.context.theme
+                    )
+                }
+            }
             if (messageEntity?.authorAvatar == "BAD") {
                 binding.cardView.visibility = View.INVISIBLE
-                setPaddingForView(binding.root, MessagePadding.SMALL, false)
+                setPaddingForView(binding.root, MessagePadding.SMALL, MessageType.OTHERS)
             } else {
                 binding.cardView.visibility = View.VISIBLE
-                setPaddingForView(binding.root, MessagePadding.MEDIUM, false)
+                setPaddingForView(binding.root, MessagePadding.MEDIUM, MessageType.OTHERS)
                 binding.authorImageView.setupImageView(messageEntity?.authorAvatar, binding.root)
             }
         }
@@ -44,15 +59,29 @@ class ChatAdapter : ListAdapter<Message, RecyclerView.ViewHolder>(MessageDiffCal
     inner class MineViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val binding = MineMessageItemBinding.bind(view)
 
+        @SuppressLint("UseCompatLoadingForDrawables")
         fun bind(messageEntity: MessageEntity?) {
             binding.messageTextView.text = messageEntity?.text
             binding.authorTextView.text = setupAuthorTextView(messageEntity)
+            if (messageEntity != null) {
+                if (!messageEntity.isFirst) {
+                    binding.textsLayout.background = binding.root.resources.getDrawable(
+                        R.drawable.mine_square_message_background,
+                        binding.root.context.theme
+                    )
+                } else {
+                    binding.textsLayout.background = binding.root.resources.getDrawable(
+                        R.drawable.mine_message_background,
+                        binding.root.context.theme
+                    )
+                }
+            }
             if (messageEntity?.authorAvatar == "BAD") {
                 binding.cardView.visibility = View.INVISIBLE
-                setPaddingForView(binding.root, MessagePadding.SMALL, false)
+                setPaddingForView(binding.root, MessagePadding.SMALL, MessageType.MINE)
             } else {
                 binding.cardView.visibility = View.VISIBLE
-                setPaddingForView(binding.root, MessagePadding.MEDIUM, false)
+                setPaddingForView(binding.root, MessagePadding.MEDIUM, MessageType.MINE)
                 binding.authorImageView.setupImageView(messageEntity?.authorAvatar, binding.root)
             }
         }
@@ -69,26 +98,30 @@ class ChatAdapter : ListAdapter<Message, RecyclerView.ViewHolder>(MessageDiffCal
             } else {
                 binding.textView.text = DateHelper.getDate(date)
             }
-            setPaddingForView(binding.root, MessagePadding.BIG, true)
+            setPaddingForView(binding.root, MessagePadding.BIG, MessageType.DATE)
         }
     }
 
-    private fun setPaddingForView(view: View, paddingType: MessagePadding, isDate: Boolean) {
-        val padding = when (paddingType) {
+    private fun setPaddingForView(
+        view: View,
+        paddingType: MessagePadding,
+        messageType: MessageType,
+    ) {
+        val paddingVertical = when (paddingType) {
             MessagePadding.BIG -> view.context.resources.getDimension(dimen.padding_24)
             MessagePadding.MEDIUM -> view.context.resources.getDimension(dimen.padding_16)
             else -> view.context.resources.getDimension(dimen.padding_4)
         }
-        if (isDate) {
+        if (messageType == MessageType.DATE) {
             val padding8 = view.context.resources.getDimension(dimen.padding_8)
-            view.setPadding(0, padding8.toInt(), 0, padding.toInt())
+            view.setPadding(0, padding8.toInt(), 0, paddingVertical.toInt())
         } else {
-            view.setPadding(0, 0, 0, padding.toInt())
+            view.setPadding(0, 0, 0, paddingVertical.toInt())
         }
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
-    private fun ImageView.setupImageView(url: String?, root: ConstraintLayout) {
+    private fun ImageView.setupImageView(url: String?, root: FrameLayout) {
         Glide
             .with(root)
             .load(url)

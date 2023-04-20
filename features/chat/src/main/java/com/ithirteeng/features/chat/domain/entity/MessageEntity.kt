@@ -14,5 +14,6 @@ data class MessageEntity(
     @SerializedName("authorAvatar")
     var authorAvatar: String?,
     @SerializedName("text")
-    val text: String
+    val text: String,
+    var isFirst: Boolean = false,
 )
