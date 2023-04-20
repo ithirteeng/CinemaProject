@@ -52,6 +52,7 @@ class ChatFragmentViewModel(
                 val message = getCorrectMessage(userId, it)
                 if (message !is Message.Error) {
                     addDateToList(it)
+                    setAvatarToMessage(message)
                     messagesList.add(message)
                 }
                 onGettingMessagesLiveData.value = messagesList
@@ -87,6 +88,16 @@ class ChatFragmentViewModel(
             Message.MineMessage(messageEntity)
         } else {
             Message.OthersMessage(messageEntity)
+        }
+    }
+
+    private fun setAvatarToMessage(message: Message) {
+        if (messagesList.last().messageEntity?.authorId == message.messageEntity?.authorId) {
+            val newMessage = messagesList.last()
+            newMessage.messageEntity?.authorAvatar = "BAD"
+
+            messagesList.removeLast()
+            messagesList.add(newMessage)
         }
     }
 

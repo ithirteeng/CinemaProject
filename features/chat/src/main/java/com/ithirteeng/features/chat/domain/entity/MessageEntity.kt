@@ -8,11 +8,11 @@ data class MessageEntity(
     @SerializedName("creationDateTime")
     val creationDateTime: String,
     @SerializedName("authorId")
-    val authorId: String,
+    var authorId: String,
     @SerializedName("authorName")
     val authorName: String,
     @SerializedName("authorAvatar")
-    val authorAvatar: String,
+    var authorAvatar: String?,
     @SerializedName("text")
     val text: String
 )

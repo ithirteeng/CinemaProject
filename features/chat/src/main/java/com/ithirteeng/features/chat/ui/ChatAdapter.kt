@@ -30,7 +30,11 @@ class ChatAdapter : ListAdapter<Message, RecyclerView.ViewHolder>(MessageDiffCal
         fun bind(messageEntity: MessageEntity?) {
             binding.messageTextView.text = messageEntity?.text
             binding.authorTextView.text = setupAuthorTextView(messageEntity)
-            binding.authorImageView.setupImageView(messageEntity?.authorAvatar, binding.root)
+            if (messageEntity?.authorAvatar == "BAD") {
+                binding.cardView.visibility = View.INVISIBLE
+            } else {
+                binding.authorImageView.setupImageView(messageEntity?.authorAvatar, binding.root)
+            }
         }
     }
 
@@ -40,7 +44,11 @@ class ChatAdapter : ListAdapter<Message, RecyclerView.ViewHolder>(MessageDiffCal
         fun bind(messageEntity: MessageEntity?) {
             binding.messageTextView.text = messageEntity?.text
             binding.authorTextView.text = setupAuthorTextView(messageEntity)
-            binding.authorImageView.setupImageView(messageEntity?.authorAvatar, binding.root)
+            if (messageEntity?.authorAvatar == "BAD") {
+                binding.cardView.visibility = View.INVISIBLE
+            } else {
+                binding.authorImageView.setupImageView(messageEntity?.authorAvatar, binding.root)
+            }
         }
     }
 
@@ -71,6 +79,7 @@ class ChatAdapter : ListAdapter<Message, RecyclerView.ViewHolder>(MessageDiffCal
             .placeholder(root.context.getDrawable(com.ithirteeng.component.design.R.drawable.image_placeholder))
             .error(root.context.getDrawable(com.ithirteeng.component.design.R.drawable.image_placeholder))
             .into(this)
+
     }
 
     private fun setupAuthorTextView(messageEntity: MessageEntity?): String {
@@ -133,7 +142,8 @@ class ChatAdapter : ListAdapter<Message, RecyclerView.ViewHolder>(MessageDiffCal
 
 object MessageDiffCallBack : DiffUtil.ItemCallback<Message>() {
     override fun areItemsTheSame(oldItem: Message, newItem: Message): Boolean {
-        return oldItem.messageEntity?.messageId == newItem.messageEntity?.messageId
+        return oldItem.messageEntity?.messageId == newItem.messageEntity?.messageId &&
+                oldItem.messageEntity?.authorAvatar == newItem.messageEntity?.authorAvatar
     }
 
     override fun areContentsTheSame(oldItem: Message, newItem: Message): Boolean {
