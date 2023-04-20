@@ -16,12 +16,18 @@ object DateHelper {
     }
 
     fun getDate(dateString: String): String {
-        val dt = LocalDateTime.parse(dateString).plusHours(zoneOffset)
-        return dt.format(DateTimeFormatter.ofPattern("dd MMMM"))
+        val dateTime = LocalDateTime.parse(dateString).plusHours(zoneOffset)
+        return dateTime.format(DateTimeFormatter.ofPattern("dd MMMM"))
+    }
+
+    fun checkIdDateIsToday(dateString: String): Boolean {
+        val dateTime = LocalDateTime.parse(dateString).plusHours(zoneOffset)
+
+        return dateTime.toLocalDate() == LocalDateTime.now().toLocalDate()
     }
 
     fun getTime(dateString: String): String {
-        val dt = LocalDateTime.parse(dateString).plusHours(zoneOffset)
-        return dt.format(DateTimeFormatter.ofPattern("HH:mm"))
+        val dateTime = LocalDateTime.parse(dateString).plusHours(zoneOffset)
+        return dateTime.format(DateTimeFormatter.ofPattern("HH:mm"))
     }
 }

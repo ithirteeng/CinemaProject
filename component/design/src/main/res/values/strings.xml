@@ -77,6 +77,7 @@
     <string name="discussions_text">Discussions</string>
 
     <string name="write_message">Write a message…</string>
+    <string name="today">Today</string>
 
     <string name="collection_name_empty_error">Name mustn\'t be empty</string>
     <string name="collection_name_exists_error">Name already exists!</string>

@@ -62,7 +62,13 @@ class ChatAdapter : ListAdapter<Message, RecyclerView.ViewHolder>(MessageDiffCal
         private val binding = DateMessageItemBinding.bind(view)
 
         fun bind(messageEntity: MessageEntity?) {
-            binding.textView.text = DateHelper.getDate(messageEntity?.creationDateTime.toString())
+            val date = messageEntity?.creationDateTime.toString()
+
+            if (DateHelper.checkIdDateIsToday(date)) {
+                binding.textView.text = binding.root.resources.getString(string.today)
+            } else {
+                binding.textView.text = DateHelper.getDate(date)
+            }
             setPaddingForView(binding.root, MessagePadding.BIG, true)
         }
     }
