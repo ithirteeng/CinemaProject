@@ -51,8 +51,12 @@ class ChatFragmentViewModel(
         viewModelScope.launch {
             getMessagesFlowUseCase().collect {
                 val message = getCorrectMessage(userId, it)
+
                 if (message !is Message.Error) {
                     addDateToList(it)
+                    if (ifMessageFirst(message)) {
+                        message.messageEntity?.isFirst = true
+                    }
                     setAvatarToMessage(message)
                     messagesList.add(message)
                 }
@@ -100,6 +104,11 @@ class ChatFragmentViewModel(
             messagesList.removeLast()
             messagesList.add(newMessage)
         }
+    }
+
+    private fun ifMessageFirst(message: Message): Boolean {
+        return (message is Message.OthersMessage || message is Message.MineMessage) &&
+                messagesList.last().messageEntity?.authorId != message.messageEntity?.authorId
     }
 
     private val userIdLiveData = MutableLiveData<String>()

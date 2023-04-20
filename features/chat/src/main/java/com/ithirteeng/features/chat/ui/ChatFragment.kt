@@ -104,6 +104,7 @@ class ChatFragment : Fragment() {
             binding.messageEditText.isEnabled = true
             binding.progressBar.visibility = View.GONE
             chatAdapter.submitList(it)
+            chatAdapter.notifyItemRangeChanged(it.size - 2, 2)
         }
     }
 
