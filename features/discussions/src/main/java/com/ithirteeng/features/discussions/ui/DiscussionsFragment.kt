@@ -43,6 +43,11 @@ class DiscussionsFragment : Fragment() {
         return binding.root
     }
 
+    override fun onResume() {
+        super.onResume()
+        binding.progressBar.visibility = View.VISIBLE
+    }
+
 
     private fun onGettingChatsList() {
         viewModel.makeGetChatsRequest { handleErrors(it) }
