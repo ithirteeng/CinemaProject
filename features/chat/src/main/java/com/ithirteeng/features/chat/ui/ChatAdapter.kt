@@ -33,6 +33,7 @@ class ChatAdapter : ListAdapter<Message, RecyclerView.ViewHolder>(MessageDiffCal
             if (messageEntity?.authorAvatar == "BAD") {
                 binding.cardView.visibility = View.INVISIBLE
             } else {
+                binding.cardView.visibility = View.VISIBLE
                 binding.authorImageView.setupImageView(messageEntity?.authorAvatar, binding.root)
             }
         }
@@ -47,6 +48,7 @@ class ChatAdapter : ListAdapter<Message, RecyclerView.ViewHolder>(MessageDiffCal
             if (messageEntity?.authorAvatar == "BAD") {
                 binding.cardView.visibility = View.INVISIBLE
             } else {
+                binding.cardView.visibility = View.VISIBLE
                 binding.authorImageView.setupImageView(messageEntity?.authorAvatar, binding.root)
             }
         }
