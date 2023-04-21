@@ -21,6 +21,7 @@ import com.ithirteeng.features.movieinfo.ui.adapter.EpisodesAdapter
 import com.ithirteeng.shared.movies.entity.EpisodeEntity
 import com.ithirteeng.shared.movies.entity.MovieEntity
 import com.ithirteeng.shared.movies.entity.TagEntity
+import com.ithirteeng.shared.movies.utils.MoviesListType
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -28,14 +29,17 @@ class MovieFragment : Fragment() {
 
     companion object {
         private const val MOVIE_ENTITY = "MOVIE_ENTITY"
+        private const val MOVIE_FILTER = "MOVIE_FILTER"
 
-        fun provideMovieScreen(movieEntity: MovieEntity) = FragmentScreen {
-            MovieFragment().apply {
-                val bundle = Bundle()
-                bundle.putSerializable(MOVIE_ENTITY, movieEntity)
-                arguments = bundle
+        fun provideMovieScreen(movieEntity: MovieEntity, moviesListType: MoviesListType) =
+            FragmentScreen {
+                MovieFragment().apply {
+                    val bundle = Bundle()
+                    bundle.putSerializable(MOVIE_ENTITY, movieEntity)
+                    bundle.putSerializable(MOVIE_FILTER, moviesListType)
+                    arguments = bundle
+                }
             }
-        }
 
     }
 
@@ -45,6 +49,8 @@ class MovieFragment : Fragment() {
 
     private lateinit var movieEntity: MovieEntity
 
+    private lateinit var movieFilter: MoviesListType
+
     private var finishedRequests = 0
 
     private val cadresAdapter by lazy {
@@ -53,7 +59,12 @@ class MovieFragment : Fragment() {
 
     private val episodesAdapter by lazy {
         EpisodesAdapter {
-            viewModel.navigateToEpisodeScreen(it.episodeId, movieEntity.id, movieEntity.name)
+            viewModel.navigateToEpisodeScreen(
+                it.episodeId,
+                movieEntity.id,
+                movieEntity.name,
+                movieFilter
+            )
         }
     }
 
@@ -68,6 +79,7 @@ class MovieFragment : Fragment() {
         finishedRequests = 0
 
         movieEntity = arguments?.getSerializable(MOVIE_ENTITY) as MovieEntity
+        movieFilter = arguments?.getSerializable(MOVIE_FILTER) as MoviesListType
 
         binding.allViewsGroup.visibility = View.GONE
         binding.progressBar.visibility = View.VISIBLE
@@ -125,7 +137,8 @@ class MovieFragment : Fragment() {
             viewModel.navigateToEpisodeScreen(
                 episodeEntity.episodeId,
                 movieEntity.id,
-                movieEntity.name
+                movieEntity.name,
+                movieFilter
             )
         }
     }
@@ -146,25 +159,35 @@ class MovieFragment : Fragment() {
 
     private fun colorizeAge(age: String) {
         when (age) {
-            "0+" -> binding.ageTextView.setTextColor(resources.getColor(
-                color.zero_age_color,
-                requireActivity().theme)
+            "0+" -> binding.ageTextView.setTextColor(
+                resources.getColor(
+                    color.zero_age_color,
+                    requireActivity().theme
+                )
             )
-            "6+" -> binding.ageTextView.setTextColor(resources.getColor(
-                color.six_age_color,
-                requireActivity().theme)
+            "6+" -> binding.ageTextView.setTextColor(
+                resources.getColor(
+                    color.six_age_color,
+                    requireActivity().theme
+                )
             )
-            "12+" -> binding.ageTextView.setTextColor(resources.getColor(
-                color.twelve_age_color,
-                requireActivity().theme)
+            "12+" -> binding.ageTextView.setTextColor(
+                resources.getColor(
+                    color.twelve_age_color,
+                    requireActivity().theme
+                )
             )
             "16+" -> binding.ageTextView.setTextColor(
-                resources.getColor(color.sixteen_age_color,
-                    requireActivity().theme)
+                resources.getColor(
+                    color.sixteen_age_color,
+                    requireActivity().theme
+                )
             )
             else -> binding.ageTextView.setTextColor(
-                resources.getColor(color.eighteen_age_color,
-                    requireActivity().theme)
+                resources.getColor(
+                    color.eighteen_age_color,
+                    requireActivity().theme
+                )
             )
         }
     }

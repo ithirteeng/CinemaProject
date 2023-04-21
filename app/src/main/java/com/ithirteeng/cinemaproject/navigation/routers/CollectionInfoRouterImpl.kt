@@ -6,6 +6,7 @@ import com.ithirteeng.features.collections.ui.ChangeCollectionFragment
 import com.ithirteeng.features.movieinfo.ui.MovieFragment
 import com.ithirteeng.shared.collections.domain.entity.LocalCollectionEntity
 import com.ithirteeng.shared.movies.entity.MovieEntity
+import com.ithirteeng.shared.movies.utils.MoviesListType
 
 class CollectionInfoRouterImpl(
     private val router: Router,
@@ -16,7 +17,7 @@ class CollectionInfoRouterImpl(
     }
 
     override fun navigateToMovieInfoScreen(movieEntity: MovieEntity) {
-        router.navigateTo(MovieFragment.provideMovieScreen(movieEntity))
+        router.navigateTo(MovieFragment.provideMovieScreen(movieEntity, MoviesListType.LAST_VIEW))
     }
 
     override fun navigateToChangeCollectionScreen(collectionEntity: LocalCollectionEntity) {

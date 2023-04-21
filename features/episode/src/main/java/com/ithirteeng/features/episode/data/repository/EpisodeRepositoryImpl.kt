@@ -5,7 +5,6 @@ import com.ithirteeng.features.episode.domain.repository.EpisodeRepository
 import com.ithirteeng.shared.collections.domain.entity.CollectionEntity
 import com.ithirteeng.shared.movies.entity.EpisodeEntity
 import com.ithirteeng.shared.movies.entity.MovieEntity
-import java.lang.NullPointerException
 
 class EpisodeRepositoryImpl(
     private val remoteDatasource: EpisodeRemoteDatasource,
@@ -70,9 +69,9 @@ class EpisodeRepositoryImpl(
         }
     }
 
-    override suspend fun getMovieInfo(movieId: String): Result<MovieEntity> {
+    override suspend fun getMovieInfo(movieId: String, movieFilter: String): Result<MovieEntity> {
         return try {
-            val list = remoteDatasource.getMoviesList()
+            val list = remoteDatasource.getMoviesList(movieFilter)
             val movie = list.find { it.id == movieId }
             if (movie == null) {
                 Result.failure(NullPointerException("movie not found"))

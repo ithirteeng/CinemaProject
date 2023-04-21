@@ -6,6 +6,6 @@ import com.ithirteeng.shared.movies.entity.MovieEntity
 class GetMovieInfoUseCase(
     private val repository: EpisodeRepository,
 ) {
-    suspend operator fun invoke(movieId: String): Result<MovieEntity> =
-        repository.getMovieInfo(movieId)
+    suspend operator fun invoke(movieId: String, movieFilter: String): Result<MovieEntity> =
+        repository.getMovieInfo(movieId, movieFilter)
 }

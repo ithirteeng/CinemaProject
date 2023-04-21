@@ -9,9 +9,7 @@ import com.ithirteeng.errorhandler.domain.ErrorModel
 import com.ithirteeng.features.main.domain.entity.PosterEntity
 import com.ithirteeng.features.main.domain.usecase.GetHistoryUseCase
 import com.ithirteeng.features.main.domain.usecase.GetMainPosterUseCase
-import com.ithirteeng.features.main.domain.usecase.GetMovieEpisodesListUseCase
 import com.ithirteeng.features.main.domain.usecase.GetMoviesListUseCase
-import com.ithirteeng.shared.movies.entity.EpisodeEntity
 import com.ithirteeng.shared.movies.entity.EpisodeViewEntity
 import com.ithirteeng.shared.movies.entity.MovieEntity
 import com.ithirteeng.shared.movies.utils.MoviesListType
@@ -22,41 +20,23 @@ import retrofit2.HttpException
 class MainFragmentViewModel(
     application: Application,
     private val router: MainRouter,
-    private val getMovieEpisodesListUseCase: GetMovieEpisodesListUseCase,
     private val getMoviesListUseCase: GetMoviesListUseCase,
     private val getHistoryUseCase: GetHistoryUseCase,
     private val getMainPosterUseCase: GetMainPosterUseCase,
 ) : AndroidViewModel(application) {
 
-    fun navigateToMovieScreen(movieEntity: MovieEntity) =
-        router.navigateToMovieScreen(movieEntity)
+    fun navigateToMovieScreen(movieEntity: MovieEntity, moviesListType: MoviesListType) =
+        router.navigateToMovieScreen(movieEntity, moviesListType)
 
-    fun navigateToEpisodeScreen(episodeViewEntity: EpisodeViewEntity) =
-        router.navigate(
-            episodeViewEntity.episodeId,
-            episodeViewEntity.movieId,
-            episodeViewEntity.movieName
-        )
-
-
-    private val movieEpisodesLiveData = MutableLiveData<List<EpisodeEntity>>()
-
-    fun getMovieEpisodesLiveData(): LiveData<List<EpisodeEntity>> = movieEpisodesLiveData
-
-    fun makeGetMovieEpisodesListRequest(
-        movieId: String,
-        onErrorAppearance: (errorModel: ErrorModel) -> Unit,
-    ) {
-        viewModelScope.launch {
-            getMovieEpisodesListUseCase(movieId)
-                .onSuccess {
-                    movieEpisodesLiveData.value = it
-                }
-                .onFailure {
-                    onErrorAppearance(setupErrorCode(it))
-                }
-        }
-    }
+    fun navigateToEpisodeScreen(
+        episodeViewEntity: EpisodeViewEntity,
+        movieListType: MoviesListType,
+    ) = router.navigateToEpisodeScreen(
+        episodeViewEntity.episodeId,
+        episodeViewEntity.movieId,
+        episodeViewEntity.movieName,
+        movieListType
+    )
 
 
     private val historyLiveData = MutableLiveData<List<EpisodeViewEntity>>()
@@ -101,23 +81,6 @@ class MainFragmentViewModel(
     private fun transformPosterEntity(posterUrl: String): PosterEntity {
         val newUrl = posterUrl.replace("\t", "")
         return PosterEntity(newUrl, newUrl)
-    }
-
-    private val recentMoviesLiveData = MutableLiveData<List<MovieEntity>>()
-
-    private var recentMoviesCachedData: List<MovieEntity>? = null
-
-    fun getRecentMoviesLiveData(): LiveData<List<MovieEntity>> = recentMoviesLiveData
-
-    fun makeGetRecentMoviesListRequest(onErrorAppearance: (errorModel: ErrorModel) -> Unit) {
-        if (recentMoviesCachedData != null) {
-            recentMoviesLiveData.value = recentMoviesCachedData!!
-        } else {
-            makeGetMoviesListRequest(MoviesListType.LAST_VIEW, onErrorAppearance) {
-                recentMoviesCachedData = it
-                recentMoviesLiveData.value = it
-            }
-        }
     }
 
     private val inTrendMoviesLiveData = MutableLiveData<List<MovieEntity>>()

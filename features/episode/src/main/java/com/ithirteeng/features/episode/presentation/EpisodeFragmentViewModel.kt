@@ -172,10 +172,11 @@ class EpisodeFragmentViewModel(
 
     fun makeGetMovieInfoRequest(
         movieId: String,
+        movieFilter: String,
         onErrorAppearance: (errorModel: ErrorModel) -> Unit,
     ) {
         viewModelScope.launch {
-            getMoviesInfoUseCase(movieId)
+            getMoviesInfoUseCase(movieId, movieFilter)
                 .onSuccess {
                     movieInfoLiveData.value = it
                 }

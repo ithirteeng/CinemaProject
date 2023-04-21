@@ -21,6 +21,7 @@ import com.ithirteeng.features.episode.databinding.FragmentEpisodeBinding
 import com.ithirteeng.features.episode.presentation.EpisodeFragmentViewModel
 import com.ithirteeng.shared.movies.entity.EpisodeEntity
 import com.ithirteeng.shared.movies.entity.MovieEntity
+import com.ithirteeng.shared.movies.utils.MoviesListType
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class EpisodeFragment : Fragment() {
@@ -29,18 +30,24 @@ class EpisodeFragment : Fragment() {
         private const val EPISODE_ID = "EPISODE_ID"
         private const val MOVIE_ID = "MOVIE_ID_EPISODE"
         private const val MOVIE_NAME = "MOVIE_NAME"
+        private const val MOVIE_FILTER = "MOVIE_FILTER"
         private const val REQUEST_TO_FINISH_LOADING = 5
 
-        fun provideEpisodeScreen(episodeId: String, movieId: String, movieName: String) =
-            FragmentScreen {
-                EpisodeFragment().apply {
-                    val bundle = Bundle()
-                    bundle.putString(EPISODE_ID, episodeId)
-                    bundle.putString(MOVIE_ID, movieId)
-                    bundle.putString(MOVIE_NAME, movieName)
-                    arguments = bundle
-                }
+        fun provideEpisodeScreen(
+            episodeId: String,
+            movieId: String,
+            movieName: String,
+            moviesListType: MoviesListType,
+        ) = FragmentScreen {
+            EpisodeFragment().apply {
+                val bundle = Bundle()
+                bundle.putString(EPISODE_ID, episodeId)
+                bundle.putString(MOVIE_ID, movieId)
+                bundle.putString(MOVIE_NAME, movieName)
+                bundle.putString(MOVIE_FILTER, moviesListType.type)
+                arguments = bundle
             }
+        }
     }
 
     private lateinit var binding: FragmentEpisodeBinding
@@ -52,6 +59,8 @@ class EpisodeFragment : Fragment() {
     private lateinit var movieId: String
 
     private lateinit var movieName: String
+
+    private lateinit var movieFilter: String
 
     private lateinit var movieInfo: MovieEntity
 
@@ -113,6 +122,7 @@ class EpisodeFragment : Fragment() {
         episodeId = arguments?.getString(EPISODE_ID, "").toString()
         movieId = arguments?.getString(MOVIE_ID, "").toString()
         movieName = arguments?.getString(MOVIE_NAME, "").toString()
+        movieFilter = arguments?.getString(MOVIE_FILTER, "").toString()
     }
 
 
@@ -185,7 +195,7 @@ class EpisodeFragment : Fragment() {
     }
 
     private fun onGettingMovieInfo() {
-        viewModel.makeGetMovieInfoRequest(movieId) { handleErrors(it) }
+        viewModel.makeGetMovieInfoRequest(movieId, movieFilter) { handleErrors(it) }
         viewModel.getMovieInfoLiveData().observe(this.viewLifecycleOwner) {
             movieInfo = it
             setupMainPoster(it.poster)

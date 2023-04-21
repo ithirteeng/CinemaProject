@@ -32,7 +32,6 @@ val mainModule = module {
             application = get(),
             router = get(),
             getHistoryUseCase = get(),
-            getMovieEpisodesListUseCase = get(),
             getMoviesListUseCase = get(),
             getMainPosterUseCase = get()
         )

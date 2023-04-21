@@ -15,5 +15,5 @@ interface EpisodeRemoteDatasource {
 
     suspend fun getCollectionsList(): List<CollectionEntity>
 
-    suspend fun getMoviesList(): List<MovieEntity>
+    suspend fun getMoviesList(movieFilter: String): List<MovieEntity>
 }

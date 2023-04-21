@@ -20,6 +20,7 @@ import com.ithirteeng.features.main.ui.adapter.ForYouMoviesAdapter
 import com.ithirteeng.features.main.ui.adapter.InTrendMoviesAdapter
 import com.ithirteeng.features.main.ui.adapter.NewMoviesAdapter
 import com.ithirteeng.shared.movies.entity.EpisodeViewEntity
+import com.ithirteeng.shared.movies.utils.MoviesListType
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainFragment : Fragment() {
@@ -39,19 +40,19 @@ class MainFragment : Fragment() {
 
     private val inTrendAdapter by lazy {
         InTrendMoviesAdapter {
-            viewModel.navigateToMovieScreen(it)
+            viewModel.navigateToMovieScreen(it, MoviesListType.IN_TREND)
         }
     }
 
     private val newMoviesAdapter by lazy {
         NewMoviesAdapter {
-            viewModel.navigateToMovieScreen(it)
+            viewModel.navigateToMovieScreen(it, MoviesListType.NEW)
         }
     }
 
     private val forYouMoviesAdapter by lazy {
         ForYouMoviesAdapter {
-            viewModel.navigateToMovieScreen(it)
+            viewModel.navigateToMovieScreen(it, MoviesListType.FOR_ME)
         }
     }
 
@@ -146,7 +147,7 @@ class MainFragment : Fragment() {
 
     private fun onPlayButtonClick(episodeViewEntity: EpisodeViewEntity) {
         binding.playButton.setOnClickListener {
-            viewModel.navigateToEpisodeScreen(episodeViewEntity)
+            viewModel.navigateToEpisodeScreen(episodeViewEntity, MoviesListType.LAST_VIEW)
         }
     }
 

@@ -19,5 +19,5 @@ interface EpisodeRepository {
 
     suspend fun getCollectionsList(): Result<List<CollectionEntity>>
 
-    suspend fun getMovieInfo(movieId: String): Result<MovieEntity>
+    suspend fun getMovieInfo(movieId: String, movieFilter: String): Result<MovieEntity>
 }

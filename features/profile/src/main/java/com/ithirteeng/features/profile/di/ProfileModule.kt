@@ -27,7 +27,6 @@ val profileModule = module {
         ProfileFragmentViewModel(
             application = get(),
             getProfileDataUseCase = get(),
-            getLocalUserDataUseCase = get(),
             removeTokenFromLocalStorageUseCase = get(),
             uploadUserAvatarUseCase = get(),
             clearProfileDataLocallyUseCase = get(),

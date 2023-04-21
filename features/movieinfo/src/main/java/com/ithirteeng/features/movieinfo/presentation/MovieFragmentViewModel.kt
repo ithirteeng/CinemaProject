@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.ithirteeng.errorhandler.domain.ErrorModel
 import com.ithirteeng.features.movieinfo.domain.usecase.GetMovieEpisodesListUseCase
 import com.ithirteeng.shared.movies.entity.EpisodeEntity
+import com.ithirteeng.shared.movies.utils.MoviesListType
 import com.ithirteeng.shared.network.common.NoConnectivityException
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
@@ -21,8 +22,12 @@ class MovieFragmentViewModel(
     fun navigateToChatScreen(chatId: String, chatName: String) =
         router.navigateToChatScreen(chatId, chatName)
 
-    fun navigateToEpisodeScreen(episodeId: String, movieId: String, movieName: String) =
-        router.navigateToEpisodeScreen(episodeId, movieId, movieName)
+    fun navigateToEpisodeScreen(
+        episodeId: String,
+        movieId: String,
+        movieName: String,
+        movieFilter: MoviesListType,
+    ) = router.navigateToEpisodeScreen(episodeId, movieId, movieName, movieFilter)
 
     fun exit() =
         router.exit()
