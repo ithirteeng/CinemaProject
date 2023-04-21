@@ -4,5 +4,5 @@ interface EpisodeRouter {
 
     fun exit()
 
-    fun navigateToChatScreen()
+    fun navigateToChatScreen(chatId: String, chatName: String)
 }

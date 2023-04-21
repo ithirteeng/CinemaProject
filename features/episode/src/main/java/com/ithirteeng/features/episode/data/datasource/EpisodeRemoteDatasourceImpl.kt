@@ -5,6 +5,8 @@ import com.ithirteeng.features.episode.domain.entity.MovieIdEntity
 import com.ithirteeng.features.episode.domain.entity.TimeEntity
 import com.ithirteeng.shared.collections.domain.entity.CollectionEntity
 import com.ithirteeng.shared.movies.entity.EpisodeEntity
+import com.ithirteeng.shared.movies.entity.MovieEntity
+import com.ithirteeng.shared.movies.utils.MoviesListType
 
 class EpisodeRemoteDatasourceImpl(
     private val api: EpisodeApi,
@@ -24,5 +26,8 @@ class EpisodeRemoteDatasourceImpl(
 
     override suspend fun getCollectionsList(): List<CollectionEntity> =
         api.getCollectionsList()
+
+    override suspend fun getMoviesList(): List<MovieEntity> =
+        api.getMoviesList(MoviesListType.LAST_VIEW.type)
 
 }

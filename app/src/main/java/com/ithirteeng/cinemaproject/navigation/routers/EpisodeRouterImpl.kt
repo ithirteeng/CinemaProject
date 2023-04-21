@@ -1,6 +1,7 @@
 package com.ithirteeng.cinemaproject.navigation.routers
 
 import com.github.terrakok.cicerone.Router
+import com.ithirteeng.features.chat.ui.ChatFragment
 import com.ithirteeng.features.episode.presentation.EpisodeRouter
 
 class EpisodeRouterImpl(
@@ -10,8 +11,8 @@ class EpisodeRouterImpl(
         router.exit()
     }
 
-    override fun navigateToChatScreen() {
-        // todo: navigate to chat screen
+    override fun navigateToChatScreen(chatId: String, chatName: String) {
+        router.navigateTo(ChatFragment.provideChatFragment(chatId, chatName))
     }
 
 }

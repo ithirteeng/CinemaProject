@@ -8,16 +8,19 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.ithirteeng.component.design.R.string.favourites_collection
 import com.ithirteeng.component.design.R.string.movie_collection_error
+import com.ithirteeng.customextensions.presentation.SingleEventLiveData
 import com.ithirteeng.errorhandler.domain.ErrorModel
 import com.ithirteeng.features.episode.domain.usecase.*
 import com.ithirteeng.shared.collections.domain.entity.CollectionEntity
 import com.ithirteeng.shared.movies.entity.EpisodeEntity
+import com.ithirteeng.shared.movies.entity.MovieEntity
 import com.ithirteeng.shared.network.common.NoConnectivityException
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
 class EpisodeFragmentViewModel(
     private val application: Application,
+    private val getMoviesInfoUseCase: GetMovieInfoUseCase,
     private val getEpisodeTimeUseCase: GetEpisodeTimeUseCase,
     private val getEpisodesListUseCase: GetEpisodesListUseCase,
     private val getEpisodeUseCase: GetEpisodeUseCase,
@@ -31,6 +34,11 @@ class EpisodeFragmentViewModel(
     fun exit() {
         router.exit()
     }
+
+    fun navigateToChatScreen(chatId: String, chatName: String) {
+        router.navigateToChatScreen(chatId, chatName)
+    }
+
 
     private val episodeTimeLiveData = MutableLiveData<Int>()
 
@@ -51,6 +59,7 @@ class EpisodeFragmentViewModel(
         }
     }
 
+
     private val episodeLiveData = MutableLiveData<EpisodeEntity?>()
 
     fun getEpisodeLiveData(): LiveData<EpisodeEntity?> = episodeLiveData
@@ -58,6 +67,7 @@ class EpisodeFragmentViewModel(
     fun getEpisodeData(episodeId: String, episodes: List<EpisodeEntity>) {
         episodeLiveData.value = getEpisodeUseCase(episodeId, episodes)
     }
+
 
     private val yearsLiveData = MutableLiveData<String?>()
 
@@ -87,7 +97,10 @@ class EpisodeFragmentViewModel(
         }
     }
 
-    private val successfulRequestLiveData = MutableLiveData<Boolean>()
+
+    private val successfulRequestLiveData = SingleEventLiveData<Boolean>()
+
+    private var requestFlag = false
 
     fun getSuccessfulRequestLiveData(): LiveData<Boolean> = successfulRequestLiveData
 
@@ -98,8 +111,14 @@ class EpisodeFragmentViewModel(
     ) {
         viewModelScope.launch {
             setEpisodeTimeUseCase(episodeId, timeInSeconds.toString())
-                .onSuccess { successfulRequestLiveData.value = true }
-                .onFailure { onErrorAppearance(setupErrorCode(it)) }
+                .onSuccess {
+                    successfulRequestLiveData.value = requestFlag
+                    requestFlag = !requestFlag
+                }
+                .onFailure {
+                    onErrorAppearance(setupErrorCode(it))
+                    requestFlag != requestFlag
+                }
         }
     }
 
@@ -145,6 +164,25 @@ class EpisodeFragmentViewModel(
                 }
         }
     }
+
+
+    private val movieInfoLiveData = MutableLiveData<MovieEntity>()
+
+    fun getMovieInfoLiveData(): LiveData<MovieEntity> = movieInfoLiveData
+
+    fun makeGetMovieInfoRequest(
+        movieId: String,
+        onErrorAppearance: (errorModel: ErrorModel) -> Unit,
+    ) {
+        viewModelScope.launch {
+            getMoviesInfoUseCase(movieId)
+                .onSuccess {
+                    movieInfoLiveData.value = it
+                }
+                .onFailure { onErrorAppearance(setupErrorCode(it)) }
+        }
+    }
+
 
     fun findFavouritesCollection(): CollectionEntity? {
         return collectionsListLiveData.value?.findLast {

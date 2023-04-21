@@ -20,6 +20,7 @@ import com.ithirteeng.features.episode.R
 import com.ithirteeng.features.episode.databinding.FragmentEpisodeBinding
 import com.ithirteeng.features.episode.presentation.EpisodeFragmentViewModel
 import com.ithirteeng.shared.movies.entity.EpisodeEntity
+import com.ithirteeng.shared.movies.entity.MovieEntity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class EpisodeFragment : Fragment() {
@@ -28,7 +29,7 @@ class EpisodeFragment : Fragment() {
         private const val EPISODE_ID = "EPISODE_ID"
         private const val MOVIE_ID = "MOVIE_ID_EPISODE"
         private const val MOVIE_NAME = "MOVIE_NAME"
-        private const val REQUEST_TO_FINISH_LOADING = 4
+        private const val REQUEST_TO_FINISH_LOADING = 5
 
         fun provideEpisodeScreen(episodeId: String, movieId: String, movieName: String) =
             FragmentScreen {
@@ -51,6 +52,8 @@ class EpisodeFragment : Fragment() {
     private lateinit var movieId: String
 
     private lateinit var movieName: String
+
+    private lateinit var movieInfo: MovieEntity
 
     private var videoTime: Int = 0
 
@@ -95,6 +98,7 @@ class EpisodeFragment : Fragment() {
         onBackArrowClick()
         onAddButtonClick()
         onLikeButtonClick()
+        onChatButtonClick()
     }
 
     private fun setupCollectionsRecyclerView() {
@@ -111,11 +115,6 @@ class EpisodeFragment : Fragment() {
         movieName = arguments?.getString(MOVIE_NAME, "").toString()
     }
 
-    private fun setupOnGettingFunctions() {
-        onGettingEpisodesList()
-        onGettingMovieYears()
-        onGettingEpisodeData()
-    }
 
     private fun onAddButtonClick() {
         binding.addButton.setOnClickListener {
@@ -141,19 +140,32 @@ class EpisodeFragment : Fragment() {
         }
     }
 
+    private fun onChatButtonClick() {
+        binding.chatButton.setOnClickListener {
+            onExit {
+                viewModel.navigateToChatScreen(
+                    movieInfo.chatInfo.chatId,
+                    movieInfo.chatInfo.chatName
+                )
+            }
+        }
+    }
+
+
     private fun onBackButtonClick() {
         binding.backButton.setOnClickListener {
-            onExit()
+            onExit { viewModel.exit() }
         }
     }
 
     private fun onBackArrowClick() {
         this.addBackPressedListener {
-            onExit()
+            onExit { viewModel.exit() }
         }
     }
 
-    private fun onExit() {
+
+    private fun onExit(doOnExit: () -> Unit) {
         exoPlayer.stop()
         viewModel.setEpisodeTime(episodeId, (exoPlayer.contentPosition / 1000).toInt()) {
             handleErrors(it)
@@ -161,7 +173,25 @@ class EpisodeFragment : Fragment() {
         binding.progressBar.visibility = View.VISIBLE
         viewModel.getSuccessfulRequestLiveData().observe(this.viewLifecycleOwner) {
             binding.progressBar.visibility = View.GONE
-            viewModel.exit()
+            doOnExit()
+        }
+    }
+
+    private fun setupOnGettingFunctions() {
+        onGettingEpisodesList()
+        onGettingMovieYears()
+        onGettingEpisodeData()
+        onGettingMovieInfo()
+    }
+
+    private fun onGettingMovieInfo() {
+        viewModel.makeGetMovieInfoRequest(movieId) { handleErrors(it) }
+        viewModel.getMovieInfoLiveData().observe(this.viewLifecycleOwner) {
+            movieInfo = it
+            setupMainPoster(it.poster)
+
+            finishedRequests++
+            handleViewsVisibility()
         }
     }
 
@@ -193,7 +223,6 @@ class EpisodeFragment : Fragment() {
         viewModel.getEpisodeLiveData().observe(this.viewLifecycleOwner) {
             binding.movieNameTextView.text = movieName
             binding.movieHeaderTextView.text = it?.name
-            setupMainPoster(it?.preview)
             binding.descriptionTextView.text = it?.description
             episodeEntity = it
 

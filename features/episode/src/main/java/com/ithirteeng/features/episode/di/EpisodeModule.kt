@@ -26,6 +26,7 @@ val episodeModule = module {
     factory { GetEpisodesYearsUseCase(repository = get()) }
     factory { AddMovieToCollectionUseCase(repository = get()) }
     factory { GetCollectionsListUseCase(repository = get()) }
+    factory { GetMovieInfoUseCase(repository = get()) }
 
     viewModel {
         EpisodeFragmentViewModel(
@@ -37,7 +38,8 @@ val episodeModule = module {
             router = get(),
             getCollectionsListUseCase = get(),
             addMovieToCollectionUseCase = get(),
-            application = get()
+            application = get(),
+            getMoviesInfoUseCase = get()
         )
     }
 }

@@ -4,6 +4,8 @@ import com.ithirteeng.features.episode.data.datasource.EpisodeRemoteDatasource
 import com.ithirteeng.features.episode.domain.repository.EpisodeRepository
 import com.ithirteeng.shared.collections.domain.entity.CollectionEntity
 import com.ithirteeng.shared.movies.entity.EpisodeEntity
+import com.ithirteeng.shared.movies.entity.MovieEntity
+import java.lang.NullPointerException
 
 class EpisodeRepositoryImpl(
     private val remoteDatasource: EpisodeRemoteDatasource,
@@ -63,6 +65,20 @@ class EpisodeRepositoryImpl(
     override suspend fun getCollectionsList(): Result<List<CollectionEntity>> {
         return try {
             Result.success(remoteDatasource.getCollectionsList())
+        } catch (e: java.lang.Exception) {
+            Result.failure(e)
+        }
+    }
+
+    override suspend fun getMovieInfo(movieId: String): Result<MovieEntity> {
+        return try {
+            val list = remoteDatasource.getMoviesList()
+            val movie = list.find { it.id == movieId }
+            if (movie == null) {
+                Result.failure(NullPointerException("movie not found"))
+            } else {
+                Result.success(movie)
+            }
         } catch (e: java.lang.Exception) {
             Result.failure(e)
         }
