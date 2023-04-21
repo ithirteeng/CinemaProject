@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="logo_content_description">this is a cinema project logo</string>
-    <string name="error_content_description">this is error custom dialog</string>
-    <string name="exit_button_content_description">close dialog fragment</string>
-    <string name="main_screen_poster_content_description">main poster</string>
-    <string name="play_button_content_description">watch film</string>
-    <string name="like_button_content_description">like film</string>
-    <string name="dislike_button_content_description">dislike film</string>
+    <string name="logo_content_description" translatable="false">this is a cinema project logo</string>
+    <string name="error_content_description" translatable="false">this is error custom dialog</string>
+    <string name="exit_button_content_description" translatable="false">close dialog fragment</string>
+    <string name="main_screen_poster_content_description" translatable="false">main poster</string>
+    <string name="play_button_content_description" translatable="false">watch film</string>
+    <string name="like_button_content_description" translatable="false">like film</string>
+    <string name="dislike_button_content_description" translatable="false">dislike film</string>
 
-    <string name="favourites_collection">Favourites</string>
+    <string name="favourites_collection" translatable="false">Favourites</string>
 
     <string name="default_error">error</string>
     <string name="default_error_text">this is example of default error text</string>
-    <string name="undefined">Undefined</string>
+    <string name="undefined" translatable="false">Undefined</string>
 
     <string name="internal_server_error">Internal Server Error</string>
     <string name="conflict_error">User with this email already exists!</string>
@@ -20,7 +20,7 @@
     <string name="bad_request">Bad Request</string>
     <string name="forbidden">Forbidden</string>
     <string name="not_found">Not Found</string>
-    <string name="developer_goofy">Developer Is Goofy</string>
+    <string name="developer_goofy" translatable="false">Developer Is Goofy</string>
     <string name="connection_error">Internet Connection Error</string>
 
     <string name="empty_error">Fields mustn\'t be empty!</string>
@@ -28,7 +28,7 @@
     <string name="two_passwords_error">Passwords must be equal</string>
     <string name="ok">OK</string>
 
-    <string name="email">E-mail</string>
+    <string name="email" translatable="false">E-mail</string>
     <string name="password">Password</string>
     <string name="repeat_password">Repeat password</string>
     <string name="log_in_verb">Log in</string>
