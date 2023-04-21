@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_color"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/mainPosterImageView"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_400"
+            android:layout_marginBottom="@dimen/margin_32"
+            android:contentDescription="@string/main_screen_poster_content_description"
+            android:foreground="@drawable/main_poster_tint"
+            android:scaleType="centerCrop"
+            android:src="@drawable/image_placeholder"
+            app:layout_constraintBottom_toTopOf="@id/inTrendTextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="spread_inside" />
+
+        <TextView
+            android:id="@+id/inTrendTextView"
+            style="@style/Theme.CinemaProject.Headline1_Red"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_16"
+            android:layout_marginBottom="@dimen/margin_17"
+            android:text="@string/in_trend"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@id/inTrendRecyclerView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/mainPosterImageView"
+            tools:ignore="TextContrastCheck" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/inTrendRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_32"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toTopOf="@id/recentTextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/inTrendTextView"
+            tools:itemCount="5"
+            tools:listitem="@layout/in_trend_item_layout" />
+
+        <TextView
+            android:id="@+id/recentTextView"
+            style="@style/Theme.CinemaProject.Headline1_Red"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_16"
+            android:layout_marginBottom="@dimen/margin_17"
+            android:text="@string/you_watched"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@id/recentWatchedImageView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/inTrendRecyclerView"
+            tools:ignore="TextContrastCheck" />
+
+        <ImageView
+            android:id="@+id/recentWatchedImageView"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_240"
+            android:layout_marginBottom="@dimen/margin_32"
+            android:contentDescription="@string/main_screen_poster_content_description"
+            android:scaleType="centerCrop"
+            android:src="@drawable/image_placeholder"
+            app:layout_constraintBottom_toTopOf="@id/newTextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/recentTextView"
+            tools:ignore="ImageContrastCheck" />
+
+        <ImageButton
+            android:id="@+id/playButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:contentDescription="@string/play_button_content_description"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="@+id/recentWatchedImageView"
+            app:layout_constraintEnd_toEndOf="@+id/recentWatchedImageView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/recentWatchedImageView"
+            app:srcCompat="@drawable/play_icon"
+            tools:ignore="ImageContrastCheck" />
+
+        <TextView
+            android:id="@+id/recentMovieTextView"
+            style="@style/Theme.CinemaProject.Headline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_16"
+            android:layout_marginBottom="@dimen/margin_16"
+            android:text="@string/undefined"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="@+id/recentWatchedImageView"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+        <TextView
+            android:id="@+id/newTextView"
+            style="@style/Theme.CinemaProject.Headline1_Red"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_16"
+            android:layout_marginBottom="@dimen/margin_17"
+            android:text="@string/new_text"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@id/newRecyclerView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/recentWatchedImageView" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/newRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_32"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toTopOf="@id/forYouTextView"
+            app:layout_constraintTop_toBottomOf="@id/newTextView"
+            tools:itemCount="5"
+            tools:listitem="@layout/new_item_layout" />
+
+        <TextView
+            android:id="@+id/forYouTextView"
+            style="@style/Theme.CinemaProject.Headline1_Red"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_16"
+            android:layout_marginBottom="@dimen/margin_17"
+            android:text="@string/for_you"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@id/forYouRecyclerView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/newRecyclerView" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/forYouRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_32"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toTopOf="@id/setInterestsButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/forYouTextView"
+            tools:itemCount="5"
+            tools:listitem="@layout/for_you_item_layout" />
+
+        <Button
+            android:id="@+id/setInterestsButton"
+            style="@style/Theme.CinemaProject.FilledButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_16"
+            android:layout_marginBottom="@dimen/margin_32"
+            android:text="@string/set_interests"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/forYouRecyclerView"
+            tools:ignore="VisualLintButtonSize,TextContrastCheck,TouchTargetSizeCheck" />
+
+        <Button
+            android:id="@+id/watchButton"
+            style="@style/Theme.CinemaProject.FilledButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_64"
+            android:text="@string/watch"
+            app:layout_constraintBottom_toBottomOf="@+id/mainPosterImageView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="@style/Theme.CinemaProject.ProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/guideline"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.55" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/allViewsGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="mainPosterImageView,setInterestsButton,watchButton"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/recentGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:constraint_referenced_ids="recentWatchedImageView,playButton,recentMovieTextView"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

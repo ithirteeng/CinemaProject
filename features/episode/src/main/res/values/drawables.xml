@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <drawable name="exo_styled_controls_play">@drawable/player_play_icon</drawable>
+    <drawable name="exo_styled_controls_pause">@drawable/pause_icon</drawable>
+</resources>

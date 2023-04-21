@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="logo_content_description" translatable="false">this is a cinema project logo</string>
+    <string name="error_content_description" translatable="false">this is error custom dialog</string>
+    <string name="exit_button_content_description" translatable="false">close dialog fragment</string>
+    <string name="main_screen_poster_content_description" translatable="false">main poster</string>
+    <string name="play_button_content_description" translatable="false">watch film</string>
+    <string name="like_button_content_description" translatable="false">like film</string>
+    <string name="dislike_button_content_description" translatable="false">dislike film</string>
+
+    <string name="favourites_collection" translatable="false">Favourites</string>
+
+    <string name="default_error">error</string>
+    <string name="default_error_text">this is example of default error text</string>
+    <string name="undefined" translatable="false">Undefined</string>
+
+    <string name="internal_server_error">Internal Server Error</string>
+    <string name="conflict_error">User with this email already exists!</string>
+    <string name="unauthorized_error">Unauthorized</string>
+    <string name="bad_request">Bad Request</string>
+    <string name="forbidden">Forbidden</string>
+    <string name="not_found">Not Found</string>
+    <string name="developer_goofy" translatable="false">Developer Is Goofy</string>
+    <string name="connection_error">Internet Connection Error</string>
+
+    <string name="empty_error">Fields mustn\'t be empty!</string>
+    <string name="email_error">Email must be in format \"example@domain.com\"</string>
+    <string name="two_passwords_error">Passwords must be equal</string>
+    <string name="ok">OK</string>
+
+    <string name="email" translatable="false">E-mail</string>
+    <string name="password">Password</string>
+    <string name="repeat_password">Repeat password</string>
+    <string name="log_in_verb">Log in</string>
+    <string name="registration">Registration</string>
+    <string name="registration_verb">Registration</string>
+    <string name="already_have_account">I already have account</string>
+    <string name="name">Name</string>
+    <string name="surname">Surname</string>
+
+    <string name="main">Main</string>
+    <string name="compilation">Compilation</string>
+    <string name="collections">Collections</string>
+    <string name="profile">Profile</string>
+
+    <string name="compilation_ended">Movies compilation is over</string>
+
+    <string name="description">Description</string>
+    <string name="cadres">Cadres</string>
+    <string name="episodes">Episodes</string>
+    
+    <string name="choose_photo_source">Choose photo source</string>
+    <string name="camera">Camera</string>
+    <string name="gallery">Gallery</string>
+    <string name="cancel">Cancel</string>
+    <string name="change">Change</string>
+    <string name="history">History</string>
+    <string name="settings">Settings</string>
+    <string name="discussions">Discussions</string>
+
+    <string name="in_trend">In trend</string>
+    <string name="new_text">New</string>
+    <string name="for_you">For you</string>
+    <string name="set_interests">Set interests</string>
+    <string name="you_watched">Recent watched</string>
+    <string name="watch">Watch</string>
+
+    <string name="add_collection_409">This movie already exists in collection!</string>
+
+    <string name="create_collection">Create collection</string>
+    <string name="change_collection">Change collection</string>
+    <string name="collection_name">Name</string>
+    <string name="choose_icon">Choose icon</string>
+    <string name="save">Save</string>
+    <string name="delete">Delete</string>
+    
+    <string name="discussions_text">Discussions</string>
+
+    <string name="write_message">Write a message…</string>
+    <string name="today">Today</string>
+
+    <string name="collection_name_empty_error">Name mustn\'t be empty</string>
+    <string name="collection_name_exists_error">Name already exists!</string>
+    <string name="movie_collection_error">This movie is already in collection!</string>
+
+</resources>
