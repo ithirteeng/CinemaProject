@@ -20,6 +20,8 @@
             android:id="@+id/logoImageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_40"
+            android:layout_marginBottom="@dimen/margin_64"
             android:contentDescription="@string/logo_content_description"
             android:src="@drawable/cinema_logo"
             app:layout_constraintBottom_toTopOf="@+id/nameEditText"
@@ -104,23 +106,15 @@
             style="@style/Theme.CinemaProject.EditTextStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_24"
             android:hint="@string/repeat_password"
             android:importantForAutofill="no"
             android:inputType="textPassword"
-            app:layout_constraintBottom_toTopOf="@+id/editTextGuideline"
+            app:layout_constraintBottom_toTopOf="@+id/guideline"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/passwordEditText"
             tools:ignore="TouchTargetSizeCheck,VisualLintTextFieldSize" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/editTextGuideline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.8" />
 
 
         <Button
@@ -128,12 +122,14 @@
             style="@style/Theme.CinemaProject.FilledButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_64"
             android:layout_marginBottom="@dimen/margin_16"
             android:text="@string/registration_verb"
             app:layout_constraintBottom_toTopOf="@+id/loginButton"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/repeatPasswordEditText"
+            app:layout_constraintVertical_bias="1"
             app:layout_constraintVertical_chainStyle="packed"
             tools:ignore="TextContrastCheck,VisualLintButtonSize" />
 
@@ -146,7 +142,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-
+            app:layout_constraintTop_toBottomOf="@+id/registrationButton"
+            app:layout_constraintVertical_bias="1"
             tools:ignore="VisualLintButtonSize" />
 
         <ProgressBar
@@ -158,6 +155,13 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.81" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
