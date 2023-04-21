@@ -141,7 +141,7 @@ class EpisodeFragmentViewModel(
     }
 
 
-    private val addToCollectionResultLiveData = MutableLiveData<Boolean>()
+    private val addToCollectionResultLiveData = SingleEventLiveData<Boolean>()
 
     private var collectionFlag = false
 

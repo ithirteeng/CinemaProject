@@ -8,7 +8,7 @@
     android:background="@color/transparent"
     android:layoutDirection="ltr"
     android:orientation="vertical"
-    android:paddingHorizontal="@dimen/padding_16"
+    android:paddingHorizontal="@dimen/padding_8"
     tools:targetApi="28">
 
     <LinearLayout
@@ -54,11 +54,11 @@
             android:id="@id/exo_progress"
             android:layout_width="0dp"
             android:layout_height="@dimen/size_24"
-            app:scrubber_color="@color/red"
             android:layout_weight="1"
             android:forceHasOverlappingRendering="false"
             app:buffered_color="#4F4F51"
             app:played_color="@color/red"
+            app:scrubber_color="@color/red"
             app:unplayed_color="#3A3A3C"
             tools:ignore="SpeakableTextPresentCheck" />
 
@@ -76,7 +76,7 @@
             android:id="@+id/volumeButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/margin_8"
+            android:layout_marginStart="@dimen/margin_8"
             android:background="@color/transparent"
             android:scaleX="1.4"
             android:scaleY="1.4"
