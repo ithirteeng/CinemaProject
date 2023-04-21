@@ -10,7 +10,34 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        jcenter()
+        maven { url = 'https://jitpack.io' }
     }
 }
 rootProject.name = "CinemaProject"
 include ':app'
+include ':component:design'
+include ':features'
+include ':navigation'
+include ':features:splash'
+include ':features:entry'
+include ':features:entry:login'
+include ':features:entry:registration'
+include ':shared'
+include ':shared:network'
+include ':shared:token'
+include ':shared:customextensions'
+include ':shared:errorhandler'
+include ':shared:validators'
+include ':features:mainhost'
+include ':shared:userstorage'
+include ':features:main'
+include ':features:compilation'
+include ':features:collections'
+include ':features:profile'
+include ':shared:movies'
+include ':features:movieinfo'
+include ':features:episode'
+include ':shared:collections'
+include ':features:discussions'
+include ':features:chat'

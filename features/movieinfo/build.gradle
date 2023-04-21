@@ -1,0 +1,30 @@
+apply plugin: Plugins.ANDROID_LIBRARY
+apply plugin: Plugins.KOTLIN_ANDROID
+
+apply from: "$rootDir/build-system/module-types/android-library.gradle"
+apply plugin: 'org.jetbrains.kotlin.android'
+
+dependencies {
+    implementation Dependencies.KOTLIN_STANDARD_LIBRARY
+    implementation Dependencies.CORE
+    implementation Dependencies.APPCOMPAT
+    implementation Dependencies.MATERIAL
+    implementation Dependencies.FRAGMENT
+    implementation Dependencies.CONSTRAINT_LAYOUT
+    implementation Dependencies.FLEXBOX
+    implementation Dependencies.KOIN_CORE
+    implementation Dependencies.KOIN_ANDROID
+    implementation Dependencies.CICERONE
+    implementation Dependencies.RETROFIT
+    implementation Dependencies.OKHTTP_INTERCEPTOR
+    implementation Dependencies.GSON
+    implementation Dependencies.GSON_CONVERTER
+    implementation Dependencies.GLIDE
+
+    implementation project(":component:design")
+    implementation project(":shared:network")
+    implementation project(":shared:token")
+    implementation project(":shared:errorhandler")
+    implementation project(":shared:customextensions")
+    implementation project(":shared:movies")
+}
