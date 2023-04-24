@@ -5,17 +5,14 @@ import com.ithirteeng.features.chat.data.helper.JsonHelper
 import com.ithirteeng.features.chat.domain.entity.MessageEntity
 import com.ithirteeng.features.chat.domain.repository.ChatRepository
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 
 class ChatRepositoryImpl(
     private val remoteDatasource: ChatRemoteDatasource,
 ) : ChatRepository {
     override fun getMessagesFlow(): Flow<MessageEntity?> {
-        return flow {
-            remoteDatasource.getMessages().collect {
-                emit(JsonHelper.jsonToMessageEntity(it))
-            }
+        return remoteDatasource.getMessages().map {
+            JsonHelper.jsonToMessageEntity(it)
         }
     }
 
